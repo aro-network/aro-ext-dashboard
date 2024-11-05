@@ -2,14 +2,14 @@ import { AuthContext } from "@/app/context/AuthContext";
 import React, { useContext } from "react";
 
 const Dashboard = () => {
-    const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
-    return (
-        <div>
-            <h2>Welcome, {user?.role}</h2>
-            <button onClick={logout}>Logout</button>
-        </div>
-    );
+  return (
+    <div className="flex justify-center items-center h-full">
+      <div className="w-1/6 bg-blue-100 flex flex-col h-full"></div>
+      <div className="flex-1 flex justify-center gap-5">Dashboard</div>
+    </div>
+  );
 };
 
 export default Dashboard;

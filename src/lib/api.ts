@@ -22,9 +22,6 @@ const backendApi = {
     return response.data.data;
   },
 
-  getUser: async (accessToken: string) => {
-    Api.get<RES<User>>("/user/info", { headers: { Authorization: 'B'}})
-  }
 };
 
 export default backendApi;
