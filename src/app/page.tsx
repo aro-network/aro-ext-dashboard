@@ -1,13 +1,12 @@
-'use client'
+"use client";
 
-import Home from "@/app/home";
-import {AuthProvider} from "@/app/context/AuthContext";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import Dashboard from "@/components/Dashboard";
+import Login from "@/components/Login";
 
 export default function Page() {
+  const { user } = useContext(AuthContext);
 
-  return (
-      <AuthProvider>
-          <Home />
-      </AuthProvider>
-  );
+  return <div className="App">{user?.accessToken ? <Dashboard /> : <Login />}</div>;
 }
