@@ -7,10 +7,11 @@ const inputClassNames: SlotsToClasses<InputSlots> = {
   inputWrapper: "h-[45px]",
 };
 
-export function InputPassword({ setPassword, label }: { setPassword: (pass: string) => void; label?: string }) {
+export function InputPassword({ setPassword, label, error }: { setPassword: (pass: string) => void; label?: string; error?: string }) {
   const [showPassword, toggleShowPassword] = useToggle(false);
   return (
     <Input
+      isRequired
       classNames={inputClassNames}
       type={showPassword ? "text" : "password"}
       label={label || "Password"}
@@ -22,7 +23,7 @@ export function InputPassword({ setPassword, label }: { setPassword: (pass: stri
           {showPassword ? <RiEyeLine className="text-2xl text-default-400 pointer-events-none" /> : <RiEyeCloseLine className="text-2xl text-default-400 pointer-events-none" />}
         </button>
       }
-      isRequired
+      errorMessage={error}
       onChange={(e) => setPassword(e.target.value)}
     />
   );

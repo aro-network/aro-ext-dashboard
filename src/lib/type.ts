@@ -4,3 +4,5 @@ export interface User {
   userId: string;
   accessToken?: string;
 }
+
+export type Opt<T> = T | null | undefined;

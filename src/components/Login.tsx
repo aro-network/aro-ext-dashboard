@@ -15,8 +15,8 @@ const Login = () => {
   };
 
   return (
-    <div className="mx-auto px-5 h-full justify-center flex flex-col gap-5 items-center w-full md:w-1/2 lg:w-1/3 max-w-lg">
-      <img src="logo.svg" alt="Logo" />
+    <div className="mx-auto px-5 h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
+      <img src="logo.svg" alt="Logo" className="mt-auto"/>
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
         <InputEmail setEmail={setEmail}/>
         <InputPassword setPassword={setPassword}/>
@@ -24,7 +24,7 @@ const Login = () => {
           Login
         </Button>
       </form>
-      <div>
+      <div className="mb-auto">
         Don’t have an account? <Link href="/register">Register</Link>
       </div>
     </div>

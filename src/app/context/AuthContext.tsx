@@ -1,18 +1,18 @@
 import backendApi from "@/lib/api";
-import { User } from "@/lib/type";
+import { getInjectEnReachAI } from "@/lib/broswer";
+import { Opt, User } from "@/lib/type";
 import { useRouter } from "next/navigation";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextProps {
-  user?: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
+  user?: Opt<User>;
+  setUser: (u?: Opt<User>) => void;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
-  user: undefined,
   login: async () => {},
   setUser: () => {},
   logout: () => {},
@@ -21,44 +21,53 @@ export const AuthContext = createContext<AuthContextProps>({
 interface AuthProviderProps {
   children: React.ReactNode;
 }
-const extensionId = "nmngoapofjlbpiipafefnfecmpbnalbc";
+
 const storageKey = "last-login-user";
 const getLastLoginUser = () => {
   try {
     const json = localStorage.getItem(storageKey);
     if (!json) return null;
-    return JSON.parse(json) as User;
+    const u = JSON.parse(json) as User
+    return u;
   } catch (error) {
     console.error(error);
     return null;
   }
 };
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<User | null | undefined>(getLastLoginUser());
-  const r = useRouter()
+  const [user, setUser] = useState<Opt<User>>(getLastLoginUser());
+  const wrapSetUser = (u?: Opt<User>) => {
+    if (!u) {
+      setUser(null);
+      localStorage.removeItem(storageKey);
+      getInjectEnReachAI()?.request({ name: "clearAccessToken" });
+    } else {
+      setUser(u);
+      localStorage.setItem(storageKey, JSON.stringify(u));
+      u.accessToken && getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.accessToken });
+    }
+  };
+  const r = useRouter();
   useEffect(() => {
     let e: NodeJS.Timeout;
-    if (user) {
+    if (user && user.accessToken) {
       e = setInterval(() => {
-        try {
-          // @ts-expect-error - chrome is not defined
-          chrome.runtime.sendMessage(
-            extensionId,
-            {
-              type: "getUser",
-            },
-            (response: unknown) => {
-              if (!response) {
-                logout();
-              }
-            }
-          );
-        } catch (error) {
-          console.warn(`Extension ${extensionId} not installed`, error);
+        const injectedEnReachAI = getInjectEnReachAI();
+        if (!injectedEnReachAI) {
+          console.warn(`Extension not installed`);
+          return;
         }
+        injectedEnReachAI
+          .request({
+            name: "getUser",
+          })
+          .then((response: unknown) => {
+            if (!response) {
+              logout();
+            }
+          });
       }, 1000);
     }
-
     return () => clearInterval(e);
   }, [user]);
 
@@ -66,29 +75,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       if (!credentials.email || !credentials.password) return;
       const user = await backendApi.loginApi(credentials);
-      const accessToken = user.accessToken || "";
-      setUser(user);
-      r.push('/')
-      localStorage.setItem(storageKey, JSON.stringify(user));
-      // @ts-expect-error - chrome is not defined
-      chrome.runtime.sendMessage(extensionId, { type: "setAccessToken", payload: accessToken }, (response: never) => {
-        console.log("Response from extension:", response);
-      });
+      wrapSetUser(user);
+      r.push("/");
     } catch (err) {
       console.error(err);
     }
   };
 
   const logout = () => {
-    setUser(null);
-    localStorage.removeItem(storageKey);
-    // @ts-expect-error - chrome is not defined
-    chrome.runtime.sendMessage(extensionId, { type: "clearAccessToken" }, (response: never) => {
-      console.log("Response from extension:", response);
-    });
+    wrapSetUser();
   };
 
-  return <AuthContext.Provider value={{ user, login, logout, setUser }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => {
