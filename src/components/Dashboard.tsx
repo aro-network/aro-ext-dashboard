@@ -2,7 +2,7 @@ import { AuthContext } from "@/app/context/AuthContext";
 import React, { useContext } from "react";
 
 const Dashboard = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user: _user, logout: _logout } = useContext(AuthContext);
 
   return (
     <div className="flex justify-center items-center h-full">

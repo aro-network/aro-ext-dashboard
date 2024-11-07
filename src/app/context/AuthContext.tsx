@@ -27,7 +27,7 @@ const getLastLoginUser = () => {
   try {
     const json = localStorage.getItem(storageKey);
     if (!json) return null;
-    const u = JSON.parse(json) as User
+    const u = JSON.parse(json) as User;
     return u;
   } catch (error) {
     console.error(error);
@@ -40,12 +40,18 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     if (!u) {
       setUser(null);
       localStorage.removeItem(storageKey);
-      getInjectEnReachAI()?.request({ name: "clearAccessToken" });
+      getInjectEnReachAI()?.request({ name: "clearAccessToken" }).catch(console.error);
     } else {
       setUser(u);
       localStorage.setItem(storageKey, JSON.stringify(u));
-      u.accessToken && getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.accessToken });
+      if (u.accessToken) {
+        getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.accessToken }).catch(console.error);
+      }
     }
+  };
+
+  const logout = () => {
+    wrapSetUser();
   };
   const r = useRouter();
   useEffect(() => {
@@ -80,10 +86,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (err) {
       console.error(err);
     }
-  };
-
-  const logout = () => {
-    wrapSetUser();
   };
 
   return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser }}>{children}</AuthContext.Provider>;
