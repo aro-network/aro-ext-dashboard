@@ -5,13 +5,21 @@ import { ReactNode, useEffect, useState } from "react";
 import { Toaster } from "sonner";
 import { AuthProvider } from "./context/AuthContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { useThemeState } from "@/components/theme-mode";
 const client = new QueryClient();
+
+const googleClientId = "425165933886-vpv32tvbhfeqfujnel0fdjm88kfn1lhn.apps.googleusercontent.com";
+
 export function Providers({ children }: { children: React.ReactNode }) {
+  useThemeState();
   return (
-    <NextUIProvider className="App">
-      <QueryClientProvider client={client}>
-        <AuthProvider>{children}</AuthProvider>
-      </QueryClientProvider>
+    <NextUIProvider className="App overflow-auto">
+      <GoogleOAuthProvider clientId={googleClientId}>
+        <QueryClientProvider client={client}>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryClientProvider>
+      </GoogleOAuthProvider>
     </NextUIProvider>
   );
 }

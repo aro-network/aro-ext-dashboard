@@ -2,11 +2,10 @@
 
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import Dashboard from "@/components/Dashboard";
-import Login from "@/components/Login";
+import Main from "@/components/Main";
+import Login from "@/app/login/page";
 
 export default function Page() {
   const { user } = useContext(AuthContext);
-
-  return <div className="App">{user?.accessToken ? <Dashboard /> : <Login />}</div>;
+  return user?.accessToken ? <Main /> : <Login />;
 }

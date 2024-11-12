@@ -1,13 +1,14 @@
 import backendApi from "@/lib/api";
 import { getInjectEnReachAI } from "@/lib/broswer";
-import { Opt, User } from "@/lib/type";
+import { Opt } from "@/lib/type";
+import { LoginResult } from "@/types/user";
 import { useRouter } from "next/navigation";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextProps {
-  user?: Opt<User>;
-  setUser: (u?: Opt<User>) => void;
+  user?: Opt<LoginResult>;
+  setUser: (u?: Opt<LoginResult>) => void;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
 }
@@ -27,7 +28,7 @@ const getLastLoginUser = () => {
   try {
     const json = localStorage.getItem(storageKey);
     if (!json) return null;
-    const u = JSON.parse(json) as User;
+    const u = JSON.parse(json) as LoginResult;
     return u;
   } catch (error) {
     console.error(error);
@@ -35,8 +36,8 @@ const getLastLoginUser = () => {
   }
 };
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [user, setUser] = useState<Opt<User>>(getLastLoginUser());
-  const wrapSetUser = (u?: Opt<User>) => {
+  const [user, setUser] = useState<Opt<LoginResult>>(getLastLoginUser());
+  const wrapSetUser = (u?: Opt<LoginResult>) => {
     if (!u) {
       setUser(null);
       localStorage.removeItem(storageKey);
@@ -82,6 +83,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (!credentials.email || !credentials.password) return;
       const user = await backendApi.loginApi(credentials);
       wrapSetUser(user);
+      
       r.push("/");
     } catch (err) {
       console.error(err);
