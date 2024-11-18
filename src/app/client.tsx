@@ -34,8 +34,8 @@ export function PageLayout({ children }: { children: ReactNode }) {
   if (!init) return null;
   return (
     <>
+      <Toaster position="top-right" offset={70} theme="light"/>
       <Providers>{children}</Providers>
-      <Toaster position="top-right" offset={70} />
     </>
   );
 }

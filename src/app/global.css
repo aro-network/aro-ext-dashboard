@@ -15,3 +15,12 @@ html {
   background-size: cover;
   color: white;
 }
+
+.font-HelveticaNeue {
+  transform: translateY(0.1em);
+}
+
+.bg-i1 {
+  background: url("/bg.svg") center no-repeat;
+  background-size: cover;
+}

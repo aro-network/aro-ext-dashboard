@@ -246,7 +246,7 @@ export interface LoginResult {
   /**
    * 用户id
    */
-  id: string;
+  userId: string;
   /**
    * BearerToken
    */
@@ -262,7 +262,7 @@ export interface SingUpResult {
   /**
    * 用户id
    */
-  id: string;
+  userId: string;
   [property: string]: any;
 }
 

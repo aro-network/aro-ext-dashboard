@@ -1,7 +1,8 @@
 import backendApi from "@/lib/api";
 import { getInjectEnReachAI } from "@/lib/broswer";
 import { Opt } from "@/lib/type";
-import { LoginResult } from "@/types/user";
+import { LoginResult, User } from "@/types/user";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 import React, { createContext, useContext, useEffect, useState } from "react";
@@ -11,6 +12,7 @@ interface AuthContextProps {
   setUser: (u?: Opt<LoginResult>) => void;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
+  queryUserInfo?: UseQueryResult<User, Error>
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -36,28 +38,30 @@ const getLastLoginUser = () => {
   }
 };
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const r = useRouter();
   const [user, setUser] = useState<Opt<LoginResult>>(getLastLoginUser());
   const wrapSetUser = (u?: Opt<LoginResult>) => {
     if (!u) {
       setUser(null);
       localStorage.removeItem(storageKey);
       getInjectEnReachAI()?.request({ name: "clearAccessToken" }).catch(console.error);
+      r.push("/signin");
     } else {
       setUser(u);
       localStorage.setItem(storageKey, JSON.stringify(u));
-      if (u.accessToken) {
-        getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.accessToken }).catch(console.error);
+      if (u.token) {
+        getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.token }).catch(console.error);
       }
+      r.push("/");
     }
   };
 
   const logout = () => {
     wrapSetUser();
   };
-  const r = useRouter();
   useEffect(() => {
     let e: NodeJS.Timeout;
-    if (user && user.accessToken) {
+    if (user && user.token) {
       e = setInterval(() => {
         const injectedEnReachAI = getInjectEnReachAI();
         if (!injectedEnReachAI) {
@@ -68,9 +72,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           .request({
             name: "getUser",
           })
-          .then((response: unknown) => {
-            if (!response) {
-              logout();
+          .then((response: any) => {
+            if (!response || response.status !== "success") {
+              injectedEnReachAI.request({ name: "setAccessToken", body: user.token });
             }
           });
       }, 1000);
@@ -83,14 +87,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (!credentials.email || !credentials.password) return;
       const user = await backendApi.loginApi(credentials);
       wrapSetUser(user);
-      
-      r.push("/");
+      backendApi.setAuth();
     } catch (err) {
       console.error(err);
     }
   };
-
-  return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser }}>{children}</AuthContext.Provider>;
+  const queryUserInfo = useQuery({
+    queryKey: ["QueryUserInfo", user?.token],
+    enabled: Boolean(user?.token),
+    queryFn: async () => {
+      backendApi.setAuth(user?.token);
+      return backendApi.userInfo();
+    },
+  });
+  return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser, queryUserInfo }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => {

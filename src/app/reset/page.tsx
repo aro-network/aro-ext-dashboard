@@ -1,44 +1,73 @@
 "use client";
 
-import { InputPassword } from "@/components/inputs";
+import { Btn } from "@/components/btns";
+import { InputEmail, InputPassword, InputVerifyCode } from "@/components/inputs";
 import backendApi from "@/lib/api";
-import { Button } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext";
+import { handlerError, sleep } from "@/lib/utils";
+import { useCounter, useInterval } from "react-use";
 
 export default function Page() {
+  const sp = useSearchParams();
+  const [email, setEmail] = useState(sp.get("email") || "");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [verifyCode, setVerifyCode] = useState("");
+  const [sendCount, actionSendCount] = useCounter(0, 60, 0);
+  useInterval(() => {
+    actionSendCount.dec(1);
+  }, 1000);
+  const r = useRouter();
   const ac = useAuthContext();
-  const { mutate, isPending } = useMutation({
-    mutationFn: async () => {
-      if (!password || !confirmPassword) throw new Error("Please input email or password");
+  const { mutate: onReset, isPending } = useMutation({
+    onError: handlerError,
+    mutationFn: async (e: FormEvent) => {
+      e.preventDefault();
+      if (!email) throw new Error("Please enter email");
+      if (!password || !confirmPassword) throw new Error("Please enter email or password");
       if (password !== confirmPassword) throw new Error("Please confirm password");
-      await backendApi.resetPassword(password);
+      if (!verifyCode) throw new Error("Please enter verify code");
+      await backendApi.resetPassword({ email, password, verifyCode });
+      toast.success("Reset Password Success!");
+      ac.logout();
+      await sleep(2000);
+      r.push("/signin");
     },
-    onSuccess: () => toast.success("Reset Password Success!"),
+  });
+
+  const {
+    mutate: onSend,
+    isPending: isPendingSend,
+    isIdle: isIdleSend,
+  } = useMutation({
+    onError: handlerError,
+    mutationFn: async () => {
+      if (!email) throw new Error("Please enter email");
+      await backendApi.sendResetPassword(email);
+      actionSendCount.reset(60)
+    },
   });
 
   return (
-    <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[27.5rem]">
+    <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
-      <div className="text-white/60 text-center text-sm">Reset Password for account: example@email.com</div>
-      <form
-        onSubmit={(e) => {
-          mutate();
-          e.preventDefault();
-        }}
-        className="flex flex-col gap-5 w-full mb-auto"
-      >
+      <form onSubmit={onReset} className="flex flex-col gap-5 w-full mb-auto">
+        <InputEmail setEmail={setEmail} />
         <InputPassword label="New Password" setPassword={setPassword} />
         <InputPassword label="Confirm Password" setPassword={setConfirmPassword} />
-
-        <Button color="primary" type="submit" isLoading={isPending}>
+        <div className="flex gap-5">
+          <InputVerifyCode setVerifyCode={setVerifyCode} />
+          <Btn type="button" isDisabled={sendCount > 0 || isPendingSend} isLoading={isPendingSend} onClick={onSend as any}>
+            {isIdleSend ? "Send" : sendCount > 0 ? `Resend(${sendCount}s)` : "Resend"}
+          </Btn>
+        </div>
+        <Btn type="submit" isLoading={isPending}>
           Reset Password
-        </Button>
+        </Btn>
       </form>
     </div>
   );

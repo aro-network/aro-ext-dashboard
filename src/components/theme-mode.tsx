@@ -5,7 +5,8 @@ import { MdComputer, MdDarkMode, MdLightMode } from "react-icons/md";
 import { create } from "zustand";
 
 import { cn } from "@nextui-org/react";
-import { SimpleDialog } from "./simple-dialog";
+import { TitModal } from "./dialogs";
+import { useToggle } from "react-use";
 
 export type ThemeType = "light" | "dark";
 export type ThemeModeType = ThemeType | "system";
@@ -64,23 +65,26 @@ export function ThemeMode() {
     }
     onChangeTheme();
   };
+  const [isOpen, toggleOpen] = useToggle(false);
   return (
-    <SimpleDialog
-      className="max-w-[200px] py-10 flex flex-col text-base text-stone-500 dark:text-white"
-      trigger={<div className="text-xl">{Icons[ts.theme as "light" | "dark" | "system"]}</div>}
-    >
-      {["Light", "Dark", "System"].map((item) => (
-        <div
-          key={"theme_mode_" + item}
-          className={cn("flex px-5 items-center py-2 gap-3 cursor-pointer", {
-            "bg-stone-100 dark:bg-zinc-700": item.toLowerCase() == ts.themeMode,
-          })}
-          onClick={() => onClick(item)}
-        >
-          <div className="text-2xl">{Icons[item.toLowerCase() as "light" | "dark" | "system"]}</div>
-          <span className="">{item}</span>
-        </div>
-      ))}
-    </SimpleDialog>
+    <>
+      <div className="text-xl cursor-pointer" onClick={() => toggleOpen()}>
+        {Icons[ts.theme as "light" | "dark" | "system"]}
+      </div>
+      <TitModal tit={"Switch Theme Mode"} isOpen={isOpen} className="max-w-[200px] py-10 flex flex-col text-base text-stone-500 dark:text-white">
+        {["Light", "Dark", "System"].map((item) => (
+          <div
+            key={"theme_mode_" + item}
+            className={cn("flex px-5 items-center py-2 gap-3 cursor-pointer", {
+              "bg-stone-100 dark:bg-zinc-700": item.toLowerCase() == ts.themeMode,
+            })}
+            onClick={() => onClick(item)}
+          >
+            <div className="text-2xl">{Icons[item.toLowerCase() as "light" | "dark" | "system"]}</div>
+            <span className="">{item}</span>
+          </div>
+        ))}
+      </TitModal>
+    </>
   );
 }

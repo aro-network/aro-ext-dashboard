@@ -1,4 +1,5 @@
 import { NodeItem } from "@/types/node";
+import { TrendingReward } from "@/types/trending";
 import { LoginResult, SingUpResult, User, UserReward } from "@/types/user";
 import axios from "axios";
 
@@ -22,23 +23,48 @@ const backendApi = {
     }
   },
   loginApi: async (data: { email: string; password: string }) => {
-    const response = await Api.post<RES<LoginResult>>("/user/login", data);
+    const response = await Api.post<RES<LoginResult>>("/user/signIn", data);
+    backendApi.setAuth(response.data.data.token);
     return response.data.data;
   },
-  registerApi: async (data: { email: string; password: string; invateCode: string }) => {
-    const response = await Api.post<RES<SingUpResult>>("/user/signUp", { ...data, confirmPassword: data.password });
+  loginByGoogleApi: async (data: { accessToken: string }) => {
+    const response = await Api.post<RES<LoginResult>>("/user/google/signIn", data);
+    backendApi.setAuth(response.data.data.token);
+    return response.data.data;
+  },
+  loginSetReferralApi: async (data: { accessToken: string; referralCode: string }) => {
+    const response = await Api.post<RES<LoginResult>>("/user/referral/by", data);
+    backendApi.setAuth(response.data.data.token);
+    return response.data.data;
+  },
+  registerApi: async (data: { email: string; password: string; referralCode: string }) => {
+    const response = await Api.post<RES<SingUpResult>>("/user/signUp", { ...data });
+    return response.data.data;
+  },
+
+  registerByGoogleApi: async (accessToken: string) => {
+    const response = await Api.post<RES<SingUpResult>>("/user/google/signUp", { accessToken });
+    return response.data.data;
+  },
+
+  resendRegisterVerifyCode: async (uid: string) => {
+    await Api.post<RES<undefined>>(`/verify/${uid}/resend`);
+    return true;
+  },
+  verifyRegisterCode: async (uid: string, code: string) => {
+    const response = await Api.post<RES<undefined>>(`/verify/${uid}/${code}`);
     return response.data.data;
   },
   userInfo: async () => {
     const response = await Api.get<RES<User>>("/user/info");
     return response.data.data;
   },
-  sendResetPassword: async () => {
-    await Api.post<RES<undefined>>("/user/password/recover");
+  sendResetPassword: async (email: string) => {
+    await Api.post<RES<undefined>>("/user/password/reset/send", { email });
     return true;
   },
-  resetPassword: async (password: string) => {
-    await Api.post<RES<undefined>>("/user/password/reset", { password });
+  resetPassword: async (data: { email: string; password: string; verifyCode: string }) => {
+    await Api.post<RES<undefined>>("/user/password/reset", data);
     return true;
   },
   userUpdate: async (data: { username?: string; disconnect?: { x?: boolean; tg?: boolean; discord?: boolean } }) => {
@@ -53,6 +79,11 @@ const backendApi = {
 
   nodeList: async () => {
     const response = await Api.get<RES<NodeItem[]>>("/node/list");
+    return response.data.data;
+  },
+
+  trendingRewards: async (type: "week" | "month" = "month") => {
+    const response = await Api.get<RES<TrendingReward[]>>("/trending/rewards", { params: { type } });
     return response.data.data;
   },
 

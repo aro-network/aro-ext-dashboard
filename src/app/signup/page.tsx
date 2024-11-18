@@ -1,12 +1,20 @@
 "use client";
 
-import { InputEmail, InputPassword, InputReferralCode } from "@/components/inputs";
+import { Btn } from "@/components/btns";
+import { InputEmail, InputPassword, InputReferralCode, InputSplitCode } from "@/components/inputs";
+import { MLink } from "@/components/links";
 import backendApi from "@/lib/api";
-import { Button, Checkbox, Link } from "@nextui-org/react";
+import { handlerError } from "@/lib/utils";
+import { validateVerifyCode } from "@/lib/validates";
+import { SingUpResult } from "@/types/user";
+import { Checkbox } from "@nextui-org/react";
+import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
-import { useToggle } from "react-use";
-import { useAuthContext } from "../context/AuthContext";
+import { useRouter } from "next/navigation";
+import { FormEvent, MouseEvent, useRef, useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { useCounter, useInterval, useToggle } from "react-use";
+import { toast } from "sonner";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -16,56 +24,104 @@ export default function Page() {
   const [showToVerify, setShowToVerify] = useState(false);
   const [checkedTermPrivacy, setCheckedTermPrivacy] = useToggle(false);
   const [checkedReceiveEmail, setCheckedReceiveEmail] = useToggle(false);
-  const ac = useAuthContext();
-  const { mutate, isPending } = useMutation({
-    mutationFn: async () => {
-      if (!email || !password || !confirmPassword) throw new Error("Please input email or password");
+  const [reSendSecends, actionResendScends] = useCounter(60, 60, 0);
+  useInterval(() => actionResendScends.dec(1), 1000);
+  const [verifyCode, setVerifyCode] = useState("");
+  const r = useRouter();
+  const refRegisterUser = useRef<SingUpResult>();
+  const { mutate: handlerSubmit, isPending } = useMutation({
+    onError: handlerError,
+    mutationFn: async (e: FormEvent) => {
+      e.preventDefault();
+      if (!email || !password || !confirmPassword) throw new Error("Please enter email or password");
       if (password !== confirmPassword) throw new Error("Please confirm password");
-      if (!referalCode) throw new Error("Please input referral code");
+      if (!referalCode) throw new Error("Please enter referral code");
       if (!checkedTermPrivacy) throw new Error("Plase checked Term of Service and Privacy Policy");
-      await backendApi.registerApi({ email, password, invateCode: referalCode });
+      refRegisterUser.current = await backendApi.registerApi({ email, password, referralCode: referalCode });
+      actionResendScends.reset(60);
+      setShowToVerify(true);
     },
-    onSuccess: () => setShowToVerify(true),
+  });
+  const { mutate: handleGoogle } = useMutation({
+    onError: handlerError,
+    mutationFn: async (token: TokenResponse) => {
+      await backendApi.registerByGoogleApi(token.access_token);
+      r.push("/signin");
+    },
+  });
+  const loginGoogle = useGoogleLogin({
+    flow: "implicit",
+    onError: (err) => toast.error(`${err.error} : ${err.error_description}`),
+    onSuccess: handleGoogle,
+  });
+  const { mutate: handlerVerify, isPending: isPendingVerify } = useMutation({
+    onError: handlerError,
+    mutationFn: async () => {
+      if (!verifyCode || validateVerifyCode(verifyCode) !== true) throw new Error("Please enter verify code");
+      if (!refRegisterUser.current) throw new Error("Please sign up");
+      await backendApi.verifyRegisterCode(refRegisterUser.current.userId, verifyCode);
+      r.push("/signin");
+    },
+  });
+  const { mutate: handlerResendVerify, isPending: isPendingResendVerify } = useMutation({
+    onError: handlerError,
+    mutationFn: async (e: MouseEvent) => {
+      e.preventDefault();
+      if (!refRegisterUser.current) throw new Error("Please sign up");
+      await backendApi.resendRegisterVerifyCode(refRegisterUser.current.userId);
+      actionResendScends.reset(60);
+    },
   });
 
   return (
-    <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[27.5rem]">
-      <img src="logo.svg" alt="Logo" className="mt-auto" />
+    <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
+      <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
       {showToVerify ? (
-        <>
-          <div className="mb-auto">Please to email verify yout account!</div>
-        </>
+        <div className="flex flex-col items-center gap-5 w-full mb-auto">
+          <div className="text-center whitespace-nowrap">
+            Verify your email
+            <br />
+            Enter the 6-digit verification code we sent to your inbox below:
+          </div>
+          <InputSplitCode onChange={setVerifyCode} />
+          <Btn className="w-full" onClick={handlerVerify as any} isLoading={isPendingVerify}>
+            Verify Email
+          </Btn>
+          <MLink className="text-xs -mt-1" onClick={handlerResendVerify} isDisable={reSendSecends > 0 || isPendingResendVerify}>
+            {reSendSecends > 0 ? `Resend Email (${reSendSecends}s)` : "Resend Email"}
+          </MLink>
+        </div>
       ) : (
-        <form
-          onSubmit={(e) => {
-            mutate();
-            e.preventDefault();
-          }}
-          className="flex flex-col gap-5 w-full mb-auto"
-        >
+        <form onSubmit={handlerSubmit} className="flex flex-col gap-5 w-full mb-auto">
           <InputEmail setEmail={setEmail} />
           <InputPassword setPassword={setPassword} />
           <InputPassword label="Confirm Password" setPassword={setConfirmPassword} />
           <InputReferralCode setReferalCode={setReferalCode} />
           <Checkbox classNames={{ label: "text-xs", icon: "w-[9px] h-[10px]" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
             I agree to the EnReach.AI{" "}
-            <Link className="text-xs" href="/terms">
+            <MLink className="text-xs" href="/terms">
               Term of Service
-            </Link>{" "}
+            </MLink>{" "}
             and{" "}
-            <Link className="text-xs" href="/privacy">
+            <MLink className="text-xs" href="/privacy">
               Privacy Policy
-            </Link>
+            </MLink>
             .
           </Checkbox>
           <Checkbox classNames={{ label: "text-xs", icon: "w-[9px] h-[10px]" }} checked={checkedReceiveEmail} onValueChange={setCheckedReceiveEmail}>
             I agree to receive updates, notifications and promotions from EnReach.AI with my email.
           </Checkbox>
-          <Button color="primary" type="submit" isLoading={isPending}>
+          <Btn type="submit" isLoading={isPending}>
             Sign Up
-          </Button>
-          <div className="text-center">
-            Already have an account? <Link href="/login">Sign In</Link>
+          </Btn>
+          <Btn type="button" onClick={() => loginGoogle()}>
+            <FcGoogle /> Sign up with Google
+          </Btn>
+          <div className="text-center text-xs text-white/60">
+            Already have an account?{" "}
+            <MLink href="/signin" className="text-xs">
+              Sign In
+            </MLink>
           </div>
         </form>
       )}
