@@ -41,7 +41,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
         url = `https://x.com/i/oauth2/authorize?response_type=code&client_id=b1JXclh6WXJoZnFfZjVoSVluZ0c6MTpjaQ&redirect_uri=${redirectUrl}&scope=users.read%20tweet.read&code_challenge=challenge&code_challenge_method=plain&state=${token}`;
         break;
       case "telegram":
-        const result = await telegramAuth("7324509153", { windowFeatures: { popup: true } });
+        const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
         await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
         return;
       case "discord":
