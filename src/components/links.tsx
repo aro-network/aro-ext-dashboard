@@ -9,7 +9,9 @@ export function MLink(p: Partial<LinkProps> & PropsWithChildren & React.RefAttri
     <Link
       href={href}
       onClick={(e) => {
-        !isDisable && onClick?.(e);
+        if (!isDisable) {
+          onClick?.(e);
+        }
       }}
       className={cn("underline text-white/60 hover:text-primary cursor-pointer", { "cursor-not-allowed hover:text-white/60": isDisable }, className)}
       {...props}

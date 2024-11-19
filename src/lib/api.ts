@@ -2,9 +2,11 @@ import { NodeItem } from "@/types/node";
 import { TrendingReward } from "@/types/trending";
 import { LoginResult, SingUpResult, User, UserReward } from "@/types/user";
 import axios from "axios";
+import { ENV } from "./env";
 
+export const BASE_API = ENV == "beta" ? "https://dev-api.enreach.network/api" : "https://api.enreach.network/api";
 const Api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: BASE_API,
   headers: {
     "Content-Type": "application/json",
   },
@@ -85,6 +87,11 @@ const backendApi = {
   trendingRewards: async (type: "week" | "month" = "month") => {
     const response = await Api.get<RES<TrendingReward[]>>("/trending/rewards", { params: { type } });
     return response.data.data;
+  },
+
+  getAccessToken: async () => {
+    const response = await Api.get<RES<{ accessToken: string }>>("/user/accessToken");
+    return response.data.data.accessToken;
   },
 
   getIP: async () => {

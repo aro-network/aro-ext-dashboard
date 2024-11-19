@@ -13,20 +13,40 @@ import { Booster, DupleInfo } from "./my-dashboard";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useToggle } from "react-use";
 import { ConfirmDialog } from "./dialogimpls";
+import backendApi, { BASE_API } from "@/lib/api";
+import _ from "lodash";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
-  const [isConnected, setConnected] = useState(false);
-  const tit = useMemo(() => {
+  const ac = useAuthContext();
+  const social = ac.queryUserInfo?.data?.social;
+  const [tit, isConnected]: [string, boolean] = useMemo(() => {
     switch (type) {
       case "x":
-        return isConnected ? "@user" : `Connect My X Account`;
+        return social?.x && social?.x.name ? [`@${social.x.name}`, true] : [`Connect My X Account`, false];
       case "telegram":
-        return isConnected ? "@user" : `Connect My Telegram Account`;
+        return social?.tg && social?.tg.id ? [`@${social.tg.id}`, true] : [`Connect My Telegram Account`, false];
       case "discord":
-        return isConnected ? "@user" : `Connect My Discord Account`;
+        return social?.discord && social?.discord.name ? [`@${social.discord.name}`, true] : [`Connect My Discord Account`, false];
     }
-  }, [isConnected, type]);
+  }, [social, type]);
   const Micon = type == "x" ? FaXTwitter : type == "telegram" ? FaTelegramPlane : FaDiscord;
+  const onConnect = async () => {
+    const token = await backendApi.getAccessToken();
+    const redirectUrl = encodeURIComponent(`${BASE_API}/user/auth/handler/${type}`);
+    let url: string = "";
+    switch (type) {
+      case "x":
+        url = `https://x.com/i/oauth2/authorize?response_type=code&client_id=b1JXclh6WXJoZnFfZjVoSVluZ0c6MTpjaQ&redirect_uri=${redirectUrl}&scope=users.read%20tweet.read&code_challenge=challenge&code_challenge_method=plain`;
+        break;
+      case "telegram":
+        url = `https://oauth.telegram.org/auth?bot_id=547043436&origin=https%3A%2F%2Fcore.telegram.org&embed=1&request_access=write&return_to=${redirectUrl}`;
+        break;
+      case "discord":
+        url = `https://discord.com/oauth2/authorize?client_id=1303958338488238090&response_type=code&redirect_uri=${redirectUrl}&scope=identify+email&state=${token}`;
+        break;
+    }
+    window.open(url, "_blank");
+  };
   return (
     <div className="rounded-lg p-4 flex items-center gap-5 bg-white/10">
       <Micon className="text-[2rem]" />
@@ -37,13 +57,18 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
           {isConnected ? "Connected" : "Not Connected"}
         </div>
       </div>
-      <Btn className="ml-auto w-[6.25rem]">{isConnected ? "Disconnect" : "Connect"}</Btn>
+      {!isConnected && (
+        <Btn className="ml-auto w-[6.25rem]" onClick={onConnect}>
+          {isConnected ? "Disconnect" : "Connect"}
+        </Btn>
+      )}
     </div>
   );
 }
 
 export default function MyProfile() {
   const ac = useAuthContext();
+  const user = ac.queryUserInfo?.data;
   const [showConfirmLogout, toggleShowConfirmLogout] = useToggle(false);
   return (
     <div className="grid xl:grid-cols-2 gap-4">
@@ -54,10 +79,10 @@ export default function MyProfile() {
           </div>
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
-              <span className="text-2xl font-medium">Berry Body</span>
-              <Booster boost={1.5} />
+              <span className="text-2xl font-medium">{levels.find((_l, i) => user?.stat.level === i)?.name || "Berry Body"} </span>
+              <Booster boost={user?.stat.extraBoost || 0} />
             </div>
-            <DupleInfo tit="78" sub="EXP" />
+            <DupleInfo tit={user?.stat.exp} sub="EXP" />
           </div>
         </div>
         <p className="text-sm">
@@ -67,7 +92,7 @@ export default function MyProfile() {
           Higher level helps you gain “Berry” with extra % boost.
         </p>
         <div className="flex justify-between items-start flex-nowrap relative">
-          {levels.map((level, li) => (
+          {levels.map((level, _li) => (
             <div key={level.name} className="flex flex-col items-center">
               <level.icon className={`text-[50px]`} />
               <span className="mt-[5px] text-center h-[23px] text-sm font-medium">{level.exp} EXP</span>
@@ -78,13 +103,18 @@ export default function MyProfile() {
               </span>
             </div>
           ))}
-          <Progress className="absolute left-0 top-[88px] h-[10px] w-full " color="primary" value={10} maxValue={100} />
+          <Progress
+            className="absolute left-0 top-[88px] h-[10px] w-full "
+            color="primary"
+            value={_.round(((user?.stat.exp || 0) * 100) / levels[levels.length - 1].exp, 1)}
+            maxValue={100}
+          />
         </div>
       </TitCard>
       <TitCard tit="My Profile">
         <div className="flex items-center gap-4">
-          <Avatar name="Eericxu" size={60} variant="beam" />
-          <span className="text-xl font-medium">{"momoliaoliao@gmail.com"}</span>
+          <Avatar name={user?.email} size={60} variant="beam" />
+          <span className="text-xl font-medium">{user?.email || ""}</span>
           <IconBtn tip="Reset Password" className="ml-auto">
             <FiLock />
           </IconBtn>
