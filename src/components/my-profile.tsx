@@ -36,10 +36,10 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
     let url: string = "";
     switch (type) {
       case "x":
-        url = `https://x.com/i/oauth2/authorize?response_type=code&client_id=b1JXclh6WXJoZnFfZjVoSVluZ0c6MTpjaQ&redirect_uri=${redirectUrl}&scope=users.read%20tweet.read&code_challenge=challenge&code_challenge_method=plain`;
+        url = `https://x.com/i/oauth2/authorize?response_type=code&client_id=b1JXclh6WXJoZnFfZjVoSVluZ0c6MTpjaQ&redirect_uri=${redirectUrl}&scope=users.read%20tweet.read&code_challenge=challenge&code_challenge_method=plain&state=${token}`;
         break;
       case "telegram":
-        url = `https://oauth.telegram.org/auth?bot_id=547043436&origin=https%3A%2F%2Fcore.telegram.org&embed=1&request_access=write&return_to=${redirectUrl}`;
+        url = `https://oauth.telegram.org/auth?bot_id=547043436&origin=https%3A%2F%2Fcore.telegram.org&embed=1&request_access=write&return_to=${redirectUrl}&state=${token}`;
         break;
       case "discord":
         url = `https://discord.com/oauth2/authorize?client_id=1303958338488238090&response_type=code&redirect_uri=${redirectUrl}&scope=identify+email&state=${token}`;
