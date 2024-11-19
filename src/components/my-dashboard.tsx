@@ -160,8 +160,9 @@ export function TrendingChart({ className }: { className?: string }) {
 
 export default function MyDashboard() {
   const copy = useCopy();
-  const { queryUserInfo } = useAuthContext();
-  const connectedNodes = queryUserInfo?.data?.node.connected || 0;
+  const ac = useAuthContext();
+  const user = ac.queryUserInfo?.data;
+  const connectedNodes = user?.node.connected || 0;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
@@ -170,12 +171,12 @@ export default function MyDashboard() {
         <div className="flex flex-col gap-[45px] flex-1">
           <div className="flex justify-between items-center">
             <span>BERRY</span>
-            <Booster boost={queryUserInfo?.data?.stat.extraBoost || 0} />
+            <Booster boost={user?.stat.extraBoost || 0} />
           </div>
           <div className="flex items-center gap-[10%]">
-            <DupleInfo tit={`${queryUserInfo?.data?.point.today || 0}`} sub="Today" />
+            <DupleInfo tit={`${user?.point.today || 0}`} sub="Today" />
             <div className="bg-white opacity-30 w-[1px] h-6" />
-            <DupleInfo tit={`${queryUserInfo?.data?.point.total || 0}`} sub="Season 1" subTip="Season 1" />
+            <DupleInfo tit={`${user?.point.total || 0}`} sub="Season 1" subTip="Season 1" />
           </div>
         </div>
       </IconCard>
@@ -184,13 +185,13 @@ export default function MyDashboard() {
         <div className="flex flex-col gap-[45px] flex-1">
           <div className="flex justify-between items-center">
             <span>My Referrals</span>
-            <IconBtn tip="Copy Referral Link" onClick={() => copy("")}>
+            <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
           </div>
           <div className="flex items-center gap-[10%]">
             <DupleInfo
-              tit={`${queryUserInfo?.data?.referral.valid || 0}`}
+              tit={`${user?.referral.valid || 0}`}
               subClassName="text-green-400 opacity-100"
               sub={
                 <>
@@ -200,7 +201,7 @@ export default function MyDashboard() {
             />
             <div className="bg-white opacity-30 w-[1px] h-6" />
             <DupleInfo
-              tit={`${queryUserInfo?.data?.referral.pending || 0}`}
+              tit={`${user?.referral.pending || 0}`}
               sub={
                 <>
                   <IoIosMore /> Pending
@@ -232,7 +233,7 @@ export default function MyDashboard() {
               }
             />
             <div className="bg-white opacity-30 w-[1px] h-6" />
-            <DupleInfo tit={`${queryUserInfo?.data?.node.offline || 0}`} sub="Offline" subTip="Offline" />
+            <DupleInfo tit={`${user?.node.offline || 0}`} sub="Offline" subTip="Offline" />
           </div>
         </div>
       </IconCard>

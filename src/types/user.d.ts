@@ -232,21 +232,10 @@ export interface Task {
    * 插件已成功上报
    */
   extension: boolean;
-  uptime: Uptime;
+  uptime: number;
   [property: string]: any;
 }
 
-export interface Uptime {
-  /**
-   * 打到上传总时长
-   */
-  finished: boolean;
-  /**
-   * 总上报时长
-   */
-  sum: number;
-  [property: string]: any;
-}
 
 export interface LoginResult {
   /**

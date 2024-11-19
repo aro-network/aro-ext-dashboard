@@ -12,6 +12,9 @@ import { useCopy } from "@/hooks/useCopy";
 export default function MyReferral() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
+  const referredCount = user?.referral.valid || 0;
+  const referringCount = user?.referral.pending || 0;
+  const referredPoint = user?.point.referral || 0
   const copy = useCopy();
   return (
     <div className="grid xl:grid-cols-3 gap-4">
@@ -23,7 +26,15 @@ export default function MyReferral() {
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
-            <IconBtn tip="Follow X">
+            <IconBtn
+              tip="Follow X"
+              onClick={() =>
+                window.open(
+                  encodeURI("https://x.com/intent/follow?original_referer=wand.fi&ref_src=twsrc^tfw|twcamp^buttonembed|twterm^follow|twgr^WandProtocol&screen_name=EnReachAI"),
+                  "_blank"
+                )
+              }
+            >
               <FaXTwitter />
             </IconBtn>
           </div>
@@ -34,7 +45,7 @@ export default function MyReferral() {
           <div className="text-xl">My Referrals</div>
           <div className="flex items-center gap-[10%]">
             <DupleInfo
-              tit="35"
+              tit={referredCount}
               subClassName="text-green-400 opacity-100"
               sub={
                 <>
@@ -44,7 +55,7 @@ export default function MyReferral() {
             />
             <div className="bg-white opacity-30 w-[1px] h-6" />
             <DupleInfo
-              tit="129"
+              tit={referringCount}
               sub={
                 <>
                   <IoIosMore /> Pending
@@ -61,7 +72,7 @@ export default function MyReferral() {
             Referral Bonus <HelpTip content="Referral Bonus" />
           </div>
           <div className="flex items-center gap-[10%]">
-            <DupleInfo tit="35" sub="BERRY" />
+            <DupleInfo tit={referredPoint} sub="BERRY" />
           </div>
         </div>
       </IconCard>
@@ -69,7 +80,7 @@ export default function MyReferral() {
         <div className="flex flex-col gap-4 items-center shrink-0">
           <SVGS.SvgMedal className="text-[5rem] shrink-0" />
           <div className="uppercase text-[2rem] whitespace-nowrap font-HelveticaNeue leading-8">Get Referral Rewards</div>
-          <Btn className="w-full">Copy Referral Link</Btn>
+          <Btn className="w-full" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>Copy Referral Link</Btn>
         </div>
         <InnerIconCard icon={SVGS.SvgRewards} iconSize={20} className="flex-1 min-w-[500px]">
           <div className="text-base">

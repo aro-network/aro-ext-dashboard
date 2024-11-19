@@ -31,6 +31,7 @@
     "react-verification-input": "^4.1.2",
     "recharts": "^2.13.3",
     "sonner": "^1.7.0",
+    "swr": "^2.2.5",
     "zustand": "^5.0.1"
   },
   "devDependencies": {

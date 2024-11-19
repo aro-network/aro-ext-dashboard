@@ -2,17 +2,16 @@ import backendApi from "@/lib/api";
 import { getInjectEnReachAI } from "@/lib/broswer";
 import { Opt } from "@/lib/type";
 import { LoginResult, User } from "@/types/user";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-
 import React, { createContext, useContext, useEffect, useState } from "react";
+import useSWR, { SWRResponse } from "swr";
 
 interface AuthContextProps {
   user?: Opt<LoginResult>;
   setUser: (u?: Opt<LoginResult>) => void;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
-  queryUserInfo?: UseQueryResult<User, Error>;
+  queryUserInfo?: SWRResponse<User>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -92,16 +91,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error(err);
     }
   };
-  const queryUserInfo = useQuery({
-    queryKey: ["QueryUserInfo", user?.token],
-    refetchOnWindowFocus: 'always',
-    refetchOnMount: 'always',
-    enabled: Boolean(user?.token),
-    queryFn: async () => {
-      backendApi.setAuth(user?.token);
-      return backendApi.userInfo();
-    },
-  });
+  backendApi.setAuth(user?.token)
+  const queryUserInfo = useSWR(["QueryUserInfo",user?.token], () => backendApi.userInfo())
   return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser, queryUserInfo }}>{children}</AuthContext.Provider>;
 };
 

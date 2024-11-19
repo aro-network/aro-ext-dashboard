@@ -44,7 +44,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
       case "telegram":
         const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
         await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
-        ac.queryUserInfo?.refetch();
+        ac.queryUserInfo?.mutate();
         return;
       case "discord":
         url = `https://discord.com/oauth2/authorize?client_id=1303958338488238090&response_type=code&redirect_uri=${redirectUrl}&scope=identify+email&state=${token}`;
