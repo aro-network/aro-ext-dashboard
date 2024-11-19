@@ -189,6 +189,7 @@ export interface Tg {
    * id
    */
   id: string;
+  username: string;
   [property: string]: any;
 }
 

@@ -33,9 +33,10 @@ export function InputPassword({ setPassword, label, error }: { setPassword: (pas
   );
 }
 
-export function InputEmail({ setEmail }: { setEmail: (email: string) => void }) {
+export function InputEmail({ setEmail, value }: { setEmail: (email: string) => void; value?: string }) {
   return (
     <Input
+      value={value}
       classNames={inputClassNames}
       type="email"
       // label="Email"
@@ -49,9 +50,10 @@ export function InputEmail({ setEmail }: { setEmail: (email: string) => void }) 
   );
 }
 
-export function InputReferralCode({ setReferalCode }: { setReferalCode: (code: string) => void }) {
+export function InputReferralCode({ setReferalCode, value }: { setReferalCode: (code: string) => void, value?: string }) {
   return (
     <Input
+      value={value}
       classNames={inputClassNames}
       type="text"
       // label="Referral code"

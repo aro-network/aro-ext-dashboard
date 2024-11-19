@@ -56,7 +56,7 @@ export default function Page() {
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
       <form onSubmit={onReset} className="flex flex-col gap-5 w-full mb-auto">
-        <InputEmail setEmail={setEmail} />
+        <InputEmail value={email} setEmail={setEmail} />
         <InputPassword label="New Password" setPassword={setPassword} />
         <InputPassword label="Confirm Password" setPassword={setConfirmPassword} />
         <div className="flex gap-5">

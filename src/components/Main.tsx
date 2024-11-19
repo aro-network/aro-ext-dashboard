@@ -31,7 +31,7 @@ function Header() {
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{levelName}</p>
       </div>
       <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-8 h-8 relative overflow-hidden gap-2.5 p-2 rounded-3xl bg-white/10">
-        <Avatar name={user?.email} className="" size={24} variant="beam" />
+        <Avatar name={user?.email} className="" size={24} variant="marble" />
       </div>
     </div>
   );

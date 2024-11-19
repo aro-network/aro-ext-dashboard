@@ -21,7 +21,7 @@ export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [referalCode, setReferalCode] = useState(sq.get("referral"));
+  const [referalCode, setReferalCode] = useState(sq.get("referral") || "");
   const [showToVerify, setShowToVerify] = useState(false);
   const [checkedTermPrivacy, setCheckedTermPrivacy] = useToggle(false);
   const [checkedReceiveEmail, setCheckedReceiveEmail] = useToggle(false);
@@ -97,7 +97,7 @@ export default function Page() {
           <InputEmail setEmail={setEmail} />
           <InputPassword setPassword={setPassword} />
           <InputPassword label="Confirm Password" setPassword={setConfirmPassword} />
-          <InputReferralCode setReferalCode={setReferalCode} />
+          <InputReferralCode value={referalCode} setReferalCode={setReferalCode} />
           <Checkbox classNames={{ label: "text-xs", icon: "w-[9px] h-[10px]" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
             I agree to the EnReach.AI{" "}
             <MLink className="text-xs" href="/terms">
