@@ -12,7 +12,7 @@ interface AuthContextProps {
   setUser: (u?: Opt<LoginResult>) => void;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
-  queryUserInfo?: UseQueryResult<User, Error>
+  queryUserInfo?: UseQueryResult<User, Error>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -94,6 +94,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
   const queryUserInfo = useQuery({
     queryKey: ["QueryUserInfo", user?.token],
+    refetchOnWindowFocus: 'always',
+    refetchOnMount: 'always',
     enabled: Boolean(user?.token),
     queryFn: async () => {
       backendApi.setAuth(user?.token);

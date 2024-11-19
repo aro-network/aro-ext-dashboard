@@ -85,6 +85,11 @@ export interface Point {
    * 总得分
    */
   total: number;
+  today: number;
+
+  network: number;
+  other: number;
+  referral: number;
   [property: string]: any;
 }
 

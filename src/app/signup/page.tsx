@@ -10,17 +10,18 @@ import { SingUpResult } from "@/types/user";
 import { Checkbox } from "@nextui-org/react";
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, MouseEvent, useRef, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { useCounter, useInterval, useToggle } from "react-use";
 import { toast } from "sonner";
 
 export default function Page() {
+  const sq = useSearchParams();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [referalCode, setReferalCode] = useState("");
+  const [referalCode, setReferalCode] = useState(sq.get("referral"));
   const [showToVerify, setShowToVerify] = useState(false);
   const [checkedTermPrivacy, setCheckedTermPrivacy] = useToggle(false);
   const [checkedReceiveEmail, setCheckedReceiveEmail] = useToggle(false);

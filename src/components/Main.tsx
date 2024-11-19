@@ -9,24 +9,29 @@ import MyNodes from "./my-nodes";
 import MyProfile from "./my-profile";
 import MyReferral from "./my-referral";
 import MyRewards from "./my-rewards";
+import { useAuthContext } from "@/app/context/AuthContext";
+import { levels } from "./level";
 
 function Header() {
+  const ac = useAuthContext();
+  const user = ac.queryUserInfo?.data;
+  const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
   return (
     <div className="flex justify-between items-center flex-grow-0 flex-shrink-0 h-16 overflow-hidden px-4 border border-black gap-4">
       <img className="" src="/logo.svg" alt="Logo" />
       <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[127px] h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] ml-auto bg-l2">
         <img src="/berry.png" className="flex-grow-0 flex-shrink-0 w-6 h-6 object-cover" alt="Berry" />
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left">
-          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">128 </span>
+          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{user?.point.total || 0} </span>
           <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white/50">BERRIES</span>
         </p>
       </div>
       <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[127px] h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] bg-l2">
         <div className="flex-grow-0 flex-shrink-0 w-6 h-6 opacity-50 rounded-[1000px] border-2 border-white border-dashed" />
-        <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">Berry Baby</p>
+        <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{levelName}</p>
       </div>
       <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-8 h-8 relative overflow-hidden gap-2.5 p-2 rounded-3xl bg-white/10">
-        <Avatar name="Eericxu" className="" size={24} variant="beam" />
+        <Avatar name={user?.email} className="" size={24} variant="beam" />
       </div>
     </div>
   );

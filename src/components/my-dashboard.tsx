@@ -173,7 +173,7 @@ export default function MyDashboard() {
             <Booster boost={queryUserInfo?.data?.stat.extraBoost || 0} />
           </div>
           <div className="flex items-center gap-[10%]">
-            <DupleInfo tit={`${queryUserInfo?.data?.point.currentPoint || 0}`} sub="Today" />
+            <DupleInfo tit={`${queryUserInfo?.data?.point.today || 0}`} sub="Today" />
             <div className="bg-white opacity-30 w-[1px] h-6" />
             <DupleInfo tit={`${queryUserInfo?.data?.point.total || 0}`} sub="Season 1" subTip="Season 1" />
           </div>

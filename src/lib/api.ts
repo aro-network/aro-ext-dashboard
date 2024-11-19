@@ -58,7 +58,7 @@ const backendApi = {
     return response.data.data;
   },
   userInfo: async () => {
-    const response = await Api.get<RES<User>>("/user/info");
+    const response = await Api.get<RES<User>>("/user/profile");
     return response.data.data;
   },
   sendResetPassword: async (email: string) => {

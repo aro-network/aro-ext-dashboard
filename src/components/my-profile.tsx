@@ -1,20 +1,22 @@
+import { useAuthContext } from "@/app/context/AuthContext";
+import backendApi, { BASE_API } from "@/lib/api";
 import { SVGS } from "@/svg";
 import { cn, Progress } from "@nextui-org/react";
+import { telegramAuth } from "@use-telegram-auth/hook";
+import axios from "axios";
 import Avatar from "boring-avatars";
-import { useMemo, useState } from "react";
+import _ from "lodash";
+import { useMemo } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
 import { FaDiscord, FaXTwitter } from "react-icons/fa6";
 import { FiLock, FiLogOut } from "react-icons/fi";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
+import { useToggle } from "react-use";
 import { Btn, IconBtn } from "./btns";
 import { TitCard } from "./cards";
+import { ConfirmDialog } from "./dialogimpls";
 import { levels } from "./level";
 import { Booster, DupleInfo } from "./my-dashboard";
-import { useAuthContext } from "@/app/context/AuthContext";
-import { useToggle } from "react-use";
-import { ConfirmDialog } from "./dialogimpls";
-import backendApi, { BASE_API } from "@/lib/api";
-import _ from "lodash";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
   const ac = useAuthContext();
@@ -26,7 +28,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
       case "telegram":
         return social?.tg && social?.tg.id ? [`@${social.tg.id}`, true] : [`Connect My Telegram Account`, false];
       case "discord":
-        return social?.discord && social?.discord.name ? [`@${social.discord.name}`, true] : [`Connect My Discord Account`, false];
+        return social?.discord && social?.discord.username ? [`@${social.discord.username}`, true] : [`Connect My Discord Account`, false];
     }
   }, [social, type]);
   const Micon = type == "x" ? FaXTwitter : type == "telegram" ? FaTelegramPlane : FaDiscord;
@@ -39,8 +41,9 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
         url = `https://x.com/i/oauth2/authorize?response_type=code&client_id=b1JXclh6WXJoZnFfZjVoSVluZ0c6MTpjaQ&redirect_uri=${redirectUrl}&scope=users.read%20tweet.read&code_challenge=challenge&code_challenge_method=plain&state=${token}`;
         break;
       case "telegram":
-        url = `https://oauth.telegram.org/auth?bot_id=547043436&origin=https%3A%2F%2Fcore.telegram.org&embed=1&request_access=write&return_to=${redirectUrl}&state=${token}`;
-        break;
+        const result = await telegramAuth("7324509153", { windowFeatures: { popup: true } });
+        await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
+        return;
       case "discord":
         url = `https://discord.com/oauth2/authorize?client_id=1303958338488238090&response_type=code&redirect_uri=${redirectUrl}&scope=identify+email&state=${token}`;
         break;
@@ -69,6 +72,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
 export default function MyProfile() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
+  const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
   const [showConfirmLogout, toggleShowConfirmLogout] = useToggle(false);
   return (
     <div className="grid xl:grid-cols-2 gap-4">
@@ -79,7 +83,7 @@ export default function MyProfile() {
           </div>
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
-              <span className="text-2xl font-medium">{levels.find((_l, i) => user?.stat.level === i)?.name || "Berry Body"} </span>
+              <span className="text-2xl font-medium">{levelName} </span>
               <Booster boost={user?.stat.extraBoost || 0} />
             </div>
             <DupleInfo tit={user?.stat.exp} sub="EXP" />

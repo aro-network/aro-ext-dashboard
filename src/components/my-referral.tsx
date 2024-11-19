@@ -6,16 +6,21 @@ import { FaLink, FaXTwitter } from "react-icons/fa6";
 import { DupleInfo } from "./my-dashboard";
 import { IoIosCheckmarkCircle, IoIosMore } from "react-icons/io";
 import { HelpTip } from "./tips";
+import { useAuthContext } from "@/app/context/AuthContext";
+import { useCopy } from "@/hooks/useCopy";
 
 export default function MyReferral() {
+  const ac = useAuthContext();
+  const user = ac.queryUserInfo?.data;
+  const copy = useCopy();
   return (
     <div className="grid xl:grid-cols-3 gap-4">
       <IconCard icon={IoTerminal} iconSize={20}>
         <div className="flex flex-col gap-8">
           <div className="text-xl">My Referral Code</div>
           <div className="flex items-center gap-4">
-            <div className="uppercase text-4xl leading-8 font-bold font-HelveticaNeue">A5RD3P</div>
-            <IconBtn tip="Copy Referral Link">
+            <div className="uppercase text-4xl leading-8 font-bold font-HelveticaNeue">{user?.inviteCode}</div>
+            <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
             <IconBtn tip="Follow X">
