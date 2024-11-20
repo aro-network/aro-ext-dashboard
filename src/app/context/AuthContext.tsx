@@ -73,9 +73,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           })
           .then((response: any) => {
             if (!response || response.status !== "success") {
-              injectedEnReachAI.request({ name: "setAccessToken", body: user.token });
+              logout();
             }
-          });
+          })
+          .catch(console.error);
       }, 1000);
     }
     return () => clearInterval(e);
@@ -91,8 +92,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error(err);
     }
   };
-  backendApi.setAuth(user?.token)
-  const queryUserInfo = useSWR(["QueryUserInfo",user?.token], () => backendApi.userInfo())
+  backendApi.setAuth(user?.token);
+  const queryUserInfo = useSWR(["QueryUserInfo", user?.token], () => backendApi.userInfo());
   return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser, queryUserInfo }}>{children}</AuthContext.Provider>;
 };
 
