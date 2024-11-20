@@ -1,7 +1,19 @@
 import { cn, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow } from "@nextui-org/react";
 import { ReactNode } from "react";
 
-export function STable({ head, data }: { head: ReactNode[]; data: ReactNode[][] }) {
+export function STable({
+  head,
+  data,
+  empty,
+  loadingContent,
+  isLoading,
+}: {
+  head: ReactNode[];
+  data: ReactNode[][];
+  empty?: ReactNode;
+  loadingContent?: ReactNode;
+  isLoading?: boolean;
+}) {
   return (
     <Table removeWrapper className={cn("overflow-auto pb-3")}>
       <TableHeader className="p-0">
@@ -11,7 +23,7 @@ export function STable({ head, data }: { head: ReactNode[]; data: ReactNode[][] 
           </TableColumn>
         ))}
       </TableHeader>
-      <TableBody>
+      <TableBody emptyContent={empty} loadingContent={loadingContent} isLoading={isLoading}>
         {data.map((item, ri) => (
           <>
             <TableRow className="opacity-0 h-5 p-0" key={`space_${ri}`}>
@@ -23,7 +35,10 @@ export function STable({ head, data }: { head: ReactNode[]; data: ReactNode[][] 
             </TableRow>
             <TableRow className="mt-5" key={ri}>
               {item.map((cell, ci) => (
-                <TableCell className={cn("bg-white/10 h-[50px] whitespace-nowrap text-xs text-white/80", { "rounded-l-lg": ci == 0, "rounded-r-lg": ci == item.length - 1 })} key={ci}>
+                <TableCell
+                  className={cn("bg-white/10 h-[50px] whitespace-nowrap text-xs text-white/80", { "rounded-l-lg": ci == 0, "rounded-r-lg": ci == item.length - 1 })}
+                  key={ci}
+                >
                   {cell}
                 </TableCell>
               ))}

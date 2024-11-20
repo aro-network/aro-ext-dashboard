@@ -9,7 +9,7 @@ export function HelpTip({ content, children }: { content: ReactNode; children?: 
       showArrow={false}
       content={content}
       color="default"
-      className=" min-h-9 min-w-[4.5rem]"
+      className=" min-h-9 min-w-[4.5rem] max-w-[12.5rem]"
       classNames={{ content: "bg-[#40414F] border border-solid border-[rgba(255,255,255,0.1)] min-h-9 min-w-[4.5rem] text-xs" }}
     >
       {children ? (

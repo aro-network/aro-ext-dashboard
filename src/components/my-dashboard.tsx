@@ -7,13 +7,14 @@ import { BgCard, IconCard, TitCard } from "./cards";
 
 import { useCopy } from "@/hooks/useCopy";
 import EChartsReact from "echarts-for-react";
-import { useMeasure } from "react-use";
+import { useDebounce, useMeasure } from "react-use";
 import { HelpTip } from "./tips";
 import { IconBtn, TransBtn } from "./btns";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import backendApi from "@/lib/api";
 import { fmtDate } from "@/lib/utils";
+import _ from "lodash";
 
 export function DupleInfo({
   tit,
@@ -61,10 +62,12 @@ export function TrendingChart({ className }: { className?: string }) {
     queryFn: () => backendApi.trendingRewards(),
   });
   const [ref, { width }] = useMeasure<HTMLDivElement>();
+
   const chartOpt = useMemo(() => {
     const datas = trendingRewards || [];
-    const xData = datas.map((item) => fmtDate(item.date, "MMMD"));
-    const yData = datas.map((item) => (rewardType === "Total Rewards" ? item.totalPoint : rewardType === "Network Rewards" ? item.networkPoint : item.referralPoint));
+    const xData = datas.map((item) => fmtDate(item.date * 1000, "MMMD"));
+    const yData = datas.map((item) => _.toNumber(rewardType === "Total Rewards" ? item.totalPoint : rewardType === "Network Rewards" ? item.networkPoint : item.referralPoint));
+    console.info("width:", width);
     return {
       animation: true,
       animationDuration: 200,
@@ -79,8 +82,9 @@ export function TrendingChart({ className }: { className?: string }) {
       dataZoom: [
         {
           type: "inside",
-          start: 0,
-          end: Math.round(width / 48),
+          // start: 0,
+          startValue: 0,
+          endValue: Math.floor(width / 48),
           zoomOnMouseWheel: false,
           moveOnMouseWheel: true,
         },
@@ -91,11 +95,13 @@ export function TrendingChart({ className }: { className?: string }) {
       xAxis: {
         type: "category",
         data: xData,
+        axisLabel: { fontSize: 10, color: "rgba(255,255,255,0.5)" },
       },
       yAxis: {
         type: "value",
         boundaryGap: [0, "10%"],
         // max: (value: number) => value * 1.2,
+        axisLabel: { color: "rgba(255,255,255,0.5)" },
         splitLine: { lineStyle: { type: "dashed", color: "#fff", opacity: 0.05 } },
       },
       series: [
@@ -109,6 +115,7 @@ export function TrendingChart({ className }: { className?: string }) {
           label: {
             show: true,
             position: "top",
+            color: "rgba(255,255,255,0.5)",
           },
           barWidth: 10,
           barMinWidth: 10,
@@ -176,7 +183,7 @@ export default function MyDashboard() {
           <div className="flex items-center gap-[10%]">
             <DupleInfo tit={`${user?.point.today || 0}`} sub="Today" />
             <div className="bg-white opacity-30 w-[1px] h-6" />
-            <DupleInfo tit={`${user?.point.total || 0}`} sub="Season 1" subTip="Season 1" />
+            <DupleInfo tit={`${user?.point.total || 0}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
           </div>
         </div>
       </IconCard>
@@ -207,7 +214,7 @@ export default function MyDashboard() {
                   <IoIosMore /> Pending
                 </>
               }
-              subTip="...Pending"
+              subTip="The referee needs to achieve more than 72h uptime to make your referral qualified."
             />
           </div>
         </div>
@@ -233,7 +240,7 @@ export default function MyDashboard() {
               }
             />
             <div className="bg-white opacity-30 w-[1px] h-6" />
-            <DupleInfo tit={`${user?.node.offline || 0}`} sub="Offline" subTip="Offline" />
+            <DupleInfo tit={`${user?.node.offline || 0}`} sub="Offline" />
           </div>
         </div>
       </IconCard>

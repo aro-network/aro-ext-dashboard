@@ -61,7 +61,7 @@ export default function MyReferral() {
                   <IoIosMore /> Pending
                 </>
               }
-              subTip="...Pending"
+              subTip="The referee needs to achieve more than 72h uptime to make your referral qualified."
             />
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function MyReferral() {
       <IconCard icon={SVGS.SvgRewards} iconSize={20}>
         <div className="flex flex-col gap-8">
           <div className="text-xl flex items-center gap-2">
-            Referral Bonus <HelpTip content="Referral Bonus" />
+            Referral Bonus <HelpTip content="Referral Bonus include an one-time bonus for a qualified referral, and a permanent percentage share of your referees’ Network Bonus." />
           </div>
           <div className="flex items-center gap-[10%]">
             <DupleInfo tit={referredPoint} sub="BERRY" />

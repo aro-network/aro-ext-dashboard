@@ -68,16 +68,16 @@ function Menus({ tab }: { tab?: string }) {
   const mtab = menus.find((item) => strToSearchParams(item.name) === tab)?.name || menus[0].name;
   const r = useRouter();
   return (
-    <div className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[4.5rem] lg:w-60 p-3 transition-width">
+    <div className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[60px] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
       {menus.map((m) => {
         const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
         const selected = m.name === mtab;
         return (
           <div
             key={m.name}
-            className={cn("flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-md cursor-pointer select-none", {
+            className={cn("flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-2xl cursor-pointer select-none", {
               "bg-primary text-white": selected,
-              "text-white/50": !selected,
+              "text-white/50 hover:bg-default": !selected,
             })}
             onClick={() => r.push(`?tab=${strToSearchParams(m.name)}`)}
           >
@@ -103,7 +103,7 @@ const Main = () => {
       <Header />
       <div className="flex-1 flex">
         <Menus tab={tab as any} />
-        <div className="flex-1 p-6 flex flex-col w-0 gap-4">
+        <div className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
           <h2 className="text-[2rem] font-medium">{menu.name == "Overview" ? "Dashboard" : menu.name}</h2>
           <Content />
         </div>

@@ -9,11 +9,12 @@ import { FiEdit } from "react-icons/fi";
 
 import { flag } from "country-emoji";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
-import { cn } from "@nextui-org/react";
+import { cn, Skeleton } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import backendApi from "@/lib/api";
 import { fmtDuration } from "@/lib/utils";
 import _ from "lodash";
+import { RiRefreshLine } from "react-icons/ri";
 function NodeName({ name }: { name: string }) {
   return (
     <div className="flex gap-[10px] items-center">
@@ -42,7 +43,7 @@ function Status({ isConnected }: { isConnected?: boolean }) {
   );
 }
 export default function MyNodes() {
-  const { data } = useQuery({
+  const { data, isFetching, refetch, isLoading } = useQuery({
     queryKey: ["NodeList"],
     queryFn: () => backendApi.nodeList(),
   });
@@ -72,25 +73,38 @@ export default function MyNodes() {
       className="w-full"
       right={
         <div className="flex gap-5 items-center">
-          <IconBtn tip="Reset Password">
-            <MdLockReset />
+          <IconBtn
+            tip="Refresh Data"
+            onClick={() => {
+              if (!isFetching) refetch();
+            }}
+          >
+            <RiRefreshLine className={cn({ "animate-spin": isFetching })} />
           </IconBtn>
           <AddNodeDialog />
         </div>
       }
     >
       <STable
+        isLoading={isLoading}
+        loadingContent={
+          <div className="flex flex-col gap-4 w-full">
+            <Skeleton className="rounded-lg h-[50px] bg-white" />
+            <Skeleton className="rounded-lg h-[50px] bg-white" />
+          </div>
+        }
+        empty="Empty!"
         head={[
           "Node Name",
           "Node Type",
           "IP",
           "Status",
           <div className="flex items-center gap-2" key={"uptime"}>
-            Uptime <HelpTip content="UpTime" />
+            Uptime <HelpTip content="Uptime tells users how long a node has been available." />
           </div>,
           "Network Quality",
           <div className="flex items-center gap-2" key={"today"}>
-            Today’s BERRY Rewards <HelpTip content="Today’s BERRY Rewards" />
+            Today’s BERRY Rewards <HelpTip content="Today’s Network Rewards in BEERY amount." />
           </div>,
           "S1 Total BERRY",
         ]}

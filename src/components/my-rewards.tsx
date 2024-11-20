@@ -90,7 +90,7 @@ export default function MyRewards() {
             <span>BERRY</span>
             <Booster boost={user?.stat.extraBoost || 0} />
           </div>
-          <DupleInfo tit={user?.point.total || 0} sub="Total Rewards" subTip="Total Rewards" titClassName="text-[2rem]" subClassName="text-lg" />
+          <DupleInfo tit={user?.point.total || 0} sub="Total Rewards" subTip="Total Network Rewards for this season in BERRY amount." titClassName="text-[2rem]" subClassName="text-lg" />
           <div className="flex items-center gap-4 justify-between">
             <DupleInfo tit={user?.point.network || 0} sub="Network Rewards" />
             <div className="w-[1px] bg-white/30 h-6" />
