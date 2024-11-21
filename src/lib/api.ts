@@ -101,6 +101,12 @@ const backendApi = {
     }>("https://api.bigdatacloud.net/data/client-ip");
     return ip.data;
   },
+
+  updateNodeName: async (nodeId: string, name: string) => {
+    // /api/node/rename/{clientId}/{name}
+    await Api.post<RES<undefined>>(`/node/rename/${nodeId}/${encodeURIComponent(name)}`);
+    return true;
+  },
 };
 
 export default backendApi;

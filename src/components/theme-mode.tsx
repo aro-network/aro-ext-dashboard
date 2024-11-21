@@ -12,19 +12,19 @@ export type ThemeType = "light" | "dark";
 export type ThemeModeType = ThemeType | "system";
 
 const getThemeState = () => {
-  let themeMode: ThemeModeType = "light";
-  let theme: ThemeType = "light";
+  let themeMode: ThemeModeType = "dark";
+  let theme: ThemeType = "dark";
   if (typeof window === "undefined") {
     return { themeMode, theme };
   }
-  if (localStorage.theme === "dark" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+  if (localStorage.theme === "light" || (!("theme" in localStorage) && window.matchMedia("(prefers-color-scheme: light)").matches)) {
+    // document.documentElement.classList.remove("dark");
+    themeMode = "light";
+    theme = "light";
+  } else {
     document.documentElement.classList.add("dark");
     themeMode = "dark";
     theme = "dark";
-  } else {
-    document.documentElement.classList.remove("dark");
-    themeMode = "light";
-    theme = "light";
   }
   if (!("theme" in localStorage)) themeMode = "system";
   return { themeMode, theme };

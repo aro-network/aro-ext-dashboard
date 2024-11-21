@@ -18,6 +18,7 @@ function NodeName({ name }: { name: string }) {
   return (
     <div className="flex gap-[10px] items-center">
       {name}
+      
       <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer">
         <FiEdit />
       </div>
