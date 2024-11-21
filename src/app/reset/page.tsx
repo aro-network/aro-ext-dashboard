@@ -3,14 +3,14 @@
 import { Btn } from "@/components/btns";
 import { InputEmail, InputPassword, InputVerifyCode } from "@/components/inputs";
 import backendApi from "@/lib/api";
+import { handlerError, sleep } from "@/lib/utils";
+import { validateConfirmPassword, validateEmail, validatePassword, validateVerifyCode } from "@/lib/validates";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { useCounter, useInterval } from "react-use";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext";
-import { handlerError, sleep } from "@/lib/utils";
-import { useCounter, useInterval } from "react-use";
-import { validateConfirmPassword } from "@/lib/validates";
 
 export default function Page() {
   const sp = useSearchParams();
@@ -49,10 +49,16 @@ export default function Page() {
     mutationFn: async () => {
       if (!email) throw new Error("Please enter email");
       await backendApi.sendResetPassword(email);
-      actionSendCount.reset(60)
+      actionSendCount.reset(60);
     },
   });
 
+  const disableReset =
+    isPending ||
+    validateVerifyCode(verifyCode) !== true ||
+    validateEmail(email) !== true ||
+    validatePassword(password) !== true ||
+    validateConfirmPassword(confirmPassword, password) !== true;
   return (
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
@@ -66,7 +72,7 @@ export default function Page() {
             {isIdleSend ? "Send" : sendCount > 0 ? `Resend(${sendCount}s)` : "Resend"}
           </Btn>
         </div>
-        <Btn type="submit" isLoading={isPending}>
+        <Btn type="submit" isDisabled={disableReset} isLoading={isPending}>
           Reset Password
         </Btn>
       </form>
