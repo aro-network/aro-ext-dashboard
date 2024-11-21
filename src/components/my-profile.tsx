@@ -77,6 +77,7 @@ export default function MyProfile() {
   const exp = user?.stat.exp || 0;
   const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
   const [showConfirmLogout, toggleShowConfirmLogout] = useToggle(false);
+  const [showConfirmReset, toggleShowConfirmReset] = useToggle(false);
   const processValue = useMemo(() => {
     const cLevel = levels.find((l) => l.exp >= exp);
     if (!cLevel) return 100;
@@ -124,9 +125,9 @@ export default function MyProfile() {
       </TitCard>
       <TitCard tit="My Profile">
         <div className="flex items-center gap-4">
-          <MAvatar name={user?.email} size={60} showFirst/>
+          <MAvatar name={user?.email} size={60} showFirst />
           <span className="text-xl font-medium">{user?.email || ""}</span>
-          <IconBtn tip="Reset Password" className="ml-auto" onClick={() => r.push(`/reset?email=${user?.email}`)}>
+          <IconBtn tip="Reset Password" className="ml-auto" onClick={() => toggleShowConfirmReset()}>
             <FiLock />
           </IconBtn>
           <IconBtn tip="Log Out" onClick={() => toggleShowConfirmLogout()}>
@@ -138,6 +139,13 @@ export default function MyProfile() {
             isOpen={showConfirmLogout}
             onCancel={toggleShowConfirmLogout}
             onConfirm={ac.logout}
+          />
+          <ConfirmDialog
+            tit="Reset Password"
+            msg="Are you sure you want to reset your password? You will leave current page and redirect to the Reset Password page."
+            isOpen={showConfirmReset}
+            onCancel={toggleShowConfirmReset}
+            onConfirm={() => r.push(`/reset?email=${user?.email}`)}
           />
         </div>
         <div className="flex flex-col gap-4">

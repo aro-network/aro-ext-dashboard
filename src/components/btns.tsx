@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export function Btn({ children, className, ...props }: ButtonProps) {
   return (
-    <Button color="primary" className={cn("h-[42px] hover:bg-default", className)} {...props}>
+    <Button color="primary" className={cn("h-[42px] hover:bg-default", props.color == "default" ? "hover:bg-l1" : "", className)} {...props}>
       {children}
     </Button>
   );
@@ -26,4 +26,3 @@ export function IconBtn({ children, className, tip, ...props }: ButtonProps & { 
     </HelpTip>
   );
 }
-

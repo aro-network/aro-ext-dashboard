@@ -7,7 +7,7 @@ import VerificationInput from "react-verification-input";
 const inputClassNames: SlotsToClasses<InputSlots> = {
   inputWrapper: "h-[42px] rounded-lg bg-l1 border-none backdrop-blur-lg shadow-1 text-xs",
   label: "text-xs",
-  input: "text-xs text-white",
+  input: "text-xs !text-white",
 };
 
 export function InputPassword({
