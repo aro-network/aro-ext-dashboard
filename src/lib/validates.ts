@@ -7,9 +7,9 @@ export function validateEmail(email?: string) {
 
 export function validatePassword(password?: string) {
   if (!password) return null;
-  const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/;
   if (re.test(password)) return true;
-  return "Please enter a vaild password (@$!%*?&,number,a-z,A-Z,>=8) !";
+  return "Please enter a vaild password (number,a-z,A-Z,>=8)!";
 }
 
 export function validateConfirmPassword(confirmPassword?: string, password?: string) {
