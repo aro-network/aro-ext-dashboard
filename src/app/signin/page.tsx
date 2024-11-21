@@ -12,7 +12,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useToggle } from "react-use";
 import { toast } from "sonner";
 import { AuthContext } from "../context/AuthContext";
-import { validateReferralCode } from "@/lib/validates";
+import { validateEmail, validatePassword, validateReferralCode } from "@/lib/validates";
 import { MLink } from "@/components/links";
 
 export default function Page() {
@@ -40,6 +40,7 @@ export default function Page() {
     onError: (err) => toast.error(`${err.error} : ${err.error_description}`),
     onSuccess: handleGoogle,
   });
+
   const { mutate: handleSubmit, isPending: isPendingSignIn } = useMutation({
     onError: handlerError,
     mutationFn: async (e: FormEvent) => {
@@ -55,27 +56,27 @@ export default function Page() {
       setUser(res);
     },
   });
-
+  const disableSignIn = isPendingSignIn || validateEmail(email) !== true || validatePassword(password) !== true;
   return (
     <div className="mx-auto px-5 min-h-full flex flex-col gap-4 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
         <InputEmail setEmail={setEmail} />
         <InputPassword setPassword={setPassword} />
-        <Btn type="submit" isLoading={isPendingSignIn}>
+        <Btn type="submit" isDisabled={disableSignIn} isLoading={isPendingSignIn}>
           Sign In
         </Btn>
-        <Btn type="button" onClick={() => loginGoogle()}>
+        <Btn color="default" type="button" onClick={() => loginGoogle()}>
           <FcGoogle /> Sign in with Google
         </Btn>
       </form>
       <div className="mb-auto flex items-center w-full text-xs text-white/60">
         Don’t have an account?
         <MLink href="/signup" className="ml-2 text-xs">
-          Sign up
+          Sign Up
         </MLink>
-        <MLink href="/reset" className="ml-auto text-xs">
-          Forget password?
+        <MLink href={`/reset?email=${email}`} className="ml-auto text-xs">
+          Forget Password?
         </MLink>
       </div>
 

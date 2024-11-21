@@ -50,11 +50,11 @@ const backendApi = {
   },
 
   resendRegisterVerifyCode: async (uid: string) => {
-    await Api.post<RES<undefined>>(`/verify/${uid}/resend`);
+    await Api.post<RES<undefined>>(`/user/verify/${uid}/resend`);
     return true;
   },
   verifyRegisterCode: async (uid: string, code: string) => {
-    const response = await Api.post<RES<undefined>>(`/verify/${uid}/${code}`);
+    const response = await Api.post<RES<undefined>>(`/user/verify/${uid}/${code}`);
     return response.data.data;
   },
   userInfo: async () => {
