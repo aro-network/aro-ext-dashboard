@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 import backendApi from "@/lib/api";
 import { fmtDate } from "@/lib/utils";
 import _ from "lodash";
+import { UseMeasureRef } from "react-use/lib/useMeasure";
 
 export function DupleInfo({
   tit,
@@ -53,6 +54,19 @@ export function Booster({ boost }: { boost: number }) {
   );
 }
 
+function useDebounceMeasureWidth<T extends Element>() {
+  const [dWidth, setWidth] = useState(0);
+  const [ref, { width }] = useMeasure<T>();
+  useDebounce(
+    () => {
+      setWidth(width);
+    },
+    300,
+    [width]
+  );
+  return useMemo(() => [ref, dWidth] as [UseMeasureRef<T>, number], [ref, dWidth]);
+}
+
 const options = ["Total Rewards", "Network Rewards", "Referral Bonus"] as const;
 type OptionType = (typeof options)[number];
 export function TrendingChart({ className }: { className?: string }) {
@@ -61,9 +75,9 @@ export function TrendingChart({ className }: { className?: string }) {
     queryKey: ["TrendingChart"],
     queryFn: () => backendApi.trendingRewards(),
   });
-  const [ref, { width }] = useMeasure<HTMLDivElement>();
-
+  const [ref, width] = useDebounceMeasureWidth<HTMLDivElement>();
   const chartOpt = useMemo(() => {
+    if (!width) return {};
     const datas = trendingRewards || [];
     const xData = datas.map((item) => fmtDate(item.date * 1000, "MMMD"));
     const yData = datas.map((item) => _.toNumber(rewardType === "Total Rewards" ? item.totalPoint : rewardType === "Network Rewards" ? item.networkPoint : item.referralPoint));
@@ -77,7 +91,7 @@ export function TrendingChart({ className }: { className?: string }) {
           type: "shadow",
         },
       },
-      grid: { left: 40, top: 30, bottom: 30, right: 20, show: false },
+      grid: { left: 40, top: 10, bottom: 30, right: 20, show: false },
       // toolbox: { show: false },
       dataZoom: [
         {
@@ -128,7 +142,7 @@ export function TrendingChart({ className }: { className?: string }) {
   return (
     <TitCard
       tit="Trending"
-      className={cn("col-span-1 lg:col-span-2", className)}
+      className={cn("col-span-1 lg:col-span-2 h-full", className)}
       right={
         <Select
           className="w-[10rem]"
@@ -158,8 +172,8 @@ export function TrendingChart({ className }: { className?: string }) {
         </Select>
       }
     >
-      <div className="w-full" ref={ref}>
-        <EChartsReact style={{ height: 200 }} className="w-full" option={chartOpt} />
+      <div className="w-full flex-1" ref={ref}>
+        <EChartsReact style={{ minHeight: 200, height: "100%" }} className="w-full" option={chartOpt} />
       </div>
     </TitCard>
   );
@@ -178,7 +192,7 @@ export default function MyDashboard() {
         <div className="flex flex-col gap-[45px] flex-1">
           <div className="flex justify-between items-center">
             <span>BERRY</span>
-            <Booster boost={user?.stat.extraBoost || 0} />
+            <Booster boost={user?.stat.extraBoost || 1} />
           </div>
           <div className="flex items-center gap-[10%]">
             <DupleInfo tit={`${user?.point.today || 0}`} sub="Today" />
@@ -219,6 +233,7 @@ export default function MyDashboard() {
           </div>
         </div>
       </IconCard>
+
       {/*  */}
       <IconCard icon={SVGS.SvgNodes}>
         <div className="flex flex-col flex-1">
@@ -244,8 +259,7 @@ export default function MyDashboard() {
           </div>
         </div>
       </IconCard>
-      <TrendingChart />
-      <BgCard className="justify-between px-5 py-7">
+      <BgCard className="justify-between px-5 py-7 xl:order-2">
         <div className="flex items-center justify-center mt-6">
           <div className="bg-white rounded-full flex justify-center items-center w-12 h-12 text-[30px] shadow-2">
             <SVGS.SvgExt className="" />
@@ -260,6 +274,7 @@ export default function MyDashboard() {
         </div>
         <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium">Download Chrome Extension</TransBtn>
       </BgCard>
+      <TrendingChart />
     </div>
   );
 }

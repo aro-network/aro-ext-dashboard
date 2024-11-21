@@ -1,19 +1,18 @@
-import { MdLockReset } from "react-icons/md";
+import { useMemo } from "react";
+import { FiEdit } from "react-icons/fi";
 import { IconBtn } from "./btns";
 import { TitCard } from "./cards";
 import { AddNodeDialog } from "./dialogimpls";
 import { STable } from "./tables";
 import { HelpTip } from "./tips";
-import { useMemo } from "react";
-import { FiEdit } from "react-icons/fi";
 
-import { flag } from "country-emoji";
-import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
-import { cn, Skeleton } from "@nextui-org/react";
-import { useQuery } from "@tanstack/react-query";
 import backendApi from "@/lib/api";
 import { fmtDuration } from "@/lib/utils";
+import { cn, Skeleton } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
+import { flag } from "country-emoji";
 import _ from "lodash";
+import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { RiRefreshLine } from "react-icons/ri";
 function NodeName({ name }: { name: string }) {
   return (
@@ -29,7 +28,7 @@ function NodeName({ name }: { name: string }) {
 function CountryIP({ ip, country }: { ip: string; country: string }) {
   return (
     <div className="flex gap-2 items-center">
-      <span className="text-base">{flag(country)}</span>
+      <span className="text-base">{flag(country == "TW" ? "CN" : country)}</span>
       <span>{ip}</span>
     </div>
   );
@@ -50,16 +49,14 @@ export default function MyNodes() {
   const datas = useMemo(() => {
     const nodes = data || [];
     return nodes.map((item) => [
-      [
-        <NodeName name={item.deviceId} key={"Namee"} />,
-        "Extension",
-        <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
-        <Status isConnected={item.isConnected} key={"status"} />,
-        fmtDuration(item.totalUptime, "DDDd Hh"),
-        "19%",
-        item.netQulity ? `${_.round(item.netQulity * 100, 1)}%` : "-",
-        item.totalPoints,
-      ],
+      <NodeName name={item.name || "Empty"} key={"Namee"} />,
+      "Extension",
+      <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
+      <Status isConnected={item.isConnected} key={"status"} />,
+      fmtDuration(_.toNumber(item.totalUptime) * 1000, "DD[d] H[h]"),
+      item.lastPoint ? `${_.round((item.lastPoint * 100) / 10, 1)}%` : "-",
+      item.todayPoints ? `${_.round(item.todayPoints * 100, 1)}%` : "-",
+      item.totalPoints,
     ]);
     // return [
     //   [<NodeName name="HHHH" />, "Extension", <CountryIP country="CN" ip="78.123.23.12" />, <Status isConnected />, "123d 3h", "19%", "1.2", "100.2"],

@@ -69,11 +69,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
         injectedEnReachAI
           .request({
-            name: "getUser",
+            name: "getStat",
           })
-          .then((response: any) => {
-            if (!response || response.status !== "success") {
+          .then((stat: { logined: boolean; userLogout: boolean }) => {
+            if (stat.userLogout) {
+              console.info("sync logout from ext");
               logout();
+            } else if (!stat.logined) {
+              console.info("sync login to ext");
+              getInjectEnReachAI()?.request({ name: "setAccessToken", body: user.token }).catch(console.error);
+            } else {
+              console.info("not need do something");
             }
           })
           .catch(console.error);

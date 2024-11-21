@@ -88,7 +88,7 @@ export default function MyRewards() {
         <div className="w-0 flex-1 flex flex-col gap-10">
           <div className="flex justify-between items-center w-full">
             <span>BERRY</span>
-            <Booster boost={user?.stat.extraBoost || 0} />
+            <Booster boost={user?.stat.extraBoost || 1} />
           </div>
           <DupleInfo tit={user?.point.total || 0} sub="Total Rewards" subTip="Total Network Rewards for this season in BERRY amount." titClassName="text-[2rem]" subClassName="text-lg" />
           <div className="flex items-center gap-4 justify-between">

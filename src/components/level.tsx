@@ -11,3 +11,14 @@ export const levels = [
   { icon: Level2, exp: 500, level: 2, name: "Sliver Berry", boost: "+ 100%", color: "#8A9CF1" },
   { icon: Level3, exp: 1000, level: 3, name: "Gold Berry", boost: "+ 200%", color: "#FFFBB4" },
 ];
+
+export function UserLevel() {
+  const item_gap_rate = 2;
+  const gapDeg = 360 / levels.length / (item_gap_rate + 1);
+  const itemDeg = gapDeg * item_gap_rate;
+
+  const startDeg = 0
+  return <svg viewBox="0 0 24 24" fill="none" strokeWidth={2} xmlns="http://www.w3.org/2000/svg">
+    { levels.map(l => <path d=""/>)}
+  </svg>;
+}

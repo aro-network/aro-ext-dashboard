@@ -4,6 +4,7 @@ import { useToggle } from "react-use";
 import { Btn } from "./btns";
 import { TitModal } from "./dialogs";
 import { ReactNode } from "react";
+import { EXT_ID } from "@/lib/env";
 
 export function AddNodeDialog() {
   const [isOpen, toggleOpen] = useToggle(false);
@@ -23,11 +24,9 @@ export function AddNodeDialog() {
               </span>
             </p>
           </div>
-          <div className="flex flex-col justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-5">
-            <div className="flex justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-2.5 px-[171px] py-[13px] rounded-xl bg-[#4281ff]">
-              <p className="flex-grow-0 flex-shrink-0 text-xs font-medium text-left text-white">Download</p>
-            </div>
-          </div>
+          <Btn className="w-full" onClick={() => window.open(`https://chromewebstore.google.com/detail/${EXT_ID}`, "_blank")}>
+            Download
+          </Btn>
         </div>
         <div className="flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
           <IoDesktopOutline className="text-[60px] text-white" />

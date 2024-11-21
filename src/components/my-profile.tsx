@@ -4,20 +4,20 @@ import { SVGS } from "@/svg";
 import { cn, Progress } from "@nextui-org/react";
 import { telegramAuth } from "@use-telegram-auth/hook";
 import axios from "axios";
-import Avatar from "boring-avatars";
 import _ from "lodash";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { FaTelegramPlane } from "react-icons/fa";
 import { FaDiscord, FaXTwitter } from "react-icons/fa6";
 import { FiLock, FiLogOut } from "react-icons/fi";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { useToggle } from "react-use";
+import { MAvatar } from "./avatar";
 import { Btn, IconBtn } from "./btns";
 import { TitCard } from "./cards";
 import { ConfirmDialog } from "./dialogimpls";
 import { levels } from "./level";
 import { Booster, DupleInfo } from "./my-dashboard";
-import { useRouter } from "next/navigation";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
   const ac = useAuthContext();
@@ -96,7 +96,7 @@ export default function MyProfile() {
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
               <span className="text-2xl font-medium">{levelName} </span>
-              <Booster boost={user?.stat.extraBoost || 0} />
+              <Booster boost={user?.stat.extraBoost || 1} />
             </div>
             <DupleInfo tit={user?.stat.exp} sub="EXP" />
           </div>
@@ -124,7 +124,7 @@ export default function MyProfile() {
       </TitCard>
       <TitCard tit="My Profile">
         <div className="flex items-center gap-4">
-          <Avatar name={user?.email} size={60} variant="marble" />
+          <MAvatar name={user?.email} size={60} showFirst/>
           <span className="text-xl font-medium">{user?.email || ""}</span>
           <IconBtn tip="Reset Password" className="ml-auto" onClick={() => r.push(`/reset?email=${user?.email}`)}>
             <FiLock />

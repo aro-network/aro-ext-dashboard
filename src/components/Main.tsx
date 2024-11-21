@@ -1,16 +1,16 @@
+import { useAuthContext } from "@/app/context/AuthContext";
 import { strToSearchParams } from "@/lib/utils";
 import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
-import Avatar from "boring-avatars";
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { SVGProps } from "react";
+import { MAvatar } from "./avatar";
+import { levels } from "./level";
 import MyDashboard from "./my-dashboard";
 import MyNodes from "./my-nodes";
 import MyProfile from "./my-profile";
 import MyReferral from "./my-referral";
 import MyRewards from "./my-rewards";
-import { useAuthContext } from "@/app/context/AuthContext";
-import { levels } from "./level";
 
 function Header() {
   const ac = useAuthContext();
@@ -31,7 +31,7 @@ function Header() {
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{levelName}</p>
       </div>
       <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-8 h-8 relative overflow-hidden gap-2.5 p-2 rounded-3xl bg-white/10">
-        <Avatar name={user?.email} className="" size={24} variant="marble" />
+        <MAvatar name={user?.email} size={24} />
       </div>
     </div>
   );
