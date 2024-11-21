@@ -10,7 +10,17 @@ const inputClassNames: SlotsToClasses<InputSlots> = {
   input: "text-xs text-white",
 };
 
-export function InputPassword({ setPassword, label, error }: { setPassword: (pass: string) => void; label?: string; error?: string }) {
+export function InputPassword({
+  setPassword,
+  label,
+  error,
+  validate = validatePassword,
+}: {
+  setPassword: (pass: string) => void;
+  label?: string;
+  error?: string;
+  validate?: (value: string) => string | true | null | undefined;
+}) {
   const [showPassword, toggleShowPassword] = useToggle(false);
   return (
     <Input
@@ -21,7 +31,7 @@ export function InputPassword({ setPassword, label, error }: { setPassword: (pas
       placeholder={label || "Password"}
       labelPlacement="inside"
       variant="bordered"
-      validate={validatePassword}
+      validate={validate}
       endContent={
         <button className="focus:outline-none h-full" type="button" onClick={() => toggleShowPassword()} aria-label="toggle password visibility">
           {showPassword ? <RiEyeLine className="text-xs text-default-400 pointer-events-none" /> : <RiEyeCloseLine className="text-xs text-default-400 pointer-events-none" />}
@@ -50,7 +60,7 @@ export function InputEmail({ setEmail, value }: { setEmail: (email: string) => v
   );
 }
 
-export function InputReferralCode({ setReferalCode, value }: { setReferalCode: (code: string) => void, value?: string }) {
+export function InputReferralCode({ setReferalCode, value }: { setReferalCode: (code: string) => void; value?: string }) {
   return (
     <Input
       value={value}

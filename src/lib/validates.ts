@@ -12,6 +12,11 @@ export function validatePassword(password?: string) {
   return "Please enter a vaild password (@$!%*?&,number,a-z,A-Z,>=8) !";
 }
 
+export function validateConfirmPassword(confirmPassword?: string, password?: string) {
+  if (confirmPassword === password) return true;
+  return "Not Matched";
+}
+
 export function validateReferralCode(code?: string) {
   if (!code) return null;
   if (code.length != 6) return "Please enter a vaild referral code !";

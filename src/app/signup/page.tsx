@@ -5,7 +5,7 @@ import { InputEmail, InputPassword, InputReferralCode, InputSplitCode } from "@/
 import { MLink } from "@/components/links";
 import backendApi from "@/lib/api";
 import { handlerError } from "@/lib/utils";
-import { validateVerifyCode } from "@/lib/validates";
+import { validateConfirmPassword, validateVerifyCode } from "@/lib/validates";
 import { SingUpResult } from "@/types/user";
 import { Checkbox } from "@nextui-org/react";
 import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
@@ -96,7 +96,7 @@ export default function Page() {
         <form onSubmit={handlerSubmit} className="flex flex-col gap-5 w-full mb-auto">
           <InputEmail setEmail={setEmail} />
           <InputPassword setPassword={setPassword} />
-          <InputPassword label="Confirm Password" setPassword={setConfirmPassword} />
+          <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
           <InputReferralCode value={referalCode} setReferalCode={setReferalCode} />
           <Checkbox classNames={{ label: "text-xs", icon: "w-[9px] h-[10px]" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
             I agree to the EnReach.AI{" "}

@@ -11,7 +11,7 @@ interface AuthContextProps {
   setUser: (u?: Opt<LoginResult>) => void;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
-  queryUserInfo?: SWRResponse<User>;
+  queryUserInfo?: SWRResponse<User|undefined>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -99,7 +99,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
   backendApi.setAuth(user?.token);
-  const queryUserInfo = useSWR(["QueryUserInfo", user?.token], () => backendApi.userInfo());
+  const queryUserInfo = useSWR(["QueryUserInfo", user?.token], () => (user?.token ? backendApi.userInfo() : undefined));
   return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser, queryUserInfo }}>{children}</AuthContext.Provider>;
 };
 
