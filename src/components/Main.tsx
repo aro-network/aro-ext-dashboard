@@ -16,21 +16,32 @@ function Header() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
+  const levelNum = user?.stat.level || 0;
+  const r = useRouter();
   return (
     <div className="flex justify-between items-center flex-grow-0 flex-shrink-0 h-16 overflow-hidden px-4 border border-black gap-4">
       <img className="" src="/logo.svg" alt="Logo" />
-      <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[127px] h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] ml-auto bg-l2">
+      <div
+        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] ml-auto bg-l2 cursor-pointer"
+        onClick={() => r.push("/?tab=my_rewards")}
+      >
         <img src="/berry.png" className="flex-grow-0 flex-shrink-0 w-6 h-6 object-cover" alt="Berry" />
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left">
           <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{user?.point.total || 0} </span>
-          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white/50">BERRIES</span>
+          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white/50">BERRY</span>
         </p>
       </div>
-      <div className="flex justify-start items-center flex-grow-0 flex-shrink-0 w-[127px] h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] bg-l2">
-        <div className="flex-grow-0 flex-shrink-0 w-6 h-6 opacity-50 rounded-[1000px] border-2 border-white border-dashed" />
+      <div
+        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] bg-l2 cursor-pointer"
+        onClick={() => r.push("/?tab=my_profile")}
+      >
+        <div className="flex-grow-0 flex-shrink-0 w-6 h-6 rounded-[1000px] border-2 border-white/50 text-white border-dashed flex justify-center items-center font-medium text-sm">{levelNum}</div>
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{levelName}</p>
       </div>
-      <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-8 h-8 relative overflow-hidden gap-2.5 p-2 rounded-3xl bg-white/10">
+      <div
+        className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-8 h-8 relative overflow-hidden gap-2.5 p-2 rounded-3xl bg-white/10 cursor-pointer"
+        onClick={() => r.push("/?tab=my_profile")}
+      >
         <MAvatar name={user?.email} size={24} />
       </div>
     </div>

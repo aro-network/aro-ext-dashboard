@@ -47,7 +47,7 @@ export function ConfirmDialog(p: { onCancel?: () => void; onConfirm?: () => void
   return (
     <TitModal isOpen={p.isOpen} tit={p.tit} onClose={p.onCancel}>
       <div className="flex flex-col gap-6 w-full">
-        <div className="text-center text-sm">{p.msg}</div>
+        <div className="text-center text-sm whitespace-pre-wrap">{p.msg}</div>
         <div className="grid grid-cols-2 gap-2.5">
           <Btn color="default" onClick={p.onConfirm}>
             Confirm

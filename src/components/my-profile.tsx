@@ -44,7 +44,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
       case "telegram":
         const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
         await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
-        ac.queryUserInfo?.mutate();
+        ac.queryUserInfo?.refetch();
         return;
       case "discord":
         url = `https://discord.com/oauth2/authorize?client_id=1303958338488238090&response_type=code&redirect_uri=${redirectUrl}&scope=identify+email&state=${token}`;
@@ -97,16 +97,16 @@ export default function MyProfile() {
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
               <span className="text-2xl font-medium">{levelName} </span>
-              <Booster boost={user?.stat.extraBoost || 1} />
+              <Booster boost={user?.stat.extraBoost} />
             </div>
             <DupleInfo tit={user?.stat.exp} sub="EXP" />
           </div>
         </div>
         <p className="text-sm">
-          Earn <strong className="text-primary">EXP</strong> and <strong className="text-primary">Berry up</strong>!<br />
+          Earn <strong className="text-primary">EXP</strong> and <strong className="text-primary">Berry-up</strong>!<br />
           You account will level-up when you have earned certain EXP by finishing the required tasks.
           <br />
-          Higher level helps you gain “Berry” with extra % boost.
+          Higher level helps you gain “BERRY” with extra % boost.
         </p>
         <div className="flex justify-between items-start flex-nowrap relative">
           {levels.map((level, _li) => (
@@ -125,7 +125,7 @@ export default function MyProfile() {
       </TitCard>
       <TitCard tit="My Profile">
         <div className="flex items-center gap-4">
-          <MAvatar name={user?.email} size={60} showFirst />
+          <MAvatar name={user?.email} size={60} />
           <span className="text-xl font-medium">{user?.email || ""}</span>
           <IconBtn tip="Reset Password" className="ml-auto" onClick={() => toggleShowConfirmReset()}>
             <FiLock />
@@ -135,14 +135,26 @@ export default function MyProfile() {
           </IconBtn>
           <ConfirmDialog
             tit="Log Out"
-            msg="You are going to log out your account. Are you sure?"
+            msg={
+              <>
+                You are going to log out your account.
+                <br />
+                Are you sure?
+              </>
+            }
             isOpen={showConfirmLogout}
             onCancel={toggleShowConfirmLogout}
             onConfirm={ac.logout}
           />
           <ConfirmDialog
             tit="Reset Password"
-            msg="Are you sure you want to reset your password? You will leave current page and redirect to the Reset Password page."
+            msg={
+              <>
+                Are you sure you want to reset your password?
+                <br />
+                You will leave current page and redirect to the Reset Password page.
+              </>
+            }
             isOpen={showConfirmReset}
             onCancel={toggleShowConfirmReset}
             onConfirm={() => r.push(`/reset?email=${user?.email}`)}

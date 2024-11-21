@@ -43,12 +43,13 @@ export function DupleInfo({
   );
 }
 
-export function Booster({ boost }: { boost: number }) {
+export function Booster({ boost }: { boost?: number | string }) {
+  const fmtBoost = _.round(_.toNumber(boost || 1), 1);
   return (
     <div className="flex items-center gap-2 rounded-full px-3 py-[6px] bg-primary">
       <SVGS.SvgRocket className="text-xl" />
       <div className="text-xs font-medium">
-        {boost}x <span className="opacity-50">Boosting</span>
+        {fmtBoost}x <span className="opacity-50">Boosting</span>
       </div>
     </div>
   );
@@ -192,7 +193,7 @@ export default function MyDashboard() {
         <div className="flex flex-col gap-[45px] flex-1">
           <div className="flex justify-between items-center">
             <span>BERRY</span>
-            <Booster boost={user?.stat.extraBoost || 1} />
+            <Booster boost={user?.stat.extraBoost} />
           </div>
           <div className="flex items-center gap-[10%]">
             <DupleInfo tit={`${user?.point.today || 0}`} sub="Today" />
@@ -269,8 +270,8 @@ export default function MyDashboard() {
           </div>
         </div>
         <div className="flex flex-col justify-start items-center relative gap-1">
-          <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get 50 Berry</p>
-          <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">Initiate your first EnReach Node and win 50 Berry</p>
+          <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get 50 BERRY</p>
+          <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">Initiate your first EnReach Node and win 50 BERRY</p>
         </div>
         <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium">Download Chrome Extension</TransBtn>
       </BgCard>

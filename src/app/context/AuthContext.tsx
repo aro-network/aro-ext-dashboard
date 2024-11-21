@@ -2,16 +2,16 @@ import backendApi from "@/lib/api";
 import { getInjectEnReachAI } from "@/lib/broswer";
 import { Opt } from "@/lib/type";
 import { LoginResult, User } from "@/types/user";
+import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import useSWR, { SWRResponse } from "swr";
 
 interface AuthContextProps {
   user?: Opt<LoginResult>;
   setUser: (u?: Opt<LoginResult>) => void;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
-  queryUserInfo?: SWRResponse<User|undefined>;
+  queryUserInfo?: UseQueryResult<User | undefined>;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
@@ -75,6 +75,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             if (stat.userLogout) {
               console.info("sync logout from ext");
               logout();
+              getInjectEnReachAI()?.request({ name: "clearLogout" }).catch(console.error);
             } else if (!stat.logined) {
               console.info("sync login to ext");
               getInjectEnReachAI()?.request({ name: "setAccessToken", body: user.token }).catch(console.error);
@@ -99,7 +100,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
   backendApi.setAuth(user?.token);
-  const queryUserInfo = useSWR(["QueryUserInfo", user?.token], () => (user?.token ? backendApi.userInfo() : undefined));
+  const queryUserInfo = useQuery({
+    queryKey: ["QueryUserInfo", user?.token],
+    enabled: Boolean(user?.token),
+    queryFn: () => backendApi.userInfo(),
+  });
+  // const queryUserInfo = useSWR(["QueryUserInfo", user?.token, location.href], () => (user?.token ? backendApi.userInfo() : undefined));
   return <AuthContext.Provider value={{ user, login, logout, setUser: wrapSetUser, queryUserInfo }}>{children}</AuthContext.Provider>;
 };
 

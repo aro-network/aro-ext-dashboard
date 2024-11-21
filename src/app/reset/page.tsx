@@ -59,6 +59,7 @@ export default function Page() {
     validateEmail(email) !== true ||
     validatePassword(password) !== true ||
     validateConfirmPassword(confirmPassword, password) !== true;
+  const disableSend = isPendingSend || sendCount > 0 || validateEmail(email) !== true;
   return (
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
@@ -68,7 +69,7 @@ export default function Page() {
         <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
         <div className="flex gap-5">
           <InputVerifyCode setVerifyCode={setVerifyCode} />
-          <Btn type="button" isDisabled={sendCount > 0 || isPendingSend} isLoading={isPendingSend} onClick={onSend as any}>
+          <Btn type="button" isDisabled={disableSend} isLoading={isPendingSend} onClick={onSend as any}>
             {isIdleSend ? "Send" : sendCount > 0 ? `Resend(${sendCount}s)` : "Resend"}
           </Btn>
         </div>

@@ -88,9 +88,15 @@ export default function MyRewards() {
         <div className="w-0 flex-1 flex flex-col gap-10">
           <div className="flex justify-between items-center w-full">
             <span>BERRY</span>
-            <Booster boost={user?.stat.extraBoost || 1} />
+            <Booster boost={user?.stat.extraBoost} />
           </div>
-          <DupleInfo tit={user?.point.total || 0} sub="Total Rewards" subTip="Total Network Rewards for this season in BERRY amount." titClassName="text-[2rem]" subClassName="text-lg" />
+          <DupleInfo
+            tit={user?.point.total || 0}
+            sub="Total Rewards"
+            subTip="Total Network Rewards for this season in BERRY amount."
+            titClassName="text-[2rem]"
+            subClassName="text-lg"
+          />
           <div className="flex items-center gap-4 justify-between">
             <DupleInfo tit={user?.point.network || 0} sub="Network Rewards" />
             <div className="w-[1px] bg-white/30 h-6" />
@@ -122,8 +128,8 @@ export default function MyRewards() {
           />
           <TaskCard
             tit="Chrome Extension Node"
-            sub="Initiate your first EnReach Node and win 50 Berry"
-            reward="+50 Berry"
+            sub="Initiate your first EnReach Node and win 50 BERRY"
+            reward="+50 BERRY"
             complete={Boolean(user?.task.extension)}
             onClickCarry={() => window.open(`https://chromewebstore.google.com/detail/${"extid"}`, "_blank")}
           />
