@@ -97,6 +97,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       backendApi.setAuth();
     } catch (err) {
       console.error(err);
+      throw err;
     }
   };
   backendApi.setAuth(user?.token);
