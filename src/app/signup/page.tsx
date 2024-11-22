@@ -3,18 +3,16 @@
 import { Btn } from "@/components/btns";
 import { InputEmail, InputPassword, InputReferralCode, InputSplitCode } from "@/components/inputs";
 import { MLink } from "@/components/links";
+import { SignInWithGoogle } from "@/components/SignInWithGoogle";
 import backendApi from "@/lib/api";
 import { handlerError } from "@/lib/utils";
-import { validateConfirmPassword, validateEmail, validatePassword, validateVerifyCode } from "@/lib/validates";
+import { validateConfirmPassword, validateEmail, validatePassword, validateReferralCode, validateVerifyCode } from "@/lib/validates";
 import { SingUpResult } from "@/types/user";
 import { Checkbox } from "@nextui-org/react";
-import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, MouseEvent, useRef, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { useCounter, useInterval, useToggle } from "react-use";
-import { toast } from "sonner";
 
 export default function Page() {
   const sq = useSearchParams();
@@ -43,18 +41,6 @@ export default function Page() {
       setShowToVerify(true);
     },
   });
-  const { mutate: handleGoogle } = useMutation({
-    onError: handlerError,
-    mutationFn: async (token: TokenResponse) => {
-      await backendApi.registerByGoogleApi(token.access_token);
-      r.push("/signin");
-    },
-  });
-  const loginGoogle = useGoogleLogin({
-    flow: "implicit",
-    onError: (err) => toast.error(`${err.error} : ${err.error_description}`),
-    onSuccess: handleGoogle,
-  });
   const { mutate: handlerVerify, isPending: isPendingVerify } = useMutation({
     onError: handlerError,
     mutationFn: async () => {
@@ -79,10 +65,12 @@ export default function Page() {
     isPending ||
     !checkedTermPrivacy ||
     validateVerifyCode(verifyCode) !== true ||
+    validateReferralCode(referalCode) !== true ||
     validateEmail(email) !== true ||
     validatePassword(password) !== true ||
     validateConfirmPassword(confirmPassword, password) !== true;
-  const disableResendEmail = reSendSecends > 0 || isPendingResendVerify  
+  const disableResendEmail = reSendSecends > 0 || isPendingResendVerify;
+  const isDisabledGoogle = validateReferralCode(referalCode) !== true;
   return (
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
@@ -124,9 +112,7 @@ export default function Page() {
           <Btn type="submit" isDisabled={disableSignUp} isLoading={isPending}>
             Sign Up
           </Btn>
-          <Btn color="default" type="button" onClick={() => loginGoogle()}>
-            <FcGoogle /> Sign up with Google
-          </Btn>
+          <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode} isDisabled={isDisabledGoogle}/>
           <div className="text-center text-xs text-white/60">
             Already have an account?{" "}
             <MLink href="/signin" className="text-xs">
