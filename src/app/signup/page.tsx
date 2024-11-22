@@ -74,8 +74,15 @@ export default function Page() {
     },
   });
 
-  const disableVerifyEmail = isPendingVerify || validateVerifyCode(verifyCode) !== true
-  const disableSignUp = isPending || !checkedTermPrivacy ||validateEmail(email) !== true || validatePassword(password) !== true || validateConfirmPassword(confirmPassword, password) !== true;
+  const disableVerifyEmail = isPendingVerify || validateVerifyCode(verifyCode) !== true;
+  const disableSignUp =
+    isPending ||
+    !checkedTermPrivacy ||
+    validateVerifyCode(verifyCode) !== true ||
+    validateEmail(email) !== true ||
+    validatePassword(password) !== true ||
+    validateConfirmPassword(confirmPassword, password) !== true;
+  const disableResendEmail = reSendSecends > 0 || isPendingResendVerify  
   return (
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
@@ -90,7 +97,7 @@ export default function Page() {
           <Btn className="w-full" onClick={handlerVerify as any} isDisabled={disableVerifyEmail} isLoading={isPendingVerify}>
             Verify Email
           </Btn>
-          <MLink className="text-xs -mt-1" onClick={handlerResendVerify} isDisable={reSendSecends > 0 || isPendingResendVerify}>
+          <MLink className="text-xs -mt-1" onClick={handlerResendVerify} isDisable={disableResendEmail}>
             {reSendSecends > 0 ? `Resend Email (${reSendSecends}s)` : "Resend Email"}
           </MLink>
         </div>

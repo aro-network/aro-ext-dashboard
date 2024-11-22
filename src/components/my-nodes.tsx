@@ -18,8 +18,8 @@ function NodeName({ name }: { name: string }) {
   return (
     <div className="flex gap-[10px] items-center">
       {name}
-      
-      <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer">
+
+      <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer hidden">
         <FiEdit />
       </div>
     </div>
@@ -49,16 +49,21 @@ export default function MyNodes() {
   });
   const datas = useMemo(() => {
     const nodes = data || [];
-    return nodes.map((item) => [
-      <NodeName name={item.name || "Empty"} key={"Namee"} />,
-      "Extension",
-      <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
-      <Status isConnected={item.isConnected} key={"status"} />,
-      fmtDuration(_.toNumber(item.totalUptime) * 1000, "DD[d] H[h]"),
-      item.lastPoint ? `${_.round((item.lastPoint * 100) / 10, 1)}%` : "-",
-      item.todayPoints ? `${_.round(item.todayPoints * 100, 1)}%` : "-",
-      item.totalPoints,
-    ]);
+    if(nodes.length){
+      // nodes.push({...nodes[0], isConnected: false})
+    }
+    return nodes
+      .sort((a, b) => (a.isConnected && b.isConnected ? 0 : a.isConnected ? -1 : 1))
+      .map((item) => [
+        <NodeName name={item.name || "Untitled Device"} key={"Namee"} />,
+        "Extension",
+        <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
+        <Status isConnected={item.isConnected} key={"status"} />,
+        fmtDuration(_.toNumber(item.totalUptime) * 1000, "D[d] H[h] m[m]"),
+        item.lastPoint ? `${_.round((item.lastPoint * 100) / 10, 1)}%` : "-",
+        item.todayPoints ? `${_.round(item.todayPoints * 100, 1)}%` : "-",
+        item.totalPoints,
+      ]);
     // return [
     //   [<NodeName name="HHHH" />, "Extension", <CountryIP country="CN" ip="78.123.23.12" />, <Status isConnected />, "123d 3h", "19%", "1.2", "100.2"],
     //   [<NodeName name="Home Nas" />, "Extension", <CountryIP country="US" ip="78.123.23.12" />, <Status />, "123d 3h", "19%", "1.2", "100.2"],
