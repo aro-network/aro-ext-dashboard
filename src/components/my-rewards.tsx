@@ -138,7 +138,7 @@ export default function MyRewards() {
             isProgress
             progress={_.floor(((user?.task.uptime || 0) * 100) / (12 * 60 * 60))}
           /> */}
-          <TaskCard tit="Referral maniac" sub="Having 10 qualified referrals." reward="+50 EXP" isProgress progress={_.floor(((user?.referral.valid || 0) * 100) / 10)} />
+          {/* <TaskCard tit="Referral maniac" sub="Having 10 qualified referrals." reward="+50 EXP" isProgress progress={_.floor(((user?.referral.valid || 0) * 100) / 10)} /> */}
         </div>
       </TitCard>
     </div>

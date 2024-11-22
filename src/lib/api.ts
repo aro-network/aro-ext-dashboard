@@ -3,6 +3,7 @@ import { TrendingReward } from "@/types/trending";
 import { LoginResult, SingUpResult, User, UserReward } from "@/types/user";
 import axios from "axios";
 import { ENV } from "./env";
+import _ from "lodash";
 
 export const BASE_API = ENV == "beta" ? "https://dev-api.enreach.network/api" : "https://api.enreach.network/api";
 const Api = axios.create({
@@ -59,6 +60,10 @@ const backendApi = {
   },
   userInfo: async () => {
     const response = await Api.get<RES<User>>("/user/profile");
+    const p = response.data.data.point;
+    _.keys(p).forEach((key) => {
+      p[key] = _.toNumber(p[key]);
+    });
     return response.data.data;
   },
   sendResetPassword: async (email: string) => {
