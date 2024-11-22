@@ -55,7 +55,7 @@ const backendApi = {
     return true;
   },
   verifyRegisterCode: async (uid: string, code: string) => {
-    const response = await Api.post<RES<undefined>>(`/user/verify/${uid}/${code}`);
+    const response = await Api.post<RES<LoginResult>>(`/user/verify/${uid}/${code}`);
     return response.data.data;
   },
   userInfo: async () => {
@@ -64,6 +64,7 @@ const backendApi = {
     _.keys(p).forEach((key) => {
       p[key] = _.toNumber(p[key]);
     });
+    p.total = (_.toNumber(response.data.data.stat.extraBoost) || 1) * p.total;
     return response.data.data;
   },
   sendResetPassword: async (email: string) => {

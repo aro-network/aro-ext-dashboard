@@ -13,9 +13,11 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, MouseEvent, useRef, useState } from "react";
 import { useCounter, useInterval, useToggle } from "react-use";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function Page() {
   const sq = useSearchParams();
+  const ac = useAuthContext();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -46,8 +48,12 @@ export default function Page() {
     mutationFn: async () => {
       if (!verifyCode || validateVerifyCode(verifyCode) !== true) throw new Error("Please enter verify code");
       if (!refRegisterUser.current) throw new Error("Please sign up");
-      await backendApi.verifyRegisterCode(refRegisterUser.current.userId, verifyCode);
-      r.push("/signin");
+      const res = await backendApi.verifyRegisterCode(refRegisterUser.current.userId, verifyCode);
+      if (res && res.token) {
+        ac.setUser(res);
+      } else {
+        r.push("/signin");
+      }
     },
   });
   const { mutate: handlerResendVerify, isPending: isPendingResendVerify } = useMutation({
@@ -111,7 +117,7 @@ export default function Page() {
           <Btn type="submit" isDisabled={disableSignUp} isLoading={isPending}>
             Sign Up
           </Btn>
-          <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode}/>
+          <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode} />
           <div className="text-center text-xs text-white/60">
             Already have an account?{" "}
             <MLink href="/signin" className="text-xs">

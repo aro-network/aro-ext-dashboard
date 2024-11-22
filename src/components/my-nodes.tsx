@@ -49,7 +49,7 @@ export default function MyNodes() {
   });
   const datas = useMemo(() => {
     const nodes = data || [];
-    if(nodes.length){
+    if (nodes.length) {
       // nodes.push({...nodes[0], isConnected: false})
     }
     return nodes
@@ -61,8 +61,8 @@ export default function MyNodes() {
         <Status isConnected={item.isConnected} key={"status"} />,
         fmtDuration(_.toNumber(item.totalUptime) * 1000, "D[d] H[h] m[m]"),
         item.lastPoint ? `${_.round((item.lastPoint * 100) / 10, 1)}%` : "-",
-        item.todayPoints ? `${_.round(item.todayPoints * 100, 1)}%` : "-",
-        item.totalPoints,
+        item.todayPoints ? `${_.round(item.todayPoints, 1)}` : "-",
+        item.totalPoints ? `${_.round(item.totalPoints, 1)}` : "-",
       ]);
   }, [data]);
   return (
