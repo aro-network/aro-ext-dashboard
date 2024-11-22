@@ -85,7 +85,7 @@ export default function MyReferral() {
         <InnerIconCard icon={SVGS.SvgRewards} iconSize={20} className="flex-1 min-w-[500px]">
           <div className="text-base">
             <p>
-              For every qualified referral (Referee’s Uptime {">"} 72 hours), both parties get one-time <strong className="text-primary">50 BERRY</strong> bonus.
+              For every qualified referral (Referee’s Uptime {">"} 72 hours), both parties get one-time <strong className="text-primary">720 BERRY</strong> bonus.
             </p>
             <br />
             <p>
