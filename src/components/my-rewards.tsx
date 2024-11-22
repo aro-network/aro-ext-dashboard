@@ -69,8 +69,8 @@ function TaskCard({
           value={progress}
         />
       ) : (
-        <Btn className={cn("flex items-center gap-2 ", { "bg-white/80 text-primary hover:bg-white": complete })} onClick={() => onClickCarry?.()}>
-          {complete ? "Done" : "Carry Out"}
+        <Btn className={cn("flex items-center gap-2 ", { "bg-white/80 text-primary hover:bg-white": complete })} onClick={() => !complete && onClickCarry?.()}>
+          {complete ? "Done" : "Go"}
           {complete && <IoIosCheckmarkCircle className="text-base " />}
         </Btn>
       )}
@@ -101,8 +101,6 @@ export default function MyRewards() {
             <DupleInfo tit={user?.point.network || 0} sub="Network Rewards" />
             <div className="w-[1px] bg-white/30 h-6" />
             <DupleInfo tit={user?.point.referral || 0} sub="Referral Bonus" />
-            <div className="w-[1px] bg-white/30 h-6" />
-            <DupleInfo tit={user?.point.other || 0} sub="Other Bonus" />
           </div>
         </div>
       </IconCard>
@@ -128,18 +126,18 @@ export default function MyRewards() {
           />
           <TaskCard
             tit="Chrome Extension Node"
-            sub="Initiate your first EnReach Node and win 50 BERRY"
-            reward="+50 BERRY"
+            sub="Initiate your first EnReach Node and win 50 EXP"
+            reward="+50 EXP"
             complete={Boolean(user?.task.extension)}
             onClickCarry={() => window.open(`https://chromewebstore.google.com/detail/${"extid"}`, "_blank")}
           />
-          <TaskCard
+          {/* <TaskCard
             tit="Up and steady"
             sub="Achieved 12 hours of daily uptime for the first time."
             reward="+50 EXP"
             isProgress
             progress={_.floor(((user?.task.uptime || 0) * 100) / (12 * 60 * 60))}
-          />
+          /> */}
           <TaskCard tit="Referral maniac" sub="Having 10 qualified referrals." reward="+50 EXP" isProgress progress={_.floor(((user?.referral.valid || 0) * 100) / 10)} />
         </div>
       </TitCard>

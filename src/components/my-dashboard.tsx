@@ -270,8 +270,8 @@ export default function MyDashboard() {
           </div>
         </div>
         <div className="flex flex-col justify-start items-center relative gap-1">
-          <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get 50 BERRY</p>
-          <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">Initiate your first EnReach Node and win 50 BERRY</p>
+          <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get 50 EXP</p>
+          <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">Initiate your first EnReach Node and win 50 EXP</p>
         </div>
         <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium">Download Chrome Extension</TransBtn>
       </BgCard>

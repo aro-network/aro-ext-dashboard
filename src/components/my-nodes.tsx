@@ -64,11 +64,6 @@ export default function MyNodes() {
         item.todayPoints ? `${_.round(item.todayPoints * 100, 1)}%` : "-",
         item.totalPoints,
       ]);
-    // return [
-    //   [<NodeName name="HHHH" />, "Extension", <CountryIP country="CN" ip="78.123.23.12" />, <Status isConnected />, "123d 3h", "19%", "1.2", "100.2"],
-    //   [<NodeName name="Home Nas" />, "Extension", <CountryIP country="US" ip="78.123.23.12" />, <Status />, "123d 3h", "19%", "1.2", "100.2"],
-    //   [<NodeName name="Home Nas" />, "Extension", <CountryIP country="GB" ip="78.123.23.12" />, <Status isConnected />, "123d 3h", "19%", "1.2", "100.2"],
-    // ];
   }, [data]);
   return (
     <TitCard

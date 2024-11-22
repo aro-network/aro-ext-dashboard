@@ -41,7 +41,7 @@ export default function MyReferral() {
         </div>
       </IconCard>
       <IconCard icon={SVGS.SvgReferral} iconSize={20}>
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-1 flex-col gap-8">
           <div className="text-xl">My Referrals</div>
           <div className="flex items-center gap-[10%]">
             <DupleInfo
@@ -53,7 +53,7 @@ export default function MyReferral() {
                 </>
               }
             />
-            <div className="bg-white opacity-30 w-[1px] h-6" />
+            <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
             <DupleInfo
               tit={referringCount}
               sub={
