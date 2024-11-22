@@ -20,7 +20,7 @@ function Header() {
   const r = useRouter();
   return (
     <div className="flex justify-between items-center flex-grow-0 flex-shrink-0 h-16 overflow-hidden px-4 border border-black gap-4">
-      <img className="" src="/logo.svg" alt="Logo" />
+      <img className="h-12" src="/logo.svg" alt="Logo" />
       <div
         className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] ml-auto bg-l2 cursor-pointer"
         onClick={() => r.push("/?tab=my_rewards")}

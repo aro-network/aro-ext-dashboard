@@ -2,8 +2,8 @@ import { PageLayout } from "./client";
 import "./global.css";
 import "react-circular-progressbar/dist/styles.css";
 export const metadata = {
-  title: "EnReach.AI",
-  description: "EnReach.AI",
+  title: "EnReach Network",
+  description: "EnReach Network",
 };
 
 import { Poppins } from "next/font/google"; // Helvetica Neue
