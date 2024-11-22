@@ -33,6 +33,8 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
         } else {
           toggleShowInputReferral();
         }
+      } else {
+        toggleShowInputReferral();
       }
     },
   });
