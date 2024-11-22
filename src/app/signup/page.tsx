@@ -111,7 +111,7 @@ export default function Page() {
           <Btn type="submit" isDisabled={disableSignUp} isLoading={isPending}>
             Sign Up
           </Btn>
-          <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode} isDisabled={isDisabledGoogle}/>
+          <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode}/>
           <div className="text-center text-xs text-white/60">
             Already have an account?{" "}
             <MLink href="/signin" className="text-xs">
