@@ -25,7 +25,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
 
 ${refferralLink}
     `;
-    const postXUrl = `https://twitter.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(refferralLink)}`;
+    const postXUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(refferralLink)}`;
     window.open(postXUrl, "_blank");
   };
   return (
