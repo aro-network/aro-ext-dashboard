@@ -38,7 +38,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
-            <IconBtn tip="Post X" onClick={onPostX}>
+            <IconBtn tip="Tweet Your Referral" onClick={onPostX}>
               <FaXTwitter />
             </IconBtn>
           </div>
