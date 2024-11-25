@@ -8,7 +8,7 @@ import { HelpTip } from "./tips";
 
 import backendApi from "@/lib/api";
 import { fmtDuration } from "@/lib/utils";
-import { cn, Skeleton } from "@nextui-org/react";
+import { cn, Skeleton, Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { flag } from "country-emoji";
 import _ from "lodash";
@@ -54,12 +54,12 @@ export default function MyNodes() {
       // nodes.push({...nodes[0], isConnected: false})
     }
     return nodes
-      .sort((a, b) => (a.isConnected && b.isConnected ? 0 : a.isConnected ? -1 : 1))
+      .sort((a, b) => (a.isConnected !== b.isConnected ? b.isConnected - a.isConnected : b.lastConnectedAt - a.lastConnectedAt))
       .map((item) => [
         <NodeName name={item.name || "Untitled Device"} key={"Namee"} />,
         "Extension",
         <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
-        <Status isConnected={item.isConnected} key={"status"} />,
+        <Status isConnected={Boolean(item.isConnected)} key={"status"} />,
         fmtDuration(_.toNumber(item.totalUptime) * 1000, "D[d] H[h] m[m]"),
         fmtNetqulity(item.lastPoint),
         fmtBerry(item.todayPoints, "-"),
@@ -86,12 +86,7 @@ export default function MyNodes() {
     >
       <STable
         isLoading={isLoading}
-        loadingContent={
-          <div className="flex flex-col gap-4 w-full">
-            <Skeleton className="rounded-lg h-[50px] bg-white" />
-            <Skeleton className="rounded-lg h-[50px] bg-white" />
-          </div>
-        }
+        loadingContent={<Spinner />}
         empty="Empty!"
         head={[
           "Node Name",

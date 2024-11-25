@@ -30,7 +30,7 @@ export interface NodeItem {
   /**
    * 连接状态
    */
-  isConnected: boolean;
+  isConnected: number;
   /**
    * 最后连接时间
    */
@@ -47,7 +47,7 @@ export interface NodeItem {
    * userAgent
    */
   userAgent: string;
-  
+
   todayPoints: number;
 
   [property: string]: any;

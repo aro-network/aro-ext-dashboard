@@ -28,7 +28,7 @@ export function STable({
           <>
             <TableRow className="opacity-0 h-3 p-0" key={`space_${ri}`}>
               {item.map((_cell, ci) => (
-                <TableCell className="p-0" key={ci}>
+                <TableCell className="p-0 leading-3" key={ci}>
                   s
                 </TableCell>
               ))}
