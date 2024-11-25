@@ -30,6 +30,9 @@ const config: Config = {
         default: {
           DEFAULT: "rgba(255, 255, 255, 0.15)",
         },
+        green: {
+          400: "#34D399",
+        },
       },
       fontFamily: {
         HelveticaNeue: "var(--HelveticaNeue)",

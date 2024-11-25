@@ -241,7 +241,7 @@ export default function MyDashboard() {
       <IconCard icon={SVGS.SvgNodes}>
         <div className="flex flex-col flex-1">
           <span>My Nodes</span>
-          <div className="flex justify-start items-center relative gap-1 mt-3 mb-8">
+          <div className="flex justify-start items-center relative gap-1 mt-3 mb-8 invisible">
             {[0, 1, 2, 3, 4].map((_n, i) => {
               return <div key={i} className={cn("flex-grow-0 flex-shrink-0 w-3 h-3 relative overflow-hidden rounded", i < connectedNodes ? "bg-emerald-600" : "bg-gray-600")} />;
             })}

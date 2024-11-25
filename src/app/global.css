@@ -14,6 +14,7 @@ html {
   background: url("/bg.svg") center no-repeat;
   background-size: cover;
   color: white;
+  font-size: 16px;
 }
 
 .font-HelveticaNeue {
