@@ -14,8 +14,20 @@ export default function MyReferral() {
   const user = ac.queryUserInfo?.data;
   const referredCount = user?.referral.valid || 0;
   const referringCount = user?.referral.pending || 0;
-  const referredPoint = user?.point.referral || 0
+  const referredPoint = user?.point.referral || 0;
   const copy = useCopy();
+  const onPostX = () => {
+    const refferralLink = `${origin}/signup?referral=${user?.inviteCode}`;
+    const text = `
+Join the magic journey with @EnReachAI – the genesis of open edge cloud, for the AI era.
+
+Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
+
+${refferralLink}
+    `;
+    const postXUrl = `https://twitter.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(refferralLink)}`;
+    window.open(postXUrl, "_blank");
+  };
   return (
     <div className="grid xl:grid-cols-3 gap-4">
       <IconCard icon={IoTerminal} iconSize={20}>
@@ -26,15 +38,7 @@ export default function MyReferral() {
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
-            <IconBtn
-              tip="Follow X"
-              onClick={() =>
-                window.open(
-                  encodeURI("https://x.com/intent/follow?original_referer=wand.fi&ref_src=twsrc^tfw|twcamp^buttonembed|twterm^follow|twgr^WandProtocol&screen_name=EnReachAI"),
-                  "_blank"
-                )
-              }
-            >
+            <IconBtn tip="Post X" onClick={onPostX}>
               <FaXTwitter />
             </IconBtn>
           </div>
@@ -69,7 +73,8 @@ export default function MyReferral() {
       <IconCard icon={SVGS.SvgRewards} iconSize={20}>
         <div className="flex flex-col gap-8">
           <div className="text-xl flex items-center gap-2">
-            Referral Bonus <HelpTip content="Referral Bonus include an one-time bonus for a qualified referral, and a permanent percentage share of your referees’ Network Bonus." />
+            Referral Bonus{" "}
+            <HelpTip content="Referral Bonus include an one-time bonus for a qualified referral, and a permanent percentage share of your referees’ Network Bonus." />
           </div>
           <div className="flex items-center gap-[10%]">
             <DupleInfo tit={referredPoint} sub="BERRY" />
@@ -80,7 +85,9 @@ export default function MyReferral() {
         <div className="flex flex-col gap-4 items-center shrink-0">
           <SVGS.SvgMedal className="text-[5rem] shrink-0" />
           <div className="uppercase text-[2rem] whitespace-nowrap font-HelveticaNeue leading-8">Get Referral Rewards</div>
-          <Btn className="w-full" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>Copy Referral Link</Btn>
+          <Btn className="w-full" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
+            Copy Referral Link
+          </Btn>
         </div>
         <InnerIconCard icon={SVGS.SvgRewards} iconSize={20} className="flex-1 min-w-[500px]">
           <div className="text-base">
