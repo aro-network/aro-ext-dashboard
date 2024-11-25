@@ -47,5 +47,8 @@ export interface NodeItem {
    * userAgent
    */
   userAgent: string;
+  
+  todayPoints: number;
+
   [property: string]: any;
 }

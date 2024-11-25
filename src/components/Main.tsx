@@ -11,6 +11,7 @@ import MyNodes from "./my-nodes";
 import MyProfile from "./my-profile";
 import MyReferral from "./my-referral";
 import MyRewards from "./my-rewards";
+import { fmtBerry } from "./fmtData";
 
 function Header() {
   const ac = useAuthContext();
@@ -27,7 +28,7 @@ function Header() {
       >
         <img src="/berry.png" className="flex-grow-0 flex-shrink-0 w-6 h-6 object-cover" alt="Berry" />
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left">
-          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{user?.point.total || 0} </span>
+          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{fmtBerry(user?.point.total)} </span>
           <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white/50">BERRY</span>
         </p>
       </div>

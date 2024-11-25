@@ -75,7 +75,8 @@ export default function MyProfile() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const exp = user?.stat.exp || 0;
-  const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
+  const currentLevel = levels.find((_l, i) => user?.stat.level === i) || levels[0];
+  const levelName = currentLevel.name;
   const [showConfirmLogout, toggleShowConfirmLogout] = useToggle(false);
   const [showConfirmReset, toggleShowConfirmReset] = useToggle(false);
   const processValue = useMemo(() => {
@@ -91,13 +92,11 @@ export default function MyProfile() {
     <div className="grid xl:grid-cols-2 gap-4">
       <TitCard tit="Berry-Up Program">
         <div className="flex gap-7">
-          <div className="flex justify-center items-center p-5 rounded-full bg-white shrink-0">
-            <SVGS.SvgBerry2 className="text-[5rem]" />
-          </div>
+          <currentLevel.icon className="text-[7.5rem]" />
           <div className="flex flex-col gap-5">
             <div className="flex items-center gap-4">
               <span className="text-2xl font-medium">{levelName} </span>
-              <Booster boost={user?.stat.extraBoost} />
+              <Booster />
             </div>
             <DupleInfo tit={user?.stat.exp} sub="EXP" />
           </div>

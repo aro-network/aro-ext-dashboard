@@ -8,7 +8,7 @@ import backendApi from "@/lib/api";
 import { handlerError } from "@/lib/utils";
 import { validateConfirmPassword, validateEmail, validatePassword, validateReferralCode, validateVerifyCode } from "@/lib/validates";
 import { SingUpResult } from "@/types/user";
-import { Checkbox } from "@nextui-org/react";
+import { Checkbox, Spinner } from "@nextui-org/react";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, MouseEvent, useRef, useState } from "react";
@@ -81,7 +81,6 @@ export default function Page() {
     validatePassword(password) !== true ||
     validateConfirmPassword(confirmPassword, password) !== true;
   const disableResendEmail = reSendSecends > 0 || isPendingResendVerify;
-  const isDisabledGoogle = validateReferralCode(referalCode) !== true;
   return (
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
@@ -96,7 +95,8 @@ export default function Page() {
           <Btn className="w-full" onClick={handlerVerify as any} isDisabled={disableVerifyEmail} isLoading={isPendingVerify}>
             Verify Email
           </Btn>
-          <MLink className="text-xs -mt-1" onClick={handlerResendVerify} isDisable={disableResendEmail}>
+          <MLink className="text-xs -mt-1 flex items-center gap-2" onClick={handlerResendVerify} isDisable={disableResendEmail}>
+            {isPendingResendVerify && <Spinner size="sm" />}
             {reSendSecends > 0 ? `Resend Email (${reSendSecends}s)` : "Resend Email"}
           </MLink>
         </div>

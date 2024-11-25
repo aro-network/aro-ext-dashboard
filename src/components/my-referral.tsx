@@ -8,13 +8,14 @@ import { IoIosCheckmarkCircle, IoIosMore } from "react-icons/io";
 import { HelpTip } from "./tips";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useCopy } from "@/hooks/useCopy";
+import { fmtBerry } from "./fmtData";
 
 export default function MyReferral() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const referredCount = user?.referral.valid || 0;
   const referringCount = user?.referral.pending || 0;
-  const referredPoint = user?.point.referral || 0;
+  const referredPoint = fmtBerry(user?.point.referral);
   const copy = useCopy();
   const onPostX = () => {
     const refferralLink = `${origin}/signup?referral=${user?.inviteCode}`;

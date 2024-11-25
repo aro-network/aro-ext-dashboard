@@ -70,7 +70,7 @@ export default function Page() {
         <div className="flex gap-5">
           <InputVerifyCode setVerifyCode={setVerifyCode} />
           <Btn type="button" isDisabled={disableSend} isLoading={isPendingSend} onClick={onSend as any}>
-            {isIdleSend ? "Send" : sendCount > 0 ? `Resend(${sendCount}s)` : "Resend"}
+            {isPendingSend ? "" : isIdleSend ? "Send" : sendCount > 0 ? `Resend(${sendCount}s)` : "Resend"}
           </Btn>
         </div>
         <Btn type="submit" isDisabled={disableReset} isLoading={isPending}>

@@ -4,6 +4,7 @@ import { LoginResult, SingUpResult, User, UserReward } from "@/types/user";
 import axios from "axios";
 import { ENV } from "./env";
 import _ from "lodash";
+import { fmtBoost } from "@/components/fmtData";
 
 export const BASE_API = ENV == "beta" ? "https://dev-api.enreach.network/api" : "https://api.enreach.network/api";
 const Api = axios.create({
@@ -64,7 +65,7 @@ const backendApi = {
     _.keys(p).forEach((key) => {
       p[key] = _.toNumber(p[key]);
     });
-    p.total = (_.toNumber(response.data.data.stat.extraBoost) || 1) * p.total;
+    p.total = fmtBoost(response.data.data.stat.extraBoost) * p.total;
     return response.data.data;
   },
   sendResetPassword: async (email: string) => {

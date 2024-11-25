@@ -14,6 +14,7 @@ import { flag } from "country-emoji";
 import _ from "lodash";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { RiRefreshLine } from "react-icons/ri";
+import { fmtBerry, fmtNetqulity } from "./fmtData";
 function NodeName({ name }: { name: string }) {
   return (
     <div className="flex gap-[10px] items-center">
@@ -60,9 +61,9 @@ export default function MyNodes() {
         <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
         <Status isConnected={item.isConnected} key={"status"} />,
         fmtDuration(_.toNumber(item.totalUptime) * 1000, "D[d] H[h] m[m]"),
-        item.lastPoint ? `${_.round((item.lastPoint * 100) / 10, 1)}%` : "-",
-        item.todayPoints ? `${_.round(item.todayPoints, 1)}` : "-",
-        item.totalPoints ? `${_.round(item.totalPoints, 1)}` : "-",
+        fmtNetqulity(item.lastPoint),
+        fmtBerry(item.todayPoints, "-"),
+        fmtBerry(item.totalPoints, "-"),
       ]);
   }, [data]);
   return (

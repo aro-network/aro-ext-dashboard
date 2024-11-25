@@ -5,17 +5,18 @@ import { FaLink } from "react-icons/fa6";
 import { IoIosCheckmarkCircle, IoIosMore } from "react-icons/io";
 import { BgCard, IconCard, TitCard } from "./cards";
 
-import { useCopy } from "@/hooks/useCopy";
-import EChartsReact from "echarts-for-react";
-import { useDebounce, useMeasure } from "react-use";
-import { HelpTip } from "./tips";
-import { IconBtn, TransBtn } from "./btns";
 import { useAuthContext } from "@/app/context/AuthContext";
-import { useQuery } from "@tanstack/react-query";
+import { useCopy } from "@/hooks/useCopy";
 import backendApi from "@/lib/api";
 import { fmtDate } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import EChartsReact from "echarts-for-react";
 import _ from "lodash";
+import { useDebounce, useMeasure } from "react-use";
 import { UseMeasureRef } from "react-use/lib/useMeasure";
+import { IconBtn, TransBtn } from "./btns";
+import { fmtBerry, fmtBoost } from "./fmtData";
+import { HelpTip } from "./tips";
 
 export function DupleInfo({
   tit,
@@ -43,13 +44,14 @@ export function DupleInfo({
   );
 }
 
-export function Booster({ boost }: { boost?: number | string }) {
-  const fmtBoost = _.round(_.toNumber(boost || 1), 1);
+export function Booster() {
+  const ac = useAuthContext();
+  const boost = fmtBoost(ac.queryUserInfo?.data?.stat.extraBoost);
   return (
     <div className="flex items-center gap-2 rounded-full px-3 py-[6px] bg-primary">
       <SVGS.SvgRocket className="text-xl" />
       <div className="text-xs font-medium">
-        {fmtBoost}x <span className="opacity-50">Boosting</span>
+        {boost}x <span className="opacity-50">Boosting</span>
       </div>
     </div>
   );
@@ -193,12 +195,12 @@ export default function MyDashboard() {
         <div className="flex flex-col gap-[45px] flex-1">
           <div className="flex justify-between items-center">
             <span>BERRY</span>
-            <Booster boost={user?.stat.extraBoost} />
+            <Booster />
           </div>
           <div className="flex items-center gap-[10%]">
-            <DupleInfo tit={`${user?.point.today || 0}`} sub="Today" />
+            <DupleInfo tit={`${fmtBerry(user?.point.today)}`} sub="Today" />
             <div className="bg-white opacity-30 w-[1px] h-6" />
-            <DupleInfo tit={`${user?.point.total || 0}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
+            <DupleInfo tit={`${fmtBerry(user?.point.total)}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
           </div>
         </div>
       </IconCard>
