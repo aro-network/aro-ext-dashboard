@@ -18,7 +18,7 @@ export function STable({
     <Table removeWrapper className={cn("overflow-auto pb-3")}>
       <TableHeader className="p-0">
         {head.map((h, i) => (
-          <TableColumn className="bg-transparent py-0 h-6 whitespace-nowrap text-sm text-white" key={i}>
+          <TableColumn className="bg-transparent py-0 h-6 whitespace-nowrap text-sm font-normal text-white" key={i}>
             {h}
           </TableColumn>
         ))}
@@ -26,7 +26,7 @@ export function STable({
       <TableBody emptyContent={empty} loadingContent={loadingContent} isLoading={isLoading}>
         {data.map((item, ri) => (
           <>
-            <TableRow className="opacity-0 h-5 p-0" key={`space_${ri}`}>
+            <TableRow className="opacity-0 h-3 p-0" key={`space_${ri}`}>
               {item.map((_cell, ci) => (
                 <TableCell className="p-0" key={ci}>
                   s

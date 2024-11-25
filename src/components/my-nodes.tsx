@@ -97,11 +97,11 @@ export default function MyNodes() {
           "Node Type",
           "IP",
           "Status",
-          <div className="flex items-center gap-2" key={"uptime"}>
+          <div className="flex items-center gap-1" key={"uptime"}>
             Uptime <HelpTip content="Uptime tells users how long a node has been available." />
           </div>,
           "Network Quality",
-          <div className="flex items-center gap-2" key={"today"}>
+          <div className="flex items-center gap-1" key={"today"}>
             Today’s BERRY Rewards <HelpTip content="Today’s Network Rewards in BEERY amount." />
           </div>,
           "S1 Total BERRY",
