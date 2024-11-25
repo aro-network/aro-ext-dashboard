@@ -52,7 +52,13 @@ export default function Page() {
       if (res && res.token) {
         ac.setUser(res);
       } else {
-        r.push("/signin");
+        // try sign
+        const res = await backendApi.loginApi({ email, password });
+        if (res.token) {
+          ac.setUser(res);
+        } else {
+          r.push("/signin");
+        }
       }
     },
   });
