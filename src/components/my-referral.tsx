@@ -24,7 +24,6 @@ Join the magic journey with @EnReachAI – the genesis of open edge cloud, for t
 
 Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
 
-${refferralLink}
     `;
     const postXUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(refferralLink)}`;
     window.open(postXUrl, "_blank");
@@ -97,7 +96,7 @@ ${refferralLink}
             </p>
             <br />
             <p>
-              You (the Referer) get a perpetual <strong className="text-primary">15%</strong> bonus from your direct referee’s total rewards, and a perpetual{" "}
+              You (the Referrer) get a perpetual <strong className="text-primary">15%</strong> bonus from your direct referee’s total rewards, and a perpetual{" "}
               <strong className="text-primary">5%</strong> bonus from your next-tier referee. No up limits!
             </p>
           </div>
