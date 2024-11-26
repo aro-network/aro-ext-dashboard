@@ -1,6 +1,8 @@
 import { PageLayout } from "./client";
 import "./global.css";
 import "react-circular-progressbar/dist/styles.css";
+import "flag-icons/css/flag-icons.min.css"
+
 export const metadata = {
   title: "EnReach Dashboard",
   description: "EnReach Dashboard",

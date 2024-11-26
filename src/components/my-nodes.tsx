@@ -30,7 +30,7 @@ function NodeName({ name }: { name: string }) {
 function CountryIP({ ip, country }: { ip: string; country: string }) {
   return (
     <div className="flex gap-2 items-center">
-      <span className="text-base">{flag(country == "TW" ? "CN" : country)}</span>
+      <span className={cn(`text-base fi fi-${country.toLowerCase()}`)}></span>
       <span>{ip}</span>
     </div>
   );

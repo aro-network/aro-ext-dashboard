@@ -35,6 +35,9 @@ dependencies:
   echarts-for-react:
     specifier: ^3.0.2
     version: 3.0.2(echarts@5.5.1)(react@18.3.1)
+  flag-icons:
+    specifier: ^7.2.3
+    version: 7.2.3
   framer-motion:
     specifier: ^11.11.11
     version: 11.11.11(react-dom@18.3.1)(react@18.3.1)
@@ -6074,6 +6077,10 @@ packages:
       locate-path: 6.0.0
       path-exists: 4.0.0
     dev: true
+
+  /flag-icons@7.2.3:
+    resolution: {integrity: sha512-X2gUdteNuqdNqob2KKTJTS+ZCvyWeLCtDz9Ty8uJP17Y4o82Y+U/Vd4JNrdwTAjagYsRznOn9DZ+E/Q52qbmqg==}
+    dev: false
 
   /flat-cache@3.2.0:
     resolution: {integrity: sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==}

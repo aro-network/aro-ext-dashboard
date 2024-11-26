@@ -25,3 +25,9 @@ html {
   background: url("/bg.svg") center no-repeat;
   background-size: cover;
 }
+
+.fi {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
