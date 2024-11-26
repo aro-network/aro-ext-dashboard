@@ -4,7 +4,7 @@ import { Opt } from "@/lib/type";
 import { LoginResult, User } from "@/types/user";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
 interface AuthContextProps {
   user?: Opt<LoginResult>;
@@ -37,15 +37,18 @@ const getLastLoginUser = () => {
   }
 };
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const refIsLogout = useRef(false);
   const r = useRouter();
   const [user, setUser] = useState<Opt<LoginResult>>(getLastLoginUser());
   const wrapSetUser = (u?: Opt<LoginResult>) => {
     if (!u) {
+      refIsLogout.current = true;
       setUser(null);
       localStorage.removeItem(storageKey);
       getInjectEnReachAI()?.request({ name: "clearAccessToken" }).catch(console.error);
       r.push("/signin");
     } else {
+      refIsLogout.current = false;
       setUser(u);
       localStorage.setItem(storageKey, JSON.stringify(u));
       if (u.token) {
@@ -76,7 +79,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
               console.info("sync logout from ext");
               logout();
               getInjectEnReachAI()?.request({ name: "clearLogout" }).catch(console.error);
-            } else if (!stat.logined) {
+            } else if (!stat.logined && !refIsLogout.current) {
               console.info("sync login to ext");
               getInjectEnReachAI()?.request({ name: "setAccessToken", body: user.token }).catch(console.error);
             } else {
