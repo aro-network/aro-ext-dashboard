@@ -19,8 +19,7 @@ export function AddNodeDialog() {
               <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white">Chrome Extension Node</span>
               <br />
               <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-white">
-                The super light-weight node that helps EnReach’s Distributed Acceleration Network (DAN) to gain perception to the network’s capability and potential to serve the
-                network.
+                The super light-weight node that helps EnReach Network to gain perception to the network’s capability and potential to serve the network
               </span>
             </p>
           </div>
@@ -34,7 +33,7 @@ export function AddNodeDialog() {
             <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white/40">Desktop Node (Coming Soon)</span>
             <br />
             <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-white/40">
-              The working nodes in EnReach’s Distributed Acceleration Network (DAN) that provides qualified capabilities for content acceleration and AI acceleration.
+              Edge Node (Coming Soon) The working nodes at edge side that provides qualified edge cloud capabilities
             </span>
           </p>
         </div>

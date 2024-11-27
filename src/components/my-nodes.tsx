@@ -87,7 +87,7 @@ export default function MyNodes() {
       <STable
         isLoading={isLoading}
         loadingContent={<Spinner />}
-        empty="Empty!"
+        empty="You currently have no running nodes. Click 'Add New Node' button, download and set up your node ready for the Season 1!"
         head={[
           "Node Name",
           "Node Type",
