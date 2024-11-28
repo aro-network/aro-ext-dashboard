@@ -7,9 +7,9 @@ import { Btn } from "./btns";
 import { TitCard } from "./cards";
 
 export const TASKS = [
-  { tit: "Connect X", sub: "Connect and verify X acount", reward: "+30 EXP" },
-  { tit: "Connect Discord", sub: "Connect and verify Discord acount", reward: "+30 EXP" },
-  { tit: "Connect Telegram", sub: "Connect and verify Telegram acount", reward: "+30 EXP" },
+  { tit: "Connect X", sub: "Connect and verify X account", reward: "+30 EXP" },
+  { tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "+30 EXP" },
+  { tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "+30 EXP" },
   { tit: "Chrome Extension Node", sub: "Initiate your first EnReach Node and win 40 EXP", reward: "+40 EXP" },
 ];
 
