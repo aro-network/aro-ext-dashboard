@@ -92,7 +92,7 @@ export default function Page() {
             Enter the 6-digit verification code we sent to your inbox below:
           </div>
           <InputSplitCode onChange={setVerifyCode} />
-          <Btn className="w-full" onClick={handlerVerify as any} isDisabled={disableVerifyEmail} isLoading={isPendingVerify}>
+          <Btn className="w-full" onClick={() => handlerVerify()} isDisabled={disableVerifyEmail} isLoading={isPendingVerify}>
             Verify Email
           </Btn>
           <MLink className="text-xs -mt-1 flex items-center gap-2" onClick={handlerResendVerify} isDisable={disableResendEmail}>

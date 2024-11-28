@@ -53,27 +53,27 @@ const menus = [
   {
     name: "Overview",
     icon: SVGS.SvgOverview,
-    content: MyDashboard,
+    content: <MyDashboard />,
   },
   {
     name: "My Nodes",
     icon: SVGS.SvgNodes,
-    content: MyNodes,
+    content: <MyNodes />,
   },
   {
     name: "My Rewards",
     icon: SVGS.SvgRewards,
-    content: MyRewards,
+    content: <MyRewards />,
   },
   {
     name: "My Referral",
     icon: SVGS.SvgReferral,
-    content: MyReferral,
+    content: <MyReferral />,
   },
   {
     name: "My Profile",
     icon: SVGS.SvgProfile,
-    content: MyProfile,
+    content: <MyProfile />,
   },
 ];
 function Menus({ tab }: { tab?: string }) {
@@ -108,7 +108,6 @@ const Main = () => {
   const sp = useSearchParams();
   const tab = sp.get("tab");
   const menu = menus.find((item) => strToSearchParams(item.name) === tab) || menus[0];
-  const Content = menu.content;
 
   return (
     <div className="flex flex-col">
@@ -117,7 +116,7 @@ const Main = () => {
         <Menus tab={tab as any} />
         <div className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
           <h2 className="text-[2rem] font-medium">{menu.name}</h2>
-          <Content />
+          {menu.content}
         </div>
       </div>
     </div>
