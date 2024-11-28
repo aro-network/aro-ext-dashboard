@@ -95,17 +95,17 @@ export function TaskList() {
   return (
     <TitCard tit="Task & Achievements" className="col-span-10">
       <div className="grid xl:grid-cols-2 gap-5">
-        <TaskCard tit="Connect X" sub="Connect and verify X acount" reward={connectRward} complete={Boolean(user?.social.x)} onClickCarry={() => r.push("/?tab=my_profile")} />
+        <TaskCard tit="Connect X" sub="Connect and verify X account" reward={connectRward} complete={Boolean(user?.social.x)} onClickCarry={() => r.push("/?tab=my_profile")} />
         <TaskCard
           tit="Connect Discord"
-          sub="Connect and verify Discord acount"
+          sub="Connect and verify Discord account"
           reward={connectRward}
           complete={Boolean(user?.social.discord)}
           onClickCarry={() => r.push("/?tab=my_profile")}
         />
         <TaskCard
           tit="Connect Telegram"
-          sub="Connect and verify Telegram acount"
+          sub="Connect and verify Telegram account"
           reward={connectRward}
           complete={Boolean(user?.social.tg)}
           onClickCarry={() => r.push("/?tab=my_profile")}
