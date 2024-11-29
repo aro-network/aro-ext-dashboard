@@ -3,7 +3,7 @@ import { strToSearchParams } from "@/lib/utils";
 import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { SVGProps } from "react";
+import React, { SVGProps, useState } from "react";
 import { MAvatar } from "./avatar";
 import { levels } from "./level";
 import MyDashboard from "./my-dashboard";
@@ -76,14 +76,13 @@ const menus = [
     content: <MyProfile />,
   },
 ];
-function Menus({ tab }: { tab?: string }) {
-  const mtab = menus.find((item) => strToSearchParams(item.name) === tab)?.name || menus[0].name;
+function Menus({ tab, onClickTab }: { tab: string; onClickTab: (tab: string) => void }) {
   const r = useRouter();
   return (
     <div className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[60px] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
       {menus.map((m) => {
         const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
-        const selected = m.name === mtab;
+        const selected = m.name === tab;
         return (
           <div
             key={m.name}
@@ -91,7 +90,10 @@ function Menus({ tab }: { tab?: string }) {
               "bg-primary text-white": selected,
               "text-white/50 hover:bg-default": !selected,
             })}
-            onClick={() => r.push(`?tab=${strToSearchParams(m.name)}`)}
+            onClick={() => {
+              onClickTab(m.name);
+              r.push(`?tab=${strToSearchParams(m.name)}`);
+            }}
           >
             <div className={cn("flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2.5 rounded-[1000px]", { "bg-blue-400": selected })}>
               <Micon className={cn("text-base")} />
@@ -106,14 +108,13 @@ function Menus({ tab }: { tab?: string }) {
 
 const Main = () => {
   const sp = useSearchParams();
-  const tab = sp.get("tab");
-  const menu = menus.find((item) => strToSearchParams(item.name) === tab) || menus[0];
-
+  const menu = menus.find((item) => strToSearchParams(item.name) === sp.get("tab")) || menus[0];
+  const [tab, setTab] = useState(menu.name);
   return (
     <div className="flex flex-col">
       <Header />
       <div className="flex-1 flex">
-        <Menus tab={tab as any} />
+        <Menus tab={tab} onClickTab={setTab} />
         <div className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
           <h2 className="text-[2rem] font-medium">{menu.name}</h2>
           {menu.content}
