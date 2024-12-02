@@ -1,6 +1,5 @@
 import { useAuthContext } from "@/app/context/AuthContext";
 import backendApi, { BASE_API } from "@/lib/api";
-import { SVGS } from "@/svg";
 import { cn, Progress } from "@nextui-org/react";
 import { telegramAuth } from "@use-telegram-auth/hook";
 import axios from "axios";

@@ -1,6 +1,6 @@
 import { useAuthContext } from "@/app/context/AuthContext";
+import { useMenusCtx } from "@/app/context/MenusContext";
 import { cn } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { Btn } from "./btns";
@@ -86,45 +86,30 @@ function TaskCard({
   );
 }
 
+export const onToDownExtension = () => {
+  window.open(`https://chromewebstore.google.com/detail/${"extid"}`, "_blank");
+};
 export function TaskList() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
-  const r = useRouter();
   const connectRward = `+${connectEXP} EXP`;
   const extensionRward = `+${extensionEXP} EXP`;
+  const mc = useMenusCtx();
+  const onToMenuMyProfile = () => mc.toMenu("My Profile");
+
   return (
     <TitCard tit="Task & Achievements" className="col-span-10">
       <div className="grid xl:grid-cols-2 gap-5">
-        <TaskCard tit="Connect X" sub="Connect and verify X account" reward={connectRward} complete={Boolean(user?.social.x)} onClickCarry={() => r.push("/?tab=my_profile")} />
-        <TaskCard
-          tit="Connect Discord"
-          sub="Connect and verify Discord account"
-          reward={connectRward}
-          complete={Boolean(user?.social.discord)}
-          onClickCarry={() => r.push("/?tab=my_profile")}
-        />
-        <TaskCard
-          tit="Connect Telegram"
-          sub="Connect and verify Telegram account"
-          reward={connectRward}
-          complete={Boolean(user?.social.tg)}
-          onClickCarry={() => r.push("/?tab=my_profile")}
-        />
+        <TaskCard tit="Connect X" sub="Connect and verify X account" reward={connectRward} complete={Boolean(user?.social.x)} onClickCarry={onToMenuMyProfile} />
+        <TaskCard tit="Connect Discord" sub="Connect and verify Discord account" reward={connectRward} complete={Boolean(user?.social.discord)} onClickCarry={onToMenuMyProfile} />
+        <TaskCard tit="Connect Telegram" sub="Connect and verify Telegram account" reward={connectRward} complete={Boolean(user?.social.tg)} onClickCarry={onToMenuMyProfile} />
         <TaskCard
           tit="Chrome Extension Node"
           sub={`Initiate your first EnReach Node and win ${extensionEXP} EXP`}
           reward={extensionRward}
           complete={Boolean(user?.task.extension)}
-          onClickCarry={() => window.open(`https://chromewebstore.google.com/detail/${"extid"}`, "_blank")}
+          onClickCarry={onToDownExtension}
         />
-        {/* <TaskCard
-        tit="Up and steady"
-        sub="Achieved 12 hours of daily uptime for the first time."
-        reward="+50 EXP"
-        isProgress
-        progress={_.floor(((user?.task.uptime || 0) * 100) / (12 * 60 * 60))}
-      /> */}
-        {/* <TaskCard tit="Referral maniac" sub="Having 10 qualified referrals." reward="+50 EXP" isProgress progress={_.floor(((user?.referral.valid || 0) * 100) / 10)} /> */}
       </div>
     </TitCard>
   );
