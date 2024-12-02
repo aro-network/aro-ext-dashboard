@@ -17,6 +17,7 @@ import { UseMeasureRef } from "react-use/lib/useMeasure";
 import { IconBtn, TransBtn } from "./btns";
 import { fmtBerry, fmtBoost } from "./fmtData";
 import { HelpTip } from "./tips";
+import { CurrentTask } from "./tasks";
 
 export function DupleInfo({
   tit,
@@ -79,12 +80,16 @@ export function TrendingChart({ className }: { className?: string }) {
     queryFn: () => backendApi.trendingRewards(),
   });
   const [ref, width] = useDebounceMeasureWidth<HTMLDivElement>();
+
   const chartOpt = useMemo(() => {
     if (!width) return {};
     const datas = trendingRewards || [];
     const xData = datas.map((item) => fmtDate(item.date * 1000, "MMMD"));
     const yData = datas.map((item) => _.toNumber(rewardType === "Total Rewards" ? item.totalPoint : rewardType === "Network Rewards" ? item.networkPoint : item.referralPoint));
     console.info("width:", width);
+    const showCount = Math.floor(width / 48)
+    const endValue = xData.length - 1
+    const startValue = Math.max(0, endValue - showCount)
     return {
       animation: true,
       animationDuration: 200,
@@ -100,8 +105,8 @@ export function TrendingChart({ className }: { className?: string }) {
         {
           type: "inside",
           // start: 0,
-          startValue: 0,
-          endValue: Math.floor(width / 48),
+          startValue,
+          endValue,
           zoomOnMouseWheel: false,
           moveOnMouseWheel: true,
         },
@@ -262,21 +267,7 @@ export default function MyDashboard() {
           </div>
         </div>
       </IconCard>
-      <BgCard className="justify-between px-5 py-7 xl:order-2">
-        <div className="flex items-center justify-center mt-6">
-          <div className="bg-white rounded-full flex justify-center items-center w-12 h-12 text-[30px] shadow-2">
-            <SVGS.SvgExt className="" />
-          </div>
-          <div className="bg-white rounded-full flex justify-center items-center w-12 h-12 text-[30px] shadow-2 -ml-3">
-            <SVGS.SvgBerry />
-          </div>
-        </div>
-        <div className="flex flex-col justify-start items-center relative gap-1">
-          <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get 40 EXP</p>
-          <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">Initiate your first EnReach Node and win 40 EXP</p>
-        </div>
-        <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium">Download Chrome Extension</TransBtn>
-      </BgCard>
+      <CurrentTask />
       <TrendingChart />
     </div>
   );

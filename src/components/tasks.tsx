@@ -1,20 +1,49 @@
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useMenusCtx } from "@/app/context/MenusContext";
+import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
+import { useMemo } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { Btn } from "./btns";
-import { TitCard } from "./cards";
+import { Btn, TransBtn } from "./btns";
+import { BgCard, TitCard } from "./cards";
 
 export const TASKS = [
-  { tit: "Connect X", sub: "Connect and verify X account", reward: "+30 EXP" },
-  { tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "+30 EXP" },
-  { tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "+30 EXP" },
-  { tit: "Chrome Extension Node", sub: "Initiate your first EnReach Node and win 40 EXP", reward: "+40 EXP" },
+  { sort: 1, btn: "Connect X", tit: "Connect X", sub: "Connect and verify X account", reward: "30 EXP", icon: <SVGS.SvgX />, rewardIcon: <SVGS.SvgExp /> },
+  { sort: 1, btn: "Connect Discord", tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "30 EXP", icon: <SVGS.SvgDiscord />, rewardIcon: <SVGS.SvgExp /> },
+  { sort: 1, btn: "Connect Telegram", tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "30 EXP", icon: <SVGS.SvgTg />, rewardIcon: <SVGS.SvgExp /> },
+  {
+    sort: 0,
+    btn: "Download Chrome Extension",
+    tit: "Chrome Extension Node",
+    sub: "Initiate your first EnReach Node and win 40 EXP",
+    reward: "40 EXP",
+    icon: <SVGS.SvgExt />,
+    rewardIcon: <SVGS.SvgExp />,
+  },
 ];
 
-const connectEXP = 30;
-const extensionEXP = 40;
+export const onToDownExtension = () => {
+  window.open(`https://chromewebstore.google.com/detail/${"extid"}`, "_blank");
+};
+function useTasks(sort?: boolean) {
+  const ac = useAuthContext();
+  const user = ac.queryUserInfo?.data;
+  const mc = useMenusCtx();
+  const TasksStat = useMemo(
+    () =>
+      !user
+        ? []
+        : [
+            { complete: Boolean(user?.social.x), onGoTo: () => mc.toMenu("My Profile") },
+            { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("My Profile") },
+            { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("My Profile") },
+            { complete: Boolean(user?.task.extension), onGoTo: onToDownExtension },
+          ].map((item, i) => ({ ...item, ...TASKS[i] })),
+    [user]
+  );
+  return sort ? TasksStat.sort((a, b) => a.sort - b.sort) : TasksStat;
+}
 
 function TaskCard({
   tit,
@@ -86,33 +115,46 @@ function TaskCard({
   );
 }
 
-export const onToDownExtension = () => {
-  window.open(`https://chromewebstore.google.com/detail/${"extid"}`, "_blank");
-};
 export function TaskList() {
-  const ac = useAuthContext();
-  const user = ac.queryUserInfo?.data;
-  const connectRward = `+${connectEXP} EXP`;
-  const extensionRward = `+${extensionEXP} EXP`;
-  const mc = useMenusCtx();
-  const onToMenuMyProfile = () => mc.toMenu("My Profile");
-
+  const tasks = useTasks();
   return (
     <TitCard tit="Task & Achievements" className="col-span-10">
       <div className="grid xl:grid-cols-2 gap-5">
-        <TaskCard tit="Connect X" sub="Connect and verify X account" reward={connectRward} complete={Boolean(user?.social.x)} onClickCarry={onToMenuMyProfile} />
-        <TaskCard tit="Connect Discord" sub="Connect and verify Discord account" reward={connectRward} complete={Boolean(user?.social.discord)} onClickCarry={onToMenuMyProfile} />
-        <TaskCard tit="Connect Telegram" sub="Connect and verify Telegram account" reward={connectRward} complete={Boolean(user?.social.tg)} onClickCarry={onToMenuMyProfile} />
-        <TaskCard
-          tit="Chrome Extension Node"
-          sub={`Initiate your first EnReach Node and win ${extensionEXP} EXP`}
-          reward={extensionRward}
-          complete={Boolean(user?.task.extension)}
-          onClickCarry={onToDownExtension}
-        />
+        {tasks.map((task) => (
+          <TaskCard key={task.tit} tit={task.tit} sub={task.sub} reward={`+${task.reward}`} complete={task.complete} onClickCarry={task.onGoTo} />
+        ))}
       </div>
     </TitCard>
   );
 }
 
-export function CurrentTask() {}
+export function CurrentTask() {
+  const tasks = useTasks(true);
+  const cTask = tasks.find((item) => !item.complete);
+  return (
+    <>
+      {cTask ? (
+        <BgCard className="justify-between px-5 py-7 xl:order-2">
+          <div className="flex items-center justify-center mt-6 text-[3rem]">
+            <div className="shadow-2 rounded-full">{cTask.icon}</div>
+            <div className="shadow-2 rounded-full -ml-3">{cTask.rewardIcon}</div>
+          </div>
+          <div className="flex flex-col justify-start items-center relative gap-1">
+            <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get {cTask.reward}</p>
+            <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
+          </div>
+          <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium">{cTask.btn}</TransBtn>
+        </BgCard>
+      ) : (
+        <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] xl:order-2 relative">
+          {Boolean(tasks.length) && (
+            <>
+              <img className="object-cover absolute left-0 top-0 w-full h-full" src="bg-coming.svg" alt="bg" />
+              <img className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="task-coming.svg" alt="comming" />
+            </>
+          )}
+        </BgCard>
+      )}
+    </>
+  );
+}

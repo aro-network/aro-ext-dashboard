@@ -1,8 +1,15 @@
 import _ from "lodash";
+import numbro from "numbro";
 
 export function fmtBerry(berry?: string | number | null, def: "-" | number = 0) {
   const total = _.toNumber(berry);
-  return _.round(total, 2) || def;
+  return total
+    ? numbro(total).format({
+        mantissa: 2,
+        trimMantissa: true,
+        average: total >= 1000,
+      }).toUpperCase()
+    : def;
 }
 
 export function fmtNetqulity(last?: string | number | number, def: "-" | `${number}%` = "-") {
