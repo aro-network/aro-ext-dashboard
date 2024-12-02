@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { IconBtn } from "./btns";
 import { TitCard } from "./cards";
@@ -8,7 +8,7 @@ import { HelpTip } from "./tips";
 
 import backendApi from "@/lib/api";
 import { fmtDuration } from "@/lib/utils";
-import { cn, Skeleton, Spinner } from "@nextui-org/react";
+import { cn, Pagination, Skeleton, Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import { flag } from "country-emoji";
 import _ from "lodash";
@@ -66,6 +66,8 @@ export default function MyNodes() {
         fmtBerry(item.totalPoints, "-"),
       ]);
   }, [data]);
+  const pageChunks = useMemo(() => _.chunk(datas, 10), [datas]);
+  const [page, setPage] = useState(1);
   return (
     <TitCard
       tit="My Nodes"
@@ -102,8 +104,13 @@ export default function MyNodes() {
           </div>,
           "S1 Total BERRY",
         ]}
-        data={datas}
+        data={pageChunks[page - 1]}
       />
+      {pageChunks.length > 1 && (
+        <div className="flex items-center">
+          <Pagination className="mx-auto" total={pageChunks.length} page={page} onChange={setPage} />
+        </div>
+      )}
     </TitCard>
   );
 }
