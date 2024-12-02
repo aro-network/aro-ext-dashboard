@@ -87,9 +87,9 @@ export function TrendingChart({ className }: { className?: string }) {
     const xData = datas.map((item) => fmtDate(item.date * 1000, "MMMD"));
     const yData = datas.map((item) => _.toNumber(rewardType === "Total Rewards" ? item.totalPoint : rewardType === "Network Rewards" ? item.networkPoint : item.referralPoint));
     console.info("width:", width);
-    const showCount = Math.floor(width / 48)
-    const endValue = xData.length - 1
-    const startValue = Math.max(0, endValue - showCount)
+    const showCount = Math.floor(width / 48);
+    const endValue = xData.length - 1;
+    const startValue = Math.max(0, endValue - showCount);
     return {
       animation: true,
       animationDuration: 200,
@@ -136,6 +136,7 @@ export function TrendingChart({ className }: { className?: string }) {
           },
           label: {
             show: true,
+            formatter: (d: any) => fmtBerry(d.value),
             position: "top",
             color: "rgba(255,255,255,0.5)",
           },
