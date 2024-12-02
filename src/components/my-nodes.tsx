@@ -8,19 +8,20 @@ import { HelpTip } from "./tips";
 
 import backendApi from "@/lib/api";
 import { fmtDuration } from "@/lib/utils";
-import { cn, Pagination, Skeleton, Spinner } from "@nextui-org/react";
+import { cn, Pagination, Spinner } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
-import { flag } from "country-emoji";
 import _ from "lodash";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { RiRefreshLine } from "react-icons/ri";
+import { useToggle } from "react-use";
 import { fmtBerry, fmtNetqulity } from "./fmtData";
 function NodeName({ name }: { name: string }) {
+  const [edit, toggleEdit] = useToggle(false);
   return (
     <div className="flex gap-[10px] items-center">
+      {/* {edit ? <Input /> : name} */}
       {name}
-
-      <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer hidden">
+      <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer hidden" onClick={() => toggleEdit()}>
         <FiEdit />
       </div>
     </div>
@@ -104,7 +105,7 @@ export default function MyNodes() {
           </div>,
           "S1 Total BERRY",
         ]}
-        data={pageChunks[page - 1]}
+        data={pageChunks[page - 1] || []}
       />
       {pageChunks.length > 1 && (
         <div className="flex items-center">

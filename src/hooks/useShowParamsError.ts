@@ -4,7 +4,7 @@ import { toast } from "sonner";
 
 export function useShowParamsError() {
   const sp = useSearchParams();
-  const error = sp.get("error");
+  const error = sp.get("err");
   useEffect(() => {
     if (error) {
       toast.error(error);

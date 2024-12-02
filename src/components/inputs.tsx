@@ -105,3 +105,8 @@ export function InputSplitCode({ onComplete, onChange }: { onComplete?: (value: 
     />
   );
 }
+
+
+// export function InputName(){
+
+// }

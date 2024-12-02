@@ -40,21 +40,14 @@ export function MenusProvider({ children }: PropsWithChildren) {
   const sp = useSearchParams();
   const spTab = sp.get("tab");
   const menu = menus.find((item) => strToSearchParams(item.name) === spTab) || menus[0];
-  const [menuName, setMenuName] = useState(menu.name);
-  const current = menus.find((item) => item.name == menuName) || menus[0];
   const r = useRouter();
   const toMenu = (name: string) => {
     if (menus.find((item) => item.name === name)) {
-      setMenuName(name);
       r.push(`?tab=${strToSearchParams(name)}`);
     }
   };
-  useEffect(() => {
-    const m = menus.find((item) => strToSearchParams(item.name) === spTab) || menus[0];
-    toMenu(m.name);
-  }, [spTab]);
 
-  return <MenusContext.Provider value={{ toMenu, current }}>{children}</MenusContext.Provider>;
+  return <MenusContext.Provider value={{ toMenu, current: menu }}>{children}</MenusContext.Provider>;
 }
 
 export function useMenusCtx() {
