@@ -6,7 +6,7 @@ import MyRewards from "@/components/my-rewards";
 import { strToSearchParams } from "@/lib/utils";
 import { SVGS } from "@/svg";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from "react";
 export const menus = [
   {
     name: "Overview",
@@ -38,7 +38,8 @@ export const MenusContext = createContext({ toMenu: (name: string) => {}, curren
 
 export function MenusProvider({ children }: PropsWithChildren) {
   const sp = useSearchParams();
-  const menu = menus.find((item) => strToSearchParams(item.name) === sp.get("tab")) || menus[0];
+  const spTab = sp.get("tab");
+  const menu = menus.find((item) => strToSearchParams(item.name) === spTab) || menus[0];
   const [menuName, setMenuName] = useState(menu.name);
   const current = menus.find((item) => item.name == menuName) || menus[0];
   const r = useRouter();
@@ -48,6 +49,11 @@ export function MenusProvider({ children }: PropsWithChildren) {
       r.push(`?tab=${strToSearchParams(name)}`);
     }
   };
+  useEffect(() => {
+    const m = menus.find((item) => strToSearchParams(item.name) === spTab) || menus[0];
+    toMenu(m.name);
+  }, [spTab]);
+
   return <MenusContext.Provider value={{ toMenu, current }}>{children}</MenusContext.Provider>;
 }
 

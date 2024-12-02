@@ -143,7 +143,9 @@ export function CurrentTask() {
             <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get {cTask.reward}</p>
             <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
           </div>
-          <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium">{cTask.btn}</TransBtn>
+          <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium" onClick={cTask.onGoTo}>
+            {cTask.btn}
+          </TransBtn>
         </BgCard>
       ) : (
         <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] xl:order-2 relative">
