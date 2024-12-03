@@ -7,7 +7,9 @@ export function useShowParamsError() {
   const error = sp.get("err");
   useEffect(() => {
     if (error) {
-      toast.error(error);
+      if (error === "handle_third_party_failed") {
+        toast.error("Oops! This X/D/tg account has been connected to an existing EnReach account.");
+      }
     }
   }, [error]);
 }
