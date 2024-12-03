@@ -9,9 +9,6 @@ import { Btn, TransBtn } from "./btns";
 import { BgCard, TitCard } from "./cards";
 
 export const TASKS = [
-  { sort: 1, btn: "Connect X", tit: "Connect X", sub: "Connect and verify X account", reward: "30 EXP", icon: <SVGS.SvgX />, rewardIcon: <SVGS.SvgExp /> },
-  { sort: 1, btn: "Connect Discord", tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "30 EXP", icon: <SVGS.SvgDiscord />, rewardIcon: <SVGS.SvgExp /> },
-  { sort: 1, btn: "Connect Telegram", tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "30 EXP", icon: <SVGS.SvgTg />, rewardIcon: <SVGS.SvgExp /> },
   {
     sort: 0,
     btn: "Download Chrome Extension",
@@ -21,12 +18,15 @@ export const TASKS = [
     icon: <SVGS.SvgExt />,
     rewardIcon: <SVGS.SvgExp />,
   },
+  { sort: 1, btn: "Connect X", tit: "Connect X", sub: "Connect and verify X account", reward: "30 EXP", icon: <SVGS.SvgX />, rewardIcon: <SVGS.SvgExp /> },
+  { sort: 1, btn: "Connect Discord", tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "30 EXP", icon: <SVGS.SvgDiscord />, rewardIcon: <SVGS.SvgExp /> },
+  { sort: 1, btn: "Connect Telegram", tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "30 EXP", icon: <SVGS.SvgTg />, rewardIcon: <SVGS.SvgExp /> },
 ];
 
 export const onToDownExtension = () => {
   window.open(`https://chromewebstore.google.com/detail/${"extid"}`, "_blank");
 };
-function useTasks(sort?: boolean) {
+function useTasks() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const mc = useMenusCtx();
@@ -35,14 +35,14 @@ function useTasks(sort?: boolean) {
       !user
         ? []
         : [
+            { complete: Boolean(user?.task.extension), onGoTo: onToDownExtension },
             { complete: Boolean(user?.social.x), onGoTo: () => mc.toMenu("My Profile") },
             { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("My Profile") },
             { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("My Profile") },
-            { complete: Boolean(user?.task.extension), onGoTo: onToDownExtension },
           ].map((item, i) => ({ ...item, ...TASKS[i] })),
     [user]
   );
-  return sort ? TasksStat.sort((a, b) => a.sort - b.sort) : TasksStat;
+  return TasksStat;
 }
 
 function TaskCard({
@@ -129,7 +129,7 @@ export function TaskList() {
 }
 
 export function CurrentTask() {
-  const tasks = useTasks(true);
+  const tasks = useTasks();
   const cTask = tasks.find((item) => !item.complete);
   return (
     <>

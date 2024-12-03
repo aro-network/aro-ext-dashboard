@@ -17,6 +17,7 @@ import { TitCard } from "./cards";
 import { ConfirmDialog } from "./dialogimpls";
 import { levels } from "./level";
 import { Booster, DupleInfo } from "./my-dashboard";
+import { handlerErrForBind } from "@/hooks/useShowParamsError";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
   const ac = useAuthContext();
@@ -42,7 +43,11 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
         break;
       case "telegram":
         const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
-        await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
+        const res = await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
+        if(res.request?.res?.responseUrl && typeof res.request?.res?.responseUrl === 'string'){
+          const err = new URL(res.request?.res?.responseUrl).searchParams.get("err")
+          handlerErrForBind(err)
+        }
         ac.queryUserInfo?.refetch();
         return;
       case "discord":
@@ -160,8 +165,8 @@ export default function MyProfile() {
         </div>
         <div className="flex flex-col gap-4">
           <ConnectItem type="x" />
-          <ConnectItem type="telegram" />
           <ConnectItem type="discord" />
+          <ConnectItem type="telegram" />
         </div>
       </TitCard>
     </div>
