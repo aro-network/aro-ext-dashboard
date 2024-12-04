@@ -35,7 +35,7 @@ export function DupleInfo({
   className?: string;
 }) {
   return (
-    <div className={cn("flex flex-col justify-start items-start relative", className)}>
+    <div className={cn("flex flex-col justify-start items-start relative shrink-0", className)}>
       <p className={cn("self-stretchflex-shrink-0 text-2xl font-medium text-left text-white", titClassName)}>{tit}</p>
       <div className={cn("flex justify-start items-center flex-shrink-0 relative gap-1 text-sm opacity-50 text-white", subClassName)}>
         {sub}
@@ -49,7 +49,7 @@ export function Booster() {
   const ac = useAuthContext();
   const boost = fmtBoost(ac.queryUserInfo?.data?.stat.extraBoost);
   return (
-    <div className="flex items-center gap-2 rounded-full px-3 py-[6px] bg-primary">
+    <div className="flex items-center gap-2 rounded-full px-3 py-[6px] bg-primary ml-auto">
       <SVGS.SvgRocket className="text-xl" />
       <div className="text-xs font-medium">
         {boost}x <span className="opacity-50">Boosting</span>
@@ -197,29 +197,36 @@ export default function MyDashboard() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
       {/*  */}
-      <IconCard icon={SVGS.SvgBerry}>
-        <div className="flex flex-col gap-[45px] flex-1">
-          <div className="flex justify-between items-center">
+      <IconCard
+        icon={SVGS.SvgBerry}
+        tit={
+          <div className="flex justify-between items-center flex-1">
             <span>BERRY</span>
             <Booster />
           </div>
-          <div className="flex items-center gap-[10%]">
+        }
+        content={
+          <div className="flex flex-1 items-center gap-[10%] w-max">
             <DupleInfo tit={`${fmtBerry(user?.point.today)}`} sub="Today" />
-            <div className="bg-white opacity-30 w-[1px] h-6" />
+            <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
             <DupleInfo tit={`${fmtBerry(user?.point.total)}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
           </div>
-        </div>
-      </IconCard>
+        }
+      />
+
       {/*  */}
-      <IconCard icon={SVGS.SvgReferral}>
-        <div className="flex flex-col gap-[45px] flex-1">
-          <div className="flex justify-between items-center">
+      <IconCard
+        icon={SVGS.SvgReferral}
+        tit={
+          <div className="flex justify-between items-center flex-1">
             <span>My Referrals</span>
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
           </div>
-          <div className="flex items-center gap-[10%]">
+        }
+        content={
+          <div className="flex flex-1 items-center gap-[10%] w-full min-w-max">
             <DupleInfo
               tit={`${user?.referral.valid || 0}`}
               subClassName="text-green-400 opacity-100"
@@ -229,7 +236,7 @@ export default function MyDashboard() {
                 </>
               }
             />
-            <div className="bg-white opacity-30 w-[1px] h-6" />
+            <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
             <DupleInfo
               tit={`${user?.referral.pending || 0}`}
               sub={
@@ -240,20 +247,14 @@ export default function MyDashboard() {
               subTip="The referee needs to achieve more than 72h uptime to make your referral qualified."
             />
           </div>
-        </div>
-      </IconCard>
-
+        }
+      />
       {/*  */}
-      <IconCard icon={SVGS.SvgNodes}>
-        <div className="flex flex-col flex-1">
-          <span>My Nodes</span>
-          <div className="flex justify-start items-center relative gap-1 mt-3 mb-8 invisible">
-            {[0, 1, 2, 3, 4].map((_n, i) => {
-              return <div key={i} className={cn("flex-grow-0 flex-shrink-0 w-3 h-3 relative overflow-hidden rounded", i < connectedNodes ? "bg-emerald-600" : "bg-gray-600")} />;
-            })}
-          </div>
-
-          <div className="flex items-center gap-[10%] mt-auto">
+      <IconCard
+        icon={SVGS.SvgNodes}
+        tit={<span>My Nodes</span>}
+        content={
+          <div className="flex flex-1 items-center gap-[10%] mt-auto">
             <DupleInfo
               tit={`${connectedNodes}`}
               subClassName="text-green-400 opacity-100"
@@ -266,8 +267,8 @@ export default function MyDashboard() {
             <div className="bg-white opacity-30 w-[1px] h-6" />
             <DupleInfo tit={`${user?.node.offline || 0}`} sub="Offline" />
           </div>
-        </div>
-      </IconCard>
+        }
+      />
       <CurrentTask />
       <TrendingChart />
     </div>

@@ -67,7 +67,7 @@ export function InputReferralCode({ setReferalCode, value }: { setReferalCode: (
       classNames={inputClassNames}
       type="text"
       // label="Referral code"
-      placeholder="Referral code"
+      placeholder="Referral code (optional)"
       labelPlacement="inside"
       variant="bordered"
       isRequired
