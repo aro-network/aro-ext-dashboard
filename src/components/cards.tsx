@@ -32,7 +32,7 @@ export function InnerIconCard({ icon, className, iconSize = 30, children }: Prop
   return (
     <Card className={cn("bg-iconcardin bg-no-repeat flex flex-row p-[30px]", className)}>
       <div
-        className=""
+        className="shrink-0"
         style={{
           height: iconSize,
           width: 120 - iconSize,

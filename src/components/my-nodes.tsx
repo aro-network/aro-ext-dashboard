@@ -24,7 +24,7 @@ const inputNameClassNames: SlotsToClasses<InputSlots> = {
 };
 function NodeName({ node }: { node: NodeItem }) {
   const [edit, toggleEdit] = useToggle(false);
-  const [inputName, setInputName] = useState("");
+  const [inputName, setInputName] = useState(node.name || "");
   const { mutate, isPending } = useMutation({
     onError: handlerError,
     mutationFn: async () => {
@@ -47,8 +47,10 @@ function NodeName({ node }: { node: NodeItem }) {
       {edit ? (
         <Input
           className="w-fit"
+          autoFocus
           classNames={inputNameClassNames}
           value={inputName}
+          maxLength={10}
           onChange={(e) => setInputName(e.target.value)}
           variant="bordered"
           type="text"

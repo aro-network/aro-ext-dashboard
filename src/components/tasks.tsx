@@ -2,7 +2,7 @@ import { useAuthContext } from "@/app/context/AuthContext";
 import { useMenusCtx } from "@/app/context/MenusContext";
 import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
-import { useMemo } from "react";
+import { ReactNode, useMemo } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { Btn, TransBtn } from "./btns";
@@ -13,14 +13,58 @@ export const TASKS = [
     sort: 0,
     btn: "Download Chrome Extension",
     tit: "Chrome Extension Node",
-    sub: "Initiate your first EnReach Node and win 40 ☀️",
-    reward: "40 ☀️",
+    sub: (
+      <div>
+        Initiate your first EnReach Node and win 40 <SVGS.SvgExp className="inline-block" />
+      </div>
+    ),
+    reward: (
+      <>
+        40 <SVGS.SvgExp className="inline-block" />
+      </>
+    ),
     icon: <SVGS.SvgExt />,
     rewardIcon: <SVGS.SvgExp />,
   },
-  { sort: 1, btn: "Connect X", tit: "Connect X", sub: "Connect and verify X account", reward: "30 ☀️", icon: <SVGS.SvgX />, rewardIcon: <SVGS.SvgExp /> },
-  { sort: 1, btn: "Connect Discord", tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "30 ☀️", icon: <SVGS.SvgDiscord />, rewardIcon: <SVGS.SvgExp /> },
-  { sort: 1, btn: "Connect Telegram", tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "30 ☀️", icon: <SVGS.SvgTg />, rewardIcon: <SVGS.SvgExp /> },
+  {
+    sort: 1,
+    btn: "Connect X",
+    tit: "Connect X",
+    sub: "Connect and verify X account",
+    reward: (
+      <>
+        30 <SVGS.SvgExp className="inline-block" />
+      </>
+    ),
+    icon: <SVGS.SvgX />,
+    rewardIcon: <SVGS.SvgExp />,
+  },
+  {
+    sort: 1,
+    btn: "Connect Discord",
+    tit: "Connect Discord",
+    sub: "Connect and verify Discord account",
+    reward: (
+      <>
+        30 <SVGS.SvgExp className="inline-block" />
+      </>
+    ),
+    icon: <SVGS.SvgDiscord />,
+    rewardIcon: <SVGS.SvgExp />,
+  },
+  {
+    sort: 1,
+    btn: "Connect Telegram",
+    tit: "Connect Telegram",
+    sub: "Connect and verify Telegram account",
+    reward: (
+      <>
+        30 <SVGS.SvgExp className="inline-block" />
+      </>
+    ),
+    icon: <SVGS.SvgTg />,
+    rewardIcon: <SVGS.SvgExp />,
+  },
 ];
 
 export const onToDownExtension = () => {
@@ -55,8 +99,8 @@ function TaskCard({
   onClickCarry,
 }: {
   tit?: string;
-  sub?: string;
-  reward?: string;
+  sub?: ReactNode;
+  reward?: ReactNode;
   isProgress?: boolean;
   progress?: number;
   complete?: boolean;
@@ -67,7 +111,7 @@ function TaskCard({
       <div className="flex flex-col items-start gap-1 text-sm">
         <span className="text-white">{tit}</span>
         <span className="text-white/50">{sub}</span>
-        <span className="text-primary">{reward}</span>
+        <span className="text-primary flex items-center gap-1">+{reward}</span>
       </div>
       {isProgress ? (
         <CircularProgressbar
@@ -121,7 +165,7 @@ export function TaskList() {
     <TitCard tit="Task & Achievements" className="col-span-10">
       <div className="grid xl:grid-cols-2 gap-5">
         {tasks.map((task) => (
-          <TaskCard key={task.tit} tit={task.tit} sub={task.sub} reward={`+${task.reward}`} complete={task.complete} onClickCarry={task.onGoTo} />
+          <TaskCard key={task.tit} tit={task.tit} sub={task.sub} reward={task.reward} complete={task.complete} onClickCarry={task.onGoTo} />
         ))}
       </div>
     </TitCard>
@@ -137,10 +181,10 @@ export function CurrentTask() {
         <BgCard className="justify-between px-5 py-7 xl:order-2">
           <div className="flex items-center justify-center mt-6 text-[3rem]">
             <div className="shadow-2 rounded-full">{cTask.icon}</div>
-            <div className="shadow-2 rounded-full -ml-3">{cTask.rewardIcon}</div>
+            <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>
           </div>
           <div className="flex flex-col justify-start items-center relative gap-1">
-            <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white">Get {cTask.reward}</p>
+            <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white flex items-center gap-2">Get {cTask.reward}</p>
             <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
           </div>
           <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium" onClick={cTask.onGoTo}>
@@ -153,6 +197,7 @@ export function CurrentTask() {
             <>
               <img className="object-cover absolute left-0 top-0 w-full h-full" src="bg-coming.svg" alt="bg" />
               <img className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="task-coming.svg" alt="comming" />
+              <div style={{ top: 'calc(50% + 50px)'}} className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap  text-center text-white/70 text-base">More tasks coming soon...</div>
             </>
           )}
         </BgCard>

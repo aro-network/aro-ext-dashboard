@@ -18,6 +18,8 @@ import { ConfirmDialog } from "./dialogimpls";
 import { levels } from "./level";
 import { Booster, DupleInfo } from "./my-dashboard";
 import { handlerErrForBind } from "@/hooks/useShowParamsError";
+import { SVGS } from "@/svg";
+import { Span } from "next/dist/trace";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
   const ac = useAuthContext();
@@ -102,20 +104,34 @@ export default function MyProfile() {
               <span className="text-2xl font-medium">{levelName} </span>
               <Booster />
             </div>
-            <DupleInfo tit={user?.stat.exp} subClassName="opacity-100" sub="☀️Sunshine" />
+            <DupleInfo
+              tit={user?.stat.exp}
+              subClassName="opacity-100"
+              sub={
+                <>
+                  <SVGS.SvgExp />
+                  Sunshine
+                </>
+              }
+            />
           </div>
         </div>
         <p className="text-sm">
-          Unlock <span className="underline">achievements</span> to earn ☀️<strong>Sunshine</strong>.<br />
-          More ☀️<strong>Sunshine</strong> grows your user level.
+          Unlock <span className="underline">achievements</span> to earn <SVGS.SvgExp className="inline-block" />
+          <strong>Sunshine</strong>.<br />
+          More <SVGS.SvgExp className="inline-block" />
+          <strong>Sunshine</strong> grows your user level.
           <br />
-          With higher user level, you enjoy higher Extra Boost on your 🫐<strong>Sunshine</strong> rewards!
+          With higher user level, you enjoy higher Extra Boost on your <SVGS.SvgBerry className="inline-block" />
+          <strong> BERRY</strong> rewards!
         </p>
         <div className="flex justify-between items-start flex-nowrap relative">
           {levels.map((level, _li) => (
             <div key={level.name} className="flex flex-col items-center">
               <level.icon className={`text-[50px]`} />
-              <span className="mt-[5px] text-center h-[23px] text-sm font-medium">{level.exp} ☀️</span>
+              <span className="mt-[5px] text-center flex items-center gap-1 h-[23px] text-sm font-medium">
+                {level.exp} <SVGS.SvgExp className="inline-block" />
+              </span>
               <span className="mt-[30px] text-white/50 text-left text-xs">
                 {level.name}
                 <br />
@@ -124,10 +140,10 @@ export default function MyProfile() {
             </div>
           ))}
           <div className="absolute left-0 top-[88px] h-[10px] w-full">
-            <Progress className="w-full h-2.5" classNames={{ track: 'bg-white/20'}} color="primary" value={processValue} maxValue={100} />
+            <Progress className="w-full h-2.5" classNames={{ track: "bg-white/20" }} color="primary" value={processValue} maxValue={100} />
             <div className="w-full h-2.5 flex justify-between absolute left-0 top-0">
               {levels.map((l) => (
-                <div key={l.level} className="bg-white/80 rounded-full w-2.5 h-2.5 border-2 border-primary"/>
+                <div key={l.level} className="bg-white/80 rounded-full w-2.5 h-2.5 border-2 border-primary" />
               ))}
             </div>
           </div>

@@ -7,9 +7,9 @@ const Level3 = ({ className }: { className?: string }) => <img className={cn("w-
 
 export const levels = [
   { icon: Level0, exp: 0, level: 0, name: "Berry Baby", boost: "+ 0%", color: "#DFDFDF" },
-  { icon: Level1, exp: 100, level: 1, name: "Blue Berry", boost: "+ 50%", color: "#EAE0F0" },
-  { icon: Level2, exp: 500, level: 2, name: "Sliver Berry", boost: "+ 100%", color: "#8A9CF1" },
-  { icon: Level3, exp: 1000, level: 3, name: "Gold Berry", boost: "+ 200%", color: "#FFFBB4" },
+  { icon: Level1, exp: 100, level: 1, name: "Teen Berry", boost: "+ 50%", color: "#EAE0F0" },
+  { icon: Level2, exp: 500, level: 2, name: "Big Blue", boost: "+ 100%", color: "#8A9CF1" },
+  { icon: Level3, exp: 1000, level: 3, name: "Berry Captain", boost: "+ 200%", color: "#FFFBB4" },
 ];
 
 export function UserLevel() {

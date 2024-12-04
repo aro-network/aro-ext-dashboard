@@ -11,7 +11,7 @@ export default function MyRewards() {
   return (
     <div className="grid grid-cols-10 gap-4">
       <IconCard
-        icon={() => <span className="relative -top-2">🫐</span>}
+        icon={SVGS.SvgBerry}
         className="col-span-10 xl:col-span-4 justify-between"
         tit={
           <div className="flex justify-between items-center w-full">
@@ -22,7 +22,11 @@ export default function MyRewards() {
         content={
           <div className="flex flex-col gap-10">
             <DupleInfo
-              tit={fmtBerry(user?.point.total) + ' 🫐'}
+              tit={
+                <div className="flex items-center gap-1">
+                  {fmtBerry(user?.point.total)} <SVGS.SvgBerry />
+                </div>
+              }
               sub="Total Rewards"
               subTip="Total Network Rewards for this season in BERRY amount."
               titClassName="text-[2rem]"

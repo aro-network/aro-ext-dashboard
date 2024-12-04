@@ -198,7 +198,7 @@ export default function MyDashboard() {
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
       {/*  */}
       <IconCard
-        icon={() => <span className="relative -top-2">🫐</span>}
+        icon={SVGS.SvgBerry}
         tit={
           <div className="flex justify-between items-center flex-1">
             <span>BERRY</span>
