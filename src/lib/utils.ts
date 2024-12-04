@@ -2,6 +2,7 @@ import { toast } from "sonner";
 import dayjs from "dayjs";
 import plugDur from "dayjs/plugin/duration";
 import { AxiosError } from "axios";
+import _ from "lodash";
 dayjs.extend(plugDur);
 
 export function strToSearchParams(str: string) {
@@ -22,7 +23,7 @@ export function getErrorMsg(error: any) {
 }
 
 export function handlerError(err: any) {
-  toast.error(getErrorMsg(err));
+  toast.error(_.upperFirst(getErrorMsg(err).trim()));
 }
 
 export function sleep(time: number) {

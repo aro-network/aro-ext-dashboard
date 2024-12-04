@@ -7,23 +7,68 @@ import { STable } from "./tables";
 import { HelpTip } from "./tips";
 
 import backendApi from "@/lib/api";
-import { fmtDuration } from "@/lib/utils";
-import { cn, Pagination, Spinner } from "@nextui-org/react";
-import { useQuery } from "@tanstack/react-query";
+import { fmtDuration, handlerError } from "@/lib/utils";
+import { cn, Input, InputSlots, Pagination, SlotsToClasses, Spinner } from "@nextui-org/react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import _ from "lodash";
 import { IoIosCheckmarkCircle, IoIosCloseCircle } from "react-icons/io";
 import { RiRefreshLine } from "react-icons/ri";
 import { useToggle } from "react-use";
 import { fmtBerry, fmtNetqulity } from "./fmtData";
-function NodeName({ name }: { name: string }) {
+import { NodeItem } from "@/types/node";
+
+const inputNameClassNames: SlotsToClasses<InputSlots> = {
+  inputWrapper: "h-5 min-h-5 w-[7.5rem] outline-none rounded-lg border-1 !border-white/20 bg-transparent text-xs",
+  label: "text-xs",
+  input: "text-xs !text-white/80",
+};
+function NodeName({ node }: { node: NodeItem }) {
   const [edit, toggleEdit] = useToggle(false);
+  const [inputName, setInputName] = useState("");
+  const { mutate, isPending } = useMutation({
+    onError: handlerError,
+    mutationFn: async () => {
+      await backendApi.updateNodeName(node.connectionId, inputName);
+      node.name = inputName;
+      toggleEdit(false);
+      return true;
+    },
+  });
+  const name = node.name || "Untitled Device";
+  const onSubmit = () => {
+    if (inputName && inputName !== name) {
+      mutate();
+    } else {
+      toggleEdit(false);
+    }
+  };
   return (
-    <div className="flex gap-[10px] items-center">
-      {/* {edit ? <Input /> : name} */}
-      {name}
-      <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer hidden" onClick={() => toggleEdit()}>
-        <FiEdit />
-      </div>
+    <div className="flex min-w-[10rem] gap-[10px] items-center">
+      {edit ? (
+        <Input
+          className="w-fit"
+          classNames={inputNameClassNames}
+          value={inputName}
+          onChange={(e) => setInputName(e.target.value)}
+          variant="bordered"
+          type="text"
+          placeholder={name}
+          onKeyDown={(e) => {
+            if (e.code === "Enter") {
+              onSubmit();
+            }
+          }}
+          onBlur={onSubmit}
+        />
+      ) : (
+        <div className="max-w-[7.5rem] overflow-hidden text-ellipsis">{name}</div>
+      )}
+      {isPending && <Spinner size="sm" />}
+      {!edit && (
+        <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer" onClick={() => toggleEdit()}>
+          <FiEdit />
+        </div>
+      )}
     </div>
   );
 }
@@ -57,7 +102,7 @@ export default function MyNodes() {
     return nodes
       .sort((a, b) => (a.isConnected !== b.isConnected ? b.isConnected - a.isConnected : b.lastConnectedAt - a.lastConnectedAt))
       .map((item) => [
-        <NodeName name={item.name || "Untitled Device"} key={"Namee"} />,
+        <NodeName node={item} key={"Namee"} />,
         "Extension",
         <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
         <Status isConnected={Boolean(item.isConnected)} key={"status"} />,
