@@ -44,9 +44,9 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
       case "telegram":
         const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
         const res = await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
-        if(res.request?.res?.responseUrl && typeof res.request?.res?.responseUrl === 'string'){
-          const err = new URL(res.request?.res?.responseUrl).searchParams.get("err")
-          handlerErrForBind(err)
+        if (res.request?.res?.responseUrl && typeof res.request?.res?.responseUrl === "string") {
+          const err = new URL(res.request?.res?.responseUrl).searchParams.get("err");
+          handlerErrForBind(err);
         }
         ac.queryUserInfo?.refetch();
         return;
@@ -102,20 +102,20 @@ export default function MyProfile() {
               <span className="text-2xl font-medium">{levelName} </span>
               <Booster />
             </div>
-            <DupleInfo tit={user?.stat.exp} sub="EXP" />
+            <DupleInfo tit={user?.stat.exp} subClassName="opacity-100" sub="☀️Sunshine" />
           </div>
         </div>
         <p className="text-sm">
-          Earn <strong className="text-primary">EXP</strong> and <strong className="text-primary">Berry-up</strong>!<br />
-          You account will level-up when you have earned certain EXP by finishing the required tasks.
+          Unlock <span className="underline">achievements</span> to earn ☀️<strong>Sunshine</strong>.<br />
+          More ☀️<strong>Sunshine</strong> grows your user level.
           <br />
-          Higher level helps you gain “BERRY” with extra % boost.
+          With higher user level, you enjoy higher Extra Boost on your 🫐<strong>Sunshine</strong> rewards!
         </p>
         <div className="flex justify-between items-start flex-nowrap relative">
           {levels.map((level, _li) => (
             <div key={level.name} className="flex flex-col items-center">
               <level.icon className={`text-[50px]`} />
-              <span className="mt-[5px] text-center h-[23px] text-sm font-medium">{level.exp} EXP</span>
+              <span className="mt-[5px] text-center h-[23px] text-sm font-medium">{level.exp} ☀️</span>
               <span className="mt-[30px] text-white/50 text-left text-xs">
                 {level.name}
                 <br />
@@ -123,7 +123,14 @@ export default function MyProfile() {
               </span>
             </div>
           ))}
-          <Progress className="absolute left-0 top-[88px] h-[10px] w-full " color="primary" value={processValue} maxValue={100} />
+          <div className="absolute left-0 top-[88px] h-[10px] w-full">
+            <Progress className="w-full h-2.5" classNames={{ track: 'bg-white/20'}} color="primary" value={processValue} maxValue={100} />
+            <div className="w-full h-2.5 flex justify-between absolute left-0 top-0">
+              {levels.map((l) => (
+                <div key={l.level} className="bg-white/80 rounded-full w-2.5 h-2.5 border-2 border-primary"/>
+              ))}
+            </div>
+          </div>
         </div>
       </TitCard>
       <TitCard tit="My Profile">

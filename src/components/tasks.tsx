@@ -13,14 +13,14 @@ export const TASKS = [
     sort: 0,
     btn: "Download Chrome Extension",
     tit: "Chrome Extension Node",
-    sub: "Initiate your first EnReach Node and win 40 EXP",
-    reward: "40 EXP",
+    sub: "Initiate your first EnReach Node and win 40 ☀️",
+    reward: "40 ☀️",
     icon: <SVGS.SvgExt />,
     rewardIcon: <SVGS.SvgExp />,
   },
-  { sort: 1, btn: "Connect X", tit: "Connect X", sub: "Connect and verify X account", reward: "30 EXP", icon: <SVGS.SvgX />, rewardIcon: <SVGS.SvgExp /> },
-  { sort: 1, btn: "Connect Discord", tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "30 EXP", icon: <SVGS.SvgDiscord />, rewardIcon: <SVGS.SvgExp /> },
-  { sort: 1, btn: "Connect Telegram", tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "30 EXP", icon: <SVGS.SvgTg />, rewardIcon: <SVGS.SvgExp /> },
+  { sort: 1, btn: "Connect X", tit: "Connect X", sub: "Connect and verify X account", reward: "30 ☀️", icon: <SVGS.SvgX />, rewardIcon: <SVGS.SvgExp /> },
+  { sort: 1, btn: "Connect Discord", tit: "Connect Discord", sub: "Connect and verify Discord account", reward: "30 ☀️", icon: <SVGS.SvgDiscord />, rewardIcon: <SVGS.SvgExp /> },
+  { sort: 1, btn: "Connect Telegram", tit: "Connect Telegram", sub: "Connect and verify Telegram account", reward: "30 ☀️", icon: <SVGS.SvgTg />, rewardIcon: <SVGS.SvgExp /> },
 ];
 
 export const onToDownExtension = () => {

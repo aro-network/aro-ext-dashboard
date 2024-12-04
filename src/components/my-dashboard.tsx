@@ -3,7 +3,7 @@ import { cn, Select, SelectItem } from "@nextui-org/react";
 import { ReactNode, useMemo, useState } from "react";
 import { FaLink } from "react-icons/fa6";
 import { IoIosCheckmarkCircle, IoIosMore } from "react-icons/io";
-import { BgCard, IconCard, TitCard } from "./cards";
+import { IconCard, TitCard } from "./cards";
 
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useCopy } from "@/hooks/useCopy";
@@ -14,10 +14,10 @@ import EChartsReact from "echarts-for-react";
 import _ from "lodash";
 import { useDebounce, useMeasure } from "react-use";
 import { UseMeasureRef } from "react-use/lib/useMeasure";
-import { IconBtn, TransBtn } from "./btns";
+import { IconBtn } from "./btns";
 import { fmtBerry, fmtBoost } from "./fmtData";
-import { HelpTip } from "./tips";
 import { CurrentTask } from "./tasks";
+import { HelpTip } from "./tips";
 
 export function DupleInfo({
   tit,
@@ -50,7 +50,7 @@ export function Booster() {
   const boost = fmtBoost(ac.queryUserInfo?.data?.stat.extraBoost);
   return (
     <div className="flex items-center gap-2 rounded-full px-3 py-[6px] bg-primary ml-auto">
-      <SVGS.SvgRocket className="text-xl" />
+      <span className="font-sans text-xl">⚡️</span>
       <div className="text-xs font-medium">
         {boost}x <span className="opacity-50">Boosting</span>
       </div>
@@ -131,7 +131,7 @@ export function TrendingChart({ className }: { className?: string }) {
           data: yData,
           type: "bar",
           itemStyle: {
-            borderRadius: 2,
+            borderRadius: 10,
             color: "#4281FF",
           },
           label: {
@@ -140,8 +140,8 @@ export function TrendingChart({ className }: { className?: string }) {
             position: "top",
             color: "rgba(255,255,255,0.5)",
           },
-          barWidth: 10,
-          barMinWidth: 10,
+          barWidth: 20,
+          barMinWidth: 20,
           barCategoryGap: 38,
         },
       ],
@@ -198,7 +198,7 @@ export default function MyDashboard() {
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
       {/*  */}
       <IconCard
-        icon={SVGS.SvgBerry}
+        icon={() => <span className="relative -top-2">🫐</span>}
         tit={
           <div className="flex justify-between items-center flex-1">
             <span>BERRY</span>
