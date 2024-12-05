@@ -45,8 +45,8 @@ export function DupleInfo({
   );
 }
 
-export function DupleSplit(){
-  return <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
+export function DupleSplit() {
+  return <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />;
 }
 
 export function Booster() {
@@ -54,7 +54,9 @@ export function Booster() {
   const boost = fmtBoost(ac.queryUserInfo?.data?.stat.extraBoost);
   return (
     <div className="flex items-center gap-2 rounded-full px-3 py-[6px] bg-primary ml-auto">
-      <span className="font-sans text-xl">⚡️</span>
+      <span className="font-sans text-xl">
+        <SVGS.SvgRocket />
+      </span>
       <div className="text-xs font-medium">
         {boost}x <span className="opacity-50">Boosting</span>
       </div>
