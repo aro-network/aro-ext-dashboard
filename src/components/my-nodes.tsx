@@ -78,7 +78,7 @@ function NodeName({ node }: { node: NodeItem }) {
 function CountryIP({ ip, country }: { ip: string; country: string }) {
   return (
     <div className="flex gap-2 items-center">
-      <span className={cn(`text-base fi fi-${country.toLowerCase()}`)}></span>
+      <span className={cn(`text-base fi fi-${(country || "").toLowerCase()}`)}></span>
       <span>{ip}</span>
     </div>
   );
