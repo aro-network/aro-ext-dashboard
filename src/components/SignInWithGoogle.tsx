@@ -11,6 +11,7 @@ import { validateReferralCode } from "@/lib/validates";
 import backendApi from "@/lib/api";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { Spinner } from "@nextui-org/react";
+import { MLink } from "./links";
 
 export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google", isDisabled }: { defReferralCode?: string; btn?: string; isDisabled?: boolean }) {
   const ac = useAuthContext();
@@ -53,7 +54,7 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
       if (validateReferralCode(referralCode) !== true || !refGoogleToken.current) return;
       const res = await backendApi.loginSetReferralApi({ accessToken: refGoogleToken.current, referralCode });
       ac.setUser(res);
-      toggleShowInputReferral(false)
+      toggleShowInputReferral(false);
     },
   });
   const { mutate: onSkipReferralCode, isPending: isPendingSkiping } = useMutation({
@@ -62,7 +63,7 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
       if (!refGoogleToken.current) return;
       const res = await backendApi.loginSetReferralApi({ accessToken: refGoogleToken.current });
       ac.setUser(res);
-      toggleShowInputReferral(false)
+      toggleShowInputReferral(false);
     },
   });
 
@@ -86,9 +87,9 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
           Get Boosted
         </Btn>
         <div className="flex justify-center text-white/80  text-sm">
-          <span className="cursor-pointer" onClick={() => onSkipReferralCode()}>
+          <MLink onClick={() => onSkipReferralCode()} className="ml-2 text-xs">
             {isPendingSkiping ? <Spinner size="sm" /> : "Skip"}
-          </span>
+          </MLink>
         </div>
       </ForceModal>
     </>
