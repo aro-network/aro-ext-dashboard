@@ -75,15 +75,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             name: "getStat",
           })
           .then((stat: { logined: boolean; userLogout: boolean }) => {
-            if (stat.userLogout) {
+            if (!stat.logined) {
               console.info("sync logout from ext");
               logout();
-              getInjectEnReachAI()?.request({ name: "clearLogout" }).catch(console.error);
-            } else if (!stat.logined && !refIsLogout.current) {
-              console.info("sync login to ext");
-              getInjectEnReachAI()?.request({ name: "setAccessToken", body: user.token }).catch(console.error);
-            } else {
-              console.info("not need do something");
             }
           })
           .catch(console.error);
