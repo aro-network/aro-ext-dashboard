@@ -41,7 +41,7 @@ const backendApi = {
     backendApi.setAuth(response.data.data.token);
     return response.data.data;
   },
-  registerApi: async (data: { email: string; password: string; referralCode: string }) => {
+  registerApi: async (data: { email: string; password: string; referralCode?: string }) => {
     const response = await Api.post<RES<SingUpResult>>("/user/signUp", { ...data });
     return response.data.data;
   },

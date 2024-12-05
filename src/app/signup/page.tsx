@@ -36,9 +36,8 @@ export default function Page() {
       e.preventDefault();
       if (!email || !password || !confirmPassword) throw new Error("Please enter email or password");
       if (password !== confirmPassword) throw new Error("Please confirm password");
-      if (!referalCode) throw new Error("Please enter referral code");
       if (!checkedTermPrivacy) throw new Error("Plase checked Term of Service and Privacy Policy");
-      refRegisterUser.current = await backendApi.registerApi({ email, password, referralCode: referalCode });
+      refRegisterUser.current = await backendApi.registerApi({ email, password, referralCode: referalCode ? referalCode : undefined });
       actionResendScends.reset(60);
       setShowToVerify(true);
     },
