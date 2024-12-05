@@ -6,7 +6,7 @@ import MyRewards from "@/components/my-rewards";
 import { strToSearchParams } from "@/lib/utils";
 import { SVGS } from "@/svg";
 import { useRouter, useSearchParams } from "next/navigation";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { createContext, Fragment, PropsWithChildren, useContext, useState } from "react";
 export const menus = [
   {
     name: "Overview",

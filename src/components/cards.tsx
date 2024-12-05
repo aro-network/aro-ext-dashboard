@@ -1,8 +1,23 @@
 import { Card, cn } from "@nextui-org/react";
 import React, { PropsWithChildren, ReactNode } from "react";
 
-export function IconCard({ icon, className, iconSize = 30, tit, content }: { icon: React.FC; className?: string; iconSize?: number; tit: ReactNode; content: ReactNode }) {
+export function IconCard({
+  icon,
+  className,
+  iconSize = 30,
+  tit,
+  content,
+  contentMinWidth,
+}: {
+  icon: React.FC;
+  className?: string;
+  iconSize?: number;
+  tit: ReactNode;
+  content: ReactNode;
+  contentMinWidth?: number;
+}) {
   const Micon = icon;
+  const leftSize  = 120 - iconSize
   return (
     <Card className={cn("bg-iconcard bg-no-repeat shadow-1 backdrop-blur-lg flex flex-col p-[28px] gap-[45px]", className)}>
       <div className="flex items-center whitespace-nowrap" style={{ height: 30 }}>
@@ -10,7 +25,7 @@ export function IconCard({ icon, className, iconSize = 30, tit, content }: { ico
           className="shrink-0"
           style={{
             height: iconSize,
-            width: 120 - iconSize,
+            width: leftSize,
             fontSize: iconSize,
             paddingLeft: (30 - iconSize) / 2,
           }}
@@ -20,8 +35,10 @@ export function IconCard({ icon, className, iconSize = 30, tit, content }: { ico
         {tit}
       </div>
       <div className="w-full flex flex-row">
-        <div style={{ maxWidth: 120 - iconSize }} className="flex-1" />
-        <div className="flex-1 basis-32">{content}</div>
+        <div style={{ width: leftSize, flexShrink: 100 }} />
+        <div style={{ flexBasis:`calc(100% - ${leftSize}px)`, flexGrow: 1, minWidth: contentMinWidth }} className="">
+          {content}
+        </div>
       </div>
     </Card>
   );

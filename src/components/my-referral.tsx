@@ -3,7 +3,7 @@ import { IconCard, InnerIconCard, TitCard } from "./cards";
 import { SVGS } from "@/svg";
 import { Btn, IconBtn } from "./btns";
 import { FaLink, FaXTwitter } from "react-icons/fa6";
-import { DupleInfo } from "./my-dashboard";
+import { DupleInfo, DupleSplit } from "./my-dashboard";
 import { IoIosCheckmarkCircle, IoIosMore } from "react-icons/io";
 import { HelpTip } from "./tips";
 import { useAuthContext } from "@/app/context/AuthContext";
@@ -52,7 +52,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         iconSize={20}
         tit={<div className="text-xl">My Referrals</div>}
         content={
-          <div className="flex items-center gap-[10%]">
+          <div className="flex items-center gap-[10%] min-w-[220px]">
             <DupleInfo
               tit={referredCount}
               subClassName="text-green-400 opacity-100"
@@ -62,7 +62,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
                 </>
               }
             />
-            <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
+            <DupleSplit />
             <DupleInfo
               tit={referringCount}
               sub={

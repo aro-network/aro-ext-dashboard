@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/app/context/AuthContext";
 import { menus, MenusProvider, useMenusCtx } from "@/app/context/MenusContext";
 import { cn } from "@nextui-org/react";
-import React, { SVGProps } from "react";
+import React, { Fragment, SVGProps } from "react";
 import { MAvatar } from "./avatar";
 import { fmtBerry } from "./fmtData";
 import { levels } from "./level";
@@ -12,16 +12,18 @@ function Header() {
   const user = ac.queryUserInfo?.data;
   const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
   const exp = user?.stat.exp || 0;
-  const mc = useMenusCtx()
+  const mc = useMenusCtx();
   return (
     <div className="flex justify-between items-center flex-grow-0 flex-shrink-0 h-16 overflow-hidden px-4 border border-black gap-4">
       <img className="h-12" src="/logo.svg" alt="Logo" />
       <div
         className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] ml-auto bg-l2 cursor-pointer"
-        onClick={() => mc.toMenu('My Rewards')}
+        onClick={() => mc.toMenu("My Rewards")}
       >
         {/* <img src="/berry.png" className="flex-grow-0 flex-shrink-0 w-6 h-6 object-cover" alt="Berry" /> */}
-        <span className="relative text-2xl"><SVGS.SvgBerry/></span>
+        <span className="relative text-2xl">
+          <SVGS.SvgBerry />
+        </span>
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left">
           <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{fmtBerry(user?.point.total)} </span>
           <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white/50">BERRY</span>
@@ -31,7 +33,9 @@ function Header() {
         className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] bg-l2 cursor-pointer"
         onClick={() => mc.toMenu("My Profile")}
       >
-        <div className="flex-grow-0 flex-shrink-0 px-2 h-6 rounded-full text-white flex justify-center items-center font-medium text-sm bg-primary">{exp} <SVGS.SvgExp/></div>
+        <div className="flex-grow-0 flex-shrink-0 px-2 h-6 rounded-full text-white flex justify-center items-center font-medium text-sm bg-primary">
+          {exp} <SVGS.SvgExp />
+        </div>
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{levelName}</p>
       </div>
       <div
@@ -80,10 +84,16 @@ const Main = () => {
       <Header />
       <div className="flex-1 flex">
         <Menus />
-        <div className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
-          <h2 className="text-[2rem] font-medium">{mc.current.name}</h2>
-          {mc.current.content}
-        </div>
+        {menus.map((item) => (
+          <Fragment key={item.name}>
+            {mc.current.name === item.name && (
+              <div className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
+                <h2 className="text-[2rem] font-medium">{mc.current.name}</h2>
+                {mc.current.content}
+              </div>
+            )}
+          </Fragment>
+        ))}
       </div>
     </div>
   );

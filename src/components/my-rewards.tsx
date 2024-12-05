@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/app/context/AuthContext";
 import { SVGS } from "@/svg";
 import { IconCard } from "./cards";
-import { Booster, DupleInfo, TrendingChart } from "./my-dashboard";
+import { Booster, DupleInfo, DupleSplit, TrendingChart } from "./my-dashboard";
 import { TaskList } from "./tasks";
 import { fmtBerry } from "./fmtData";
 
@@ -20,7 +20,7 @@ export default function MyRewards() {
           </div>
         }
         content={
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-10 min-w-[280px]">
             <DupleInfo
               tit={
                 <div className="flex items-center gap-1">
@@ -32,9 +32,9 @@ export default function MyRewards() {
               titClassName="text-[2rem]"
               subClassName="text-lg"
             />
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-[10%]">
               <DupleInfo tit={fmtBerry(user?.point.network)} sub="Network Rewards" />
-              <div className="w-[1px] bg-white/30 h-6 shrink-0" />
+              <DupleSplit />
               <DupleInfo tit={fmtBerry(user?.point.referral)} sub="Referral Bonus" />
             </div>
           </div>

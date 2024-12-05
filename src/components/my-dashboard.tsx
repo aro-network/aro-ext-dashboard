@@ -45,6 +45,10 @@ export function DupleInfo({
   );
 }
 
+export function DupleSplit(){
+  return <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
+}
+
 export function Booster() {
   const ac = useAuthContext();
   const boost = fmtBoost(ac.queryUserInfo?.data?.stat.extraBoost);
@@ -206,9 +210,9 @@ export default function MyDashboard() {
           </div>
         }
         content={
-          <div className="flex flex-1 items-center gap-[10%] w-max">
+          <div className="flex flex-1 items-center gap-[10%] min-w-[180px]">
             <DupleInfo tit={`${fmtBerry(user?.point.today)}`} sub="Today" />
-            <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
+            <DupleSplit />
             <DupleInfo tit={`${fmtBerry(user?.point.total)}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
           </div>
         }
@@ -226,7 +230,7 @@ export default function MyDashboard() {
           </div>
         }
         content={
-          <div className="flex flex-1 items-center gap-[10%] w-full min-w-max">
+          <div className="flex flex-1 items-center gap-[10%] w-full min-w-[220px]">
             <DupleInfo
               tit={`${user?.referral.valid || 0}`}
               subClassName="text-green-400 opacity-100"
@@ -236,7 +240,7 @@ export default function MyDashboard() {
                 </>
               }
             />
-            <div className="bg-white opacity-30 w-[1px] h-6 shrink-0" />
+            <DupleSplit />
             <DupleInfo
               tit={`${user?.referral.pending || 0}`}
               sub={
@@ -254,7 +258,7 @@ export default function MyDashboard() {
         icon={SVGS.SvgNodes}
         tit={<span>My Nodes</span>}
         content={
-          <div className="flex flex-1 items-center gap-[10%] mt-auto">
+          <div className="flex flex-1 items-center gap-[10%] min-w-[200px]">
             <DupleInfo
               tit={`${connectedNodes}`}
               subClassName="text-green-400 opacity-100"
@@ -264,7 +268,7 @@ export default function MyDashboard() {
                 </>
               }
             />
-            <div className="bg-white opacity-30 w-[1px] h-6" />
+            <DupleSplit />
             <DupleInfo tit={`${user?.node.offline || 0}`} sub="Offline" />
           </div>
         }

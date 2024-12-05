@@ -28,7 +28,7 @@ function NodeName({ node }: { node: NodeItem }) {
   const { mutate, isPending } = useMutation({
     onError: handlerError,
     mutationFn: async () => {
-      await backendApi.updateNodeName(node.connectionId, inputName);
+      await backendApi.updateNodeName(node, inputName);
       node.name = inputName;
       toggleEdit(false);
       return true;

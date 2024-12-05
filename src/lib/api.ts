@@ -36,7 +36,7 @@ const backendApi = {
     backendApi.setAuth(response.data.data.token);
     return response.data.data;
   },
-  loginSetReferralApi: async (data: { accessToken: string; referralCode: string }) => {
+  loginSetReferralApi: async (data: { accessToken: string; referralCode?: string }) => {
     const response = await Api.post<RES<LoginResult>>("/user/referral/by", data);
     backendApi.setAuth(response.data.data.token);
     return response.data.data;
@@ -109,9 +109,9 @@ const backendApi = {
     return ip.data;
   },
 
-  updateNodeName: async (nodeId: string, name: string) => {
+  updateNodeName: async (node: NodeItem, name: string) => {
     // /api/node/rename/{clientId}/{name}
-    await Api.post<RES<undefined>>(`/node/rename/${nodeId}/${encodeURIComponent(name)}`);
+    await Api.post<RES<undefined>>(`/node/rename/${node.connectionId}/${encodeURIComponent(node.ipAddress)}/${encodeURIComponent(name)}`);
     return true;
   },
 };
