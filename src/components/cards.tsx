@@ -11,7 +11,7 @@ export function IconCard({ icon, className, iconSize = 30, tit, content }: { ico
   const pl = pxToRem((30 - iconSize) / 2);
   return (
     <Card className={cn("bg-l1 bg-no-repeat shadow-1 backdrop-blur-lg flex flex-col p-[1.75rem] gap-[2.8125rem] relative", className)}>
-      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6.5rem] z-0" />
+      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6.15rem] z-0" />
       <div className="flex items-center whitespace-nowrap" style={{ height: sizeRem }}>
         <div
           className="shrink-0"
@@ -43,7 +43,7 @@ export function InnerIconCard({ icon, className, iconSize = 30, children }: Prop
   const pl = pxToRem((30 - iconSize) / 2);
   return (
     <Card className={cn("bg-white/10 bg-no-repeat flex flex-row p-[1.875rem] relative", className)}>
-      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6.5rem] z-0" />
+      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6.6rem] z-0" />
       <div
         className="shrink-0"
         style={{
