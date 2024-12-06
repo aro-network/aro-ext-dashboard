@@ -45,8 +45,8 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
         break;
       case "telegram":
         const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
-        const res = await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
-        console.info('bingTG:',res.request)
+        const res = await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token }, });
+        console.info('bingTG:',res)
         if (typeof res.request?.responseUrl === 'string') {
           const err = new URL(res.request?.responseUrl).searchParams.get("err");
           handlerErrForBind(err);
