@@ -33,11 +33,11 @@ export function STable({
                 </TableCell>
               ))}
             </TableRow>
-            <TableRow className="mt-5" key={ri}>
+            <TableRow className="mt-5" key={`stable_row_${ri}`}>
               {item.map((cell, ci) => (
                 <TableCell
                   className={cn("bg-white/10 h-[50px] whitespace-nowrap text-xs text-white/80", { "rounded-l-lg": ci == 0, "rounded-r-lg": ci == item.length - 1 })}
-                  key={ci}
+                  key={`stable_cell_${ri}_${ci}`}
                 >
                   {cell}
                 </TableCell>
