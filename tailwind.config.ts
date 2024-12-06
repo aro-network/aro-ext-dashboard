@@ -14,9 +14,6 @@ const config: Config = {
         l1: "linear-gradient(62.88deg, rgba(255, 255, 255, 0.1) 0.45%, rgba(255, 255, 255, 0.15) 99.55%)",
         l2: "linear-gradient(44.61deg, rgba(255,255,255,0.1) 0.34%, rgba(255,255,255,0.15) 99.66%)",
         // background: linear-gradient(62.88deg, rgba(255, 255, 255, 0.2) 0.45%, rgba(255, 255, 255, 0.25) 99.55%);
-
-        iconcard: "url('/bg-icon-card.svg'),linear-gradient(62.88deg, rgba(255, 255, 255, 0.1) 0.45%, rgba(255, 255, 255, 0.15) 99.55%)",
-        iconcardin: "url('/bg-icon-card.svg'), linear-gradient(rgba(245, 245, 245, 0.1),rgba(245, 245, 245, 0.1))",
         m1: "linear-gradient(37.63deg, #233F7B 5.22%, #00000F 88.49%)",
       },
       boxShadow: {

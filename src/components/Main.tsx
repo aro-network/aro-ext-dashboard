@@ -17,7 +17,7 @@ function Header() {
     <div className="flex justify-between items-center flex-grow-0 flex-shrink-0 h-16 overflow-hidden px-4 border border-black gap-4">
       <img className="h-12" src="/logo.svg" alt="Logo" />
       <div
-        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] ml-auto bg-l2 cursor-pointer"
+        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[1.25rem] ml-auto bg-l2 cursor-pointer"
         onClick={() => mc.toMenu("My Rewards")}
       >
         {/* <img src="/berry.png" className="flex-grow-0 flex-shrink-0 w-6 h-6 object-cover" alt="Berry" /> */}
@@ -30,7 +30,7 @@ function Header() {
         </p>
       </div>
       <div
-        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[20px] bg-l2 cursor-pointer"
+        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[1.25rem] bg-l2 cursor-pointer"
         onClick={() => mc.toMenu("My Profile")}
       >
         <div className="flex-grow-0 flex-shrink-0 px-2 h-6 rounded-full text-white flex justify-center items-center font-medium text-sm bg-primary">
@@ -51,7 +51,7 @@ function Header() {
 function Menus() {
   const mc = useMenusCtx();
   return (
-    <div className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[60px] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
+    <div className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
       {menus.map((m) => {
         const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
         const selected = m.name === mc.current.name;
@@ -66,7 +66,7 @@ function Menus() {
               mc.toMenu(m.name);
             }}
           >
-            <div className={cn("flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2.5 rounded-[1000px]", { "bg-blue-400": selected })}>
+            <div className={cn("flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2.5 rounded-full", { "bg-blue-400": selected })}>
               <Micon className={cn("text-base")} />
             </div>
             <div className="text-xs font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>

@@ -37,3 +37,7 @@ export function fmtDate(date: number, fmt: string) {
 export function fmtDuration(time: number, fmt: string) {
   return dayjs.duration(time).format(fmt);
 }
+
+export function pxToRem(px: number, base: number = 16) {
+  return _.round(px / base, 4) + "rem";
+}

@@ -43,7 +43,7 @@ function NodeName({ node }: { node: NodeItem }) {
     }
   };
   return (
-    <div className="flex min-w-[10rem] gap-[10px] items-center">
+    <div className="flex min-w-[10rem] gap-2.5 items-center">
       {edit ? (
         <Input
           className="w-fit"
@@ -67,7 +67,7 @@ function NodeName({ node }: { node: NodeItem }) {
       )}
       {isPending && <Spinner size="sm" />}
       {!edit && (
-        <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[8px] w-3 h-3 cursor-pointer" onClick={() => toggleEdit()}>
+        <div className="flex justify-center items-center rounded-full bg-white/80 hover:bg-white text-black text-[.5rem] w-3 h-3 cursor-pointer" onClick={() => toggleEdit()}>
           <FiEdit />
         </div>
       )}
@@ -86,7 +86,7 @@ function CountryIP({ ip, country }: { ip: string; country: string }) {
 function Status({ isConnected }: { isConnected?: boolean }) {
   return (
     <div className={cn(" flex items-center gap-1", isConnected ? "text-green-400" : "text-white/60")}>
-      {isConnected ? <IoIosCheckmarkCircle className="text-[15px]" /> : <IoIosCloseCircle className="text-[15px]" />}
+      {isConnected ? <IoIosCheckmarkCircle className="text-[.9375rem]" /> : <IoIosCloseCircle className="text-[.9375rem]" />}
       {isConnected ? "Connected" : "Offline"}
     </div>
   );

@@ -4,14 +4,14 @@ import { ReactNode } from "react";
 
 export function Btn({ children, className, ...props }: ButtonProps) {
   return (
-    <Button color="primary" className={cn("h-[42px] hover:bg-default", props.color == "default" ? "hover:bg-l1" : "", className)} {...props}>
+    <Button color="primary" className={cn("h-[2.625rem] hover:bg-default", props.color == "default" ? "hover:bg-l1" : "", className)} {...props}>
       {children}
     </Button>
   );
 }
 export function TransBtn({ children, className, ...props }: ButtonProps) {
   return (
-    <Button color="primary" className={cn("h-[42px] bg-l1 shadow-1 backdrop-blur-lg hover:bg-primary", className)} {...props}>
+    <Button color="primary" className={cn("h-[2.625rem] bg-l1 shadow-1 backdrop-blur-lg hover:bg-primary", className)} {...props}>
       {children}
     </Button>
   );

@@ -143,7 +143,7 @@ function TaskCard({
               // Text color
               fill: "#fff",
               // Text size
-              fontSize: "18px",
+              fontSize: "1.125rem",
             },
           }}
           text={`${progress}%`}
@@ -197,7 +197,7 @@ export function CurrentTask() {
             <>
               <img className="object-cover absolute left-0 top-0 w-full h-full" src="bg-coming.svg" alt="bg" />
               <img className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" src="task-coming.svg" alt="comming" />
-              <div style={{ top: 'calc(50% + 50px)'}} className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap  text-center text-white/70 text-base">More tasks coming soon...</div>
+              <div style={{ top: 'calc(50% + 3.125rem)'}} className="absolute left-1/2 -translate-x-1/2 whitespace-nowrap  text-center text-white/70 text-base">More tasks coming soon...</div>
             </>
           )}
         </BgCard>

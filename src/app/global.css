@@ -14,7 +14,43 @@ html {
   background: url("/bg.svg") center no-repeat;
   background-size: cover;
   color: white;
-  font-size: 16px;
+  font-size: 16px; /* width 1512 */
+}
+
+@media (min-width: 1663px) {
+  html {
+    font-size: 17.6px;
+  }
+}
+@media (min-width: 1814px) {
+  html {
+    font-size: 19.2px;
+  }
+}
+@media (min-width: 1965px) {
+  html {
+    font-size: 20.8px;
+  }
+}
+@media (min-width: 2116px) {
+  html {
+    font-size: 22.4px;
+  }
+}
+@media (min-width: 2267px) {
+  html {
+    font-size: 24px;
+  }
+}
+@media (min-width: 2418px) {
+  html {
+    font-size: 25.6px;
+  }
+}
+@media (min-width: 2569px) {
+  html {
+    font-size: 27.2px;
+  }
 }
 
 .font-HelveticaNeue {
@@ -32,17 +68,17 @@ html {
   background-repeat: no-repeat;
 }
 ::-webkit-scrollbar {
-  border-radius: 10px;
-  width: 12px;
-  height: 12px;
+  border-radius: 100px;
+  width: 0.75rem;
+  height: 0.75rem;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
+  border-radius: 100px;
 }
 ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
+  border-radius: 100px;
 }
 ::-webkit-scrollbar-button {
   display: none;

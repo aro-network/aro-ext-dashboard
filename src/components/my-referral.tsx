@@ -52,7 +52,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         iconSize={20}
         tit={<div className="text-xl">My Referrals</div>}
         content={
-          <div className="flex items-center gap-[10%] min-w-[220px]">
+          <div className="flex items-center gap-[10%] min-w-[13.75rem]">
             <DupleInfo
               tit={referredCount}
               subClassName="text-green-400 opacity-100"
@@ -90,7 +90,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
           </div>
         }
       />
-      <TitCard className="col-span-full flex-row gap-[50px] flex-wrap justify-center">
+      <TitCard className="col-span-full flex-row gap-[3.125rem] flex-wrap justify-center">
         <div className="flex flex-col gap-4 items-center shrink-0">
           <SVGS.SvgMedal className="text-[5rem] shrink-0" />
           <div className="uppercase text-[2rem] whitespace-nowrap font-HelveticaNeue leading-8">Get Referral Rewards</div>
@@ -98,7 +98,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
             Copy Referral Link
           </Btn>
         </div>
-        <InnerIconCard icon={SVGS.SvgRewards} iconSize={20} className="flex-1 min-w-[500px]">
+        <InnerIconCard icon={SVGS.SvgRewards} iconSize={20} className="flex-1 min-w-[31.25rem]">
           <div className="text-base">
             <p>
               For every qualified referral (Referee’s Uptime {">"} 72 hours), both parties get one-time <strong className="text-primary">720 BERRY</strong> bonus.

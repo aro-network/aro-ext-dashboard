@@ -64,7 +64,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
       <div className="flex flex-col gap-2">
         <span className="text-sm font-semibold">{tit}</span>
         <div className={cn("flex items-center gap-1 text-xs", isConnected ? "text-green-400" : "text-white/60")}>
-          {isConnected ? <IoIosCheckmarkCircle className="text-[15px]" /> : <IoIosCloseCircle className="text-[15px]" />}
+          {isConnected ? <IoIosCheckmarkCircle className="text-[.9375rem]" /> : <IoIosCloseCircle className="text-[.9375rem]" />}
           {isConnected ? "Connected" : "Not Connected"}
         </div>
       </div>
@@ -128,18 +128,18 @@ export default function MyProfile() {
         <div className="flex justify-between items-start flex-nowrap relative">
           {levels.map((level, _li) => (
             <div key={level.name} className="flex flex-col items-center">
-              <level.icon className={`text-[50px]`} />
-              <span className="mt-[5px] text-center flex items-center gap-1 h-[23px] text-sm font-medium">
+              <level.icon className={`text-[3.125rem]`} />
+              <span className="mt-[.3125rem] text-center flex items-center gap-1 h-[1.4375rem] text-sm font-medium">
                 {level.exp} <SVGS.SvgExp className="inline-block" />
               </span>
-              <span className="mt-[30px] text-white/50 text-left text-xs">
+              <span className="mt-[1.875rem] text-white/50 text-left text-xs">
                 {level.name}
                 <br />
                 {level.boost}
               </span>
             </div>
           ))}
-          <div className="absolute left-0 top-[88px] h-[10px] w-full">
+          <div className="absolute left-0 top-[5.5rem] h-[.625rem] w-full">
             <Progress className="w-full h-2.5" classNames={{ track: "bg-white/20" }} color="primary" value={processValue} maxValue={100} />
             <div className="w-full h-2.5 flex justify-between absolute left-0 top-0">
               {levels.map((l) => (

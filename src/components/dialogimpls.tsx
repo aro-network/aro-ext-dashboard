@@ -14,7 +14,7 @@ export function AddNodeDialog() {
       <TitModal isOpen={isOpen} onClose={() => toggleOpen(false)} tit="Add New Node">
         <div className="flex flex-col justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-2.5">
           <div className="flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
-            <SVGS.SvgExt className="text-[60px]" />
+            <SVGS.SvgExt className="text-[3.75rem]" />
             <p className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-white">
               <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white">Chrome Extension Node</span>
               <br />
@@ -28,7 +28,7 @@ export function AddNodeDialog() {
           </Btn>
         </div>
         <div className="flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
-          <IoDesktopOutline className="text-[60px] text-white" />
+          <IoDesktopOutline className="text-[3.75rem] text-white" />
           <p className="self-stretch flex-grow-0 flex-shrink-0  text-sm text-center text-white/50">
             <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white/40">Desktop Node (Coming Soon)</span>
             <br />

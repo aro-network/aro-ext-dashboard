@@ -25,7 +25,7 @@ export default function Page() {
   const disableSignIn = isPendingSignIn || validateEmail(email) !== true || !password;
   return (
     <div className="mx-auto px-5 min-h-full flex flex-col gap-4 items-center w-full max-w-[25rem]">
-      <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
+      <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" />
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
         <InputEmail setEmail={setEmail} />
         <InputPassword setPassword={setPassword} validate={() => null} />

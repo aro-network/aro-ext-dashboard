@@ -82,7 +82,7 @@ export default function Page() {
   const disableResendEmail = reSendSecends > 0 || isPendingResendVerify;
   return (
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
-      <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
+      <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" />
       {showToVerify ? (
         <div className="flex flex-col items-center gap-5 w-full mb-auto">
           <div className="text-center whitespace-nowrap">
@@ -105,8 +105,8 @@ export default function Page() {
           <InputPassword setPassword={setPassword} />
           <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
           <InputReferralCode value={referalCode} setReferalCode={setReferalCode} />
-          <Checkbox classNames={{ label: "text-xs text-white/60", icon: "w-[9px] h-[10px]" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
-            I agree to the EnReach.AI{" "}
+          <Checkbox classNames={{ label: "text-xs text-white/60", icon: "w-2.5 h-2.5" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
+            I agree to the EnReach{" "}
             <MLink className="text-xs" href="/terms">
               Term of Service
             </MLink>{" "}
@@ -116,9 +116,6 @@ export default function Page() {
             </MLink>
             .
           </Checkbox>
-          {/* <Checkbox classNames={{ label: "text-xs text-white/60", icon: "w-[9px] h-[10px]" }} checked={checkedReceiveEmail} onValueChange={setCheckedReceiveEmail}>
-            I agree to receive updates, notifications and promotions from EnReach.AI with my email.
-          </Checkbox> */}
           <Btn type="submit" isDisabled={disableSignUp} isLoading={isPending}>
             Sign Up
           </Btn>

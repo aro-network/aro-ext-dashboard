@@ -71,7 +71,7 @@ export function ThemeMode() {
       <div className="text-xl cursor-pointer" onClick={() => toggleOpen()}>
         {Icons[ts.theme as "light" | "dark" | "system"]}
       </div>
-      <TitModal tit={"Switch Theme Mode"} isOpen={isOpen} className="max-w-[200px] py-10 flex flex-col text-base text-stone-500 dark:text-white">
+      <TitModal tit={"Switch Theme Mode"} isOpen={isOpen} className="max-w-[12.5rem] py-10 flex flex-col text-base text-stone-500 dark:text-white">
         {["Light", "Dark", "System"].map((item) => (
           <div
             key={"theme_mode_" + item}

@@ -62,7 +62,7 @@ export default function Page() {
   const disableSend = isPendingSend || sendCount > 0 || validateEmail(email) !== true;
   return (
     <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
-      <img src="logo.svg" alt="Logo" className="mt-auto h-[79px]" />
+      <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" />
       <form onSubmit={onReset} className="flex flex-col gap-5 w-full mb-auto">
         <InputEmail value={email} setEmail={setEmail} />
         <InputPassword label="New Password" setPassword={setPassword} />

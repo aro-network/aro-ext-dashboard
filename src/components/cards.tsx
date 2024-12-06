@@ -1,33 +1,25 @@
+import { pxToRem } from "@/lib/utils";
+import { SVGS } from "@/svg";
 import { Card, cn } from "@nextui-org/react";
+import _ from "lodash";
 import React, { PropsWithChildren, ReactNode } from "react";
 
-export function IconCard({
-  icon,
-  className,
-  iconSize = 30,
-  tit,
-  content,
-  contentMinWidth,
-}: {
-  icon: React.FC;
-  className?: string;
-  iconSize?: number;
-  tit: ReactNode;
-  content: ReactNode;
-  contentMinWidth?: number;
-}) {
+export function IconCard({ icon, className, iconSize = 30, tit, content }: { icon: React.FC; className?: string; iconSize?: number; tit: ReactNode; content: ReactNode }) {
   const Micon = icon;
-  const leftSize  = 120 - iconSize
+  const sizeRem = pxToRem(iconSize);
+  const leftSizeRem = pxToRem(120 - iconSize);
+  const pl = pxToRem((30 - iconSize) / 2);
   return (
-    <Card className={cn("bg-iconcard bg-no-repeat shadow-1 backdrop-blur-lg flex flex-col p-[28px] gap-[45px]", className)}>
-      <div className="flex items-center whitespace-nowrap" style={{ height: 30 }}>
+    <Card className={cn("bg-l1 bg-no-repeat shadow-1 backdrop-blur-lg flex flex-col p-[1.75rem] gap-[2.8125rem] relative", className)}>
+      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6.5rem] z-0" />
+      <div className="flex items-center whitespace-nowrap" style={{ height: sizeRem }}>
         <div
           className="shrink-0"
           style={{
-            height: iconSize,
-            width: leftSize,
-            fontSize: iconSize,
-            paddingLeft: (30 - iconSize) / 2,
+            height: sizeRem,
+            width: leftSizeRem,
+            fontSize: sizeRem,
+            paddingLeft: pl,
           }}
         >
           <Micon />
@@ -35,8 +27,8 @@ export function IconCard({
         {tit}
       </div>
       <div className="w-full flex flex-row">
-        <div style={{ width: leftSize, flexShrink: 100 }} />
-        <div style={{ flexBasis:`calc(100% - ${leftSize}px)`, flexGrow: 1, minWidth: contentMinWidth }} className="">
+        <div style={{ width: leftSizeRem, flexShrink: 100 }} />
+        <div style={{ flexBasis: `calc(100% - ${leftSizeRem})`, flexGrow: 1 }} className="">
           {content}
         </div>
       </div>
@@ -46,16 +38,20 @@ export function IconCard({
 
 export function InnerIconCard({ icon, className, iconSize = 30, children }: PropsWithChildren & { icon: React.FC; className?: string; iconSize?: number }) {
   const Micon = icon;
+  const sizeRem = pxToRem(iconSize);
+  const leftSizeRem = pxToRem(120 - iconSize);
+  const pl = pxToRem((30 - iconSize) / 2);
   return (
-    <Card className={cn("bg-iconcardin bg-no-repeat flex flex-row p-[30px]", className)}>
+    <Card className={cn("bg-white/10 bg-no-repeat flex flex-row p-[1.875rem] relative", className)}>
+      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6.5rem] z-0" />
       <div
         className="shrink-0"
         style={{
-          height: iconSize,
-          width: 120 - iconSize,
-          fontSize: iconSize,
-          paddingLeft: (30 - iconSize) / 2,
-          paddingTop: (30 - iconSize) / 2,
+          height: sizeRem,
+          width: leftSizeRem,
+          fontSize: sizeRem,
+          paddingLeft: pl,
+          paddingTop: pl,
         }}
       >
         <Micon />

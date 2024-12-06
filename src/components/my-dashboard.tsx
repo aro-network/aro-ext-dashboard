@@ -53,7 +53,7 @@ export function Booster() {
   const ac = useAuthContext();
   const boost = fmtBoost(ac.queryUserInfo?.data?.stat.extraBoost);
   return (
-    <div className="flex items-center gap-2 rounded-full px-3 py-[6px] bg-primary ml-auto">
+    <div className="flex items-center gap-2 rounded-full px-3 py-[.375rem] bg-primary ml-auto">
       <span className="font-sans text-xl">
         <SVGS.SvgRocket />
       </span>
@@ -212,7 +212,7 @@ export default function MyDashboard() {
           </div>
         }
         content={
-          <div className="flex flex-1 items-center gap-[10%] min-w-[180px]">
+          <div className="flex flex-1 items-center gap-[10%] min-w-[11.25rem]">
             <DupleInfo tit={`${fmtBerry(user?.point.today)}`} sub="Today" />
             <DupleSplit />
             <DupleInfo tit={`${fmtBerry(user?.point.total)}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
@@ -232,7 +232,7 @@ export default function MyDashboard() {
           </div>
         }
         content={
-          <div className="flex flex-1 items-center gap-[10%] w-full min-w-[220px]">
+          <div className="flex flex-1 items-center gap-[10%] w-full min-w-[13.75rem]">
             <DupleInfo
               tit={`${user?.referral.valid || 0}`}
               subClassName="text-green-400 opacity-100"
@@ -260,7 +260,7 @@ export default function MyDashboard() {
         icon={SVGS.SvgNodes}
         tit={<span>My Nodes</span>}
         content={
-          <div className="flex flex-1 items-center gap-[10%] min-w-[200px]">
+          <div className="flex flex-1 items-center gap-[10%] min-w-[12.5rem]">
             <DupleInfo
               tit={`${connectedNodes}`}
               subClassName="text-green-400 opacity-100"
