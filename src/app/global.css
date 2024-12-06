@@ -83,3 +83,11 @@ html {
 ::-webkit-scrollbar-button {
   display: none;
 }
+
+.fix-v-center {
+  transform: translateY(-10%);
+}
+
+.fix-v-center-inflex {
+  transform: translateY(-5%);
+}

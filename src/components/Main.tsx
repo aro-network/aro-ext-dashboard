@@ -33,8 +33,8 @@ function Header() {
         className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[1.25rem] bg-l2 cursor-pointer"
         onClick={() => mc.toMenu("My Profile")}
       >
-        <div className="flex-grow-0 flex-shrink-0 px-2 h-6 rounded-full text-white flex justify-center items-center font-medium text-sm bg-primary">
-          {exp} <SVGS.SvgExp />
+        <div className="flex-grow-0 flex-shrink-0 px-2 h-6 rounded-full text-white flex justify-center items-center gap-1 font-medium text-sm bg-primary">
+          {exp} <SVGS.SvgExp className="fix-v-center-inflex"/>
         </div>
         <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{levelName}</p>
       </div>

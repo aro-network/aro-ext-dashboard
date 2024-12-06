@@ -15,12 +15,12 @@ export const TASKS = [
     tit: "Chrome Extension Node",
     sub: (
       <div>
-        Initiate your first EnReach Node and win 40 <SVGS.SvgExp className="inline-block" />
+        Initiate your first EnReach Node and win 40 <SVGS.SvgExp className="inline-block fix-v-center" />
       </div>
     ),
     reward: (
       <>
-        40 <SVGS.SvgExp className="inline-block" />
+        40 <SVGS.SvgExp className="inline-block fix-v-center" />
       </>
     ),
     icon: <SVGS.SvgExt />,
@@ -33,7 +33,7 @@ export const TASKS = [
     sub: "Connect and verify X account",
     reward: (
       <>
-        30 <SVGS.SvgExp className="inline-block" />
+        30 <SVGS.SvgExp className="inline-block fix-v-center" />
       </>
     ),
     icon: <SVGS.SvgX />,
@@ -46,7 +46,7 @@ export const TASKS = [
     sub: "Connect and verify Discord account",
     reward: (
       <>
-        30 <SVGS.SvgExp className="inline-block" />
+        30 <SVGS.SvgExp className="inline-block fix-v-center" />
       </>
     ),
     icon: <SVGS.SvgDiscord />,
@@ -59,7 +59,7 @@ export const TASKS = [
     sub: "Connect and verify Telegram account",
     reward: (
       <>
-        30 <SVGS.SvgExp className="inline-block" />
+        30 <SVGS.SvgExp className="inline-block fix-v-center" />
       </>
     ),
     icon: <SVGS.SvgTg />,
@@ -111,7 +111,7 @@ function TaskCard({
       <div className="flex flex-col items-start gap-1 text-sm">
         <span className="text-white">{tit}</span>
         <span className="text-white/50">{sub}</span>
-        <span className="text-primary flex items-center gap-1">+{reward}</span>
+        <span className="text-primary gap-1">+{reward}</span>
       </div>
       {isProgress ? (
         <CircularProgressbar
@@ -184,7 +184,7 @@ export function CurrentTask() {
             <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>
           </div>
           <div className="flex flex-col justify-start items-center relative gap-1">
-            <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white flex items-center gap-2">Get {cTask.reward}</p>
+            <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white gap-2">Get {cTask.reward}</p>
             <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
           </div>
           <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium" onClick={cTask.onGoTo}>

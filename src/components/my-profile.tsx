@@ -117,13 +117,9 @@ export default function MyProfile() {
           </div>
         </div>
         <p className="text-sm">
-          Unlock <span className="underline">achievements</span> to earn <SVGS.SvgExp className="inline-block" />
-          <strong>Sunshine</strong>.<br />
-          More <SVGS.SvgExp className="inline-block" />
-          <strong>Sunshine</strong> grows your user level.
-          <br />
-          With higher user level, you enjoy higher Extra Boost on your <SVGS.SvgBerry className="inline-block" />
-          <strong> BERRY</strong> rewards!
+          Unlock <span className="underline">achievements</span> to earn <strong>Sunshine</strong>.<br />
+          More <strong>Sunshine</strong> grows your user level.<br />
+          With higher user level, you enjoy higher Extra Boost on your <strong> BERRY</strong> rewards!
         </p>
         <div className="flex justify-between items-start flex-nowrap relative">
           {levels.map((level, _li) => (
