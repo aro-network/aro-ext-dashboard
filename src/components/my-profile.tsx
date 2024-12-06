@@ -1,5 +1,7 @@
 import { useAuthContext } from "@/app/context/AuthContext";
+import { handlerErrForBind } from "@/hooks/useShowParamsError";
 import backendApi, { BASE_API } from "@/lib/api";
+import { SVGS } from "@/svg";
 import { cn, Progress } from "@nextui-org/react";
 import { telegramAuth } from "@use-telegram-auth/hook";
 import axios from "axios";
@@ -17,11 +19,10 @@ import { TitCard } from "./cards";
 import { ConfirmDialog } from "./dialogimpls";
 import { levels } from "./level";
 import { Booster, DupleInfo } from "./my-dashboard";
-import { handlerErrForBind } from "@/hooks/useShowParamsError";
-import { SVGS } from "@/svg";
-import { Span } from "next/dist/trace";
+import { useQuery } from "@tanstack/react-query";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
+  
   const ac = useAuthContext();
   const social = ac.queryUserInfo?.data?.social;
   const [tit, isConnected]: [string, boolean] = useMemo(() => {
@@ -46,9 +47,9 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
       case "telegram":
         const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
         const res = await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token } });
-        console.info('bingTG:',res.request?.res)
-        if (res.request?.res?.responseUrl && typeof res.request?.res?.responseUrl === "string") {
-          const err = new URL(res.request?.res?.responseUrl).searchParams.get("err");
+        console.info('bingTG:',res.request?.responseUrl)
+        if (res.request?.responseUrl && typeof res.request?.responseUrl === "string") {
+          const err = new URL(res.request?.responseUrl).searchParams.get("err");
           handlerErrForBind(err);
         }
         ac.queryUserInfo?.refetch();
@@ -95,6 +96,18 @@ export default function MyProfile() {
     return _.round(oneLevelValue * (cLevel.level - 1) + (oneLevelValue * (exp - cStartExp)) / (cLevel.exp - cStartExp), 1);
   }, [exp]);
   const r = useRouter();
+  // useQuery({
+  //   queryKey: ['testBind'],
+  //   queryFn: async () => {
+  //     const data = await axios.get(
+  //       "https://dev-api.enreach.network/api/user/auth/handler/telegram?id=7119493384&first_name=Laraine&last_name=Xu&username=Laraine925&photo_url=https:%2F%2Ft.me%2Fi%2Fuserpic%2F320%2FFrRWuUrEeOmFxfJFsnpyzD667GqDk-VVneQ387-ObUaIajh9sIkMWCfx9vqpxP-5.jpg&auth_date=1733467676&hash=3546863f90efd8f88f27cec2cfc6405e6c051bcb42bf088d283b51bb48682c87&state=01939aa5-936e-7668-8504-66dcd043cb37"
+  //     );
+  //     console.info(data.request?.responseURL);
+  //     const err =  new URL(data.request?.responseURL).searchParams.get("err")
+  //     console.info('bindErr', err)
+  //     return true      
+  //   }
+  // })
   return (
     <div className="grid xl:grid-cols-2 gap-4">
       <TitCard tit="Berry-Up Program">
