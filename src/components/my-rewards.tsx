@@ -24,7 +24,7 @@ export default function MyRewards() {
             <DupleInfo
               tit={
                 <div className="flex items-center gap-1">
-                  {fmtBerry(user?.point.total)} <SVGS.SvgBerry />
+                  {fmtBerry(user?.point.total)}
                 </div>
               }
               sub="Total Rewards"
