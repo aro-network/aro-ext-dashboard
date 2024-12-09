@@ -14,7 +14,7 @@ const googleClientId = "425165933886-vpv32tvbhfeqfujnel0fdjm88kfn1lhn.apps.googl
 export function Providers({ children }: { children: React.ReactNode }) {
   useThemeState();
   return (
-    <NextUIProvider className="App overflow-auto max-w-[96rem] mx-auto">
+    <NextUIProvider className="App max-w-[96rem] mx-auto">
       <GoogleOAuthProvider clientId={googleClientId}>
         <QueryClientProvider client={client}>
           <AuthProvider>{children}</AuthProvider>
