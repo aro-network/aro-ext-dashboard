@@ -50,7 +50,7 @@ function NodeName({ node }: { node: NodeItem }) {
           autoFocus
           classNames={inputNameClassNames}
           value={inputName}
-          maxLength={10}
+          maxLength={20}
           onChange={(e) => setInputName(e.target.value)}
           variant="bordered"
           type="text"
