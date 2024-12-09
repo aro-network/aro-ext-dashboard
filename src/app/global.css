@@ -7,7 +7,7 @@ body {
   width: 100%;
   height: 100%;
 }
-html{
+html {
   overflow: hidden;
 }
 body {
@@ -18,6 +18,11 @@ body {
   font-size: 16px; /* width 1512 */
 }
 
+.App {
+  height: 100%;
+  max-height: max-content;
+  min-height: 100%;
+}
 @media (min-width: 1663px) {
   html {
     font-size: 17.6px;
