@@ -53,7 +53,7 @@ export function Booster() {
   const ac = useAuthContext();
   const boost = fmtBoost(ac.queryUserInfo?.data?.stat?.extraBoost);
   return (
-    <div className="flex items-center gap-2 rounded-full px-3 py-[.375rem] bg-primary ml-auto">
+    <div className="flex items-center rounded-full px-3 py-[.375rem] bg-primary ml-auto">
       <span className="font-sans text-xl">
         <SVGS.SvgRocket />
       </span>
