@@ -1,5 +1,5 @@
 import backendApi from "@/lib/api";
-import { getInjectEnReachAI } from "@/lib/broswer";
+import { getInjectEnReachAI } from "@/lib/ext";
 import { Opt } from "@/lib/type";
 import { LoginResult, User } from "@/types/user";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
