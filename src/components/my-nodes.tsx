@@ -63,7 +63,7 @@ function NodeName({ node }: { node: NodeItem }) {
           onBlur={onSubmit}
         />
       ) : (
-        <div className="max-w-[7.5rem] overflow-hidden text-ellipsis">{name}</div>
+        <div className="whitespace-nowrap">{name}</div>
       )}
       {isPending && <Spinner size="sm" />}
       {!edit && (
