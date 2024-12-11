@@ -6,7 +6,14 @@ import { ENV } from "./env";
 import _ from "lodash";
 import { fmtBoost } from "@/components/fmtData";
 
-export const BASE_API = ENV == "beta" ? "https://dev-api.enreach.network/api" : "https://api.enreach.network/api";
+const API_MAP: { [k in typeof ENV]: string } = {
+  beta: "https://dev-api.enreach.network/api",
+  staging: "https://staging-api-1.enreach.network/api",
+  prod: "https://api.enreach.network/api",
+};
+
+export const BASE_API = API_MAP[ENV];
+
 const Api = axios.create({
   baseURL: BASE_API,
   headers: {
