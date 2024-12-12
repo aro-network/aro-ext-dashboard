@@ -119,7 +119,7 @@ export default function MyNodes() {
   return (
     <TitCard
       tit="My Nodes"
-      className="w-full"
+      className="flip_item w-full"
       right={
         <div className="flex gap-5 items-center">
           <IconBtn

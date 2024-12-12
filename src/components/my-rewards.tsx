@@ -11,8 +11,9 @@ export default function MyRewards() {
   return (
     <div className="grid grid-cols-10 gap-4">
       <IconCard
+      
         icon={SVGS.SvgBerry}
-        className="col-span-10 xl:col-span-4 justify-between"
+        className="flip_item col-span-10 xl:col-span-4 justify-between"
         tit={
           <div className="flex justify-between items-center w-full">
             <span>BERRY</span>
@@ -40,7 +41,7 @@ export default function MyRewards() {
           </div>
         }
       />
-      <div className="col-span-10 xl:col-span-6">
+      <div className="flip_item col-span-10 xl:col-span-6">
         <TrendingChart />
       </div>
       <TaskList />

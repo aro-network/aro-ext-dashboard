@@ -18,6 +18,7 @@ import { IconBtn } from "./btns";
 import { fmtBerry, fmtBoost } from "./fmtData";
 import { CurrentTask } from "./tasks";
 import { HelpTip } from "./tips";
+import { AutoFlip } from "./auto-flip";
 
 export function DupleInfo({
   tit,
@@ -204,6 +205,7 @@ export default function MyDashboard() {
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
       {/*  */}
       <IconCard
+        className="flip_item"
         icon={SVGS.SvgBerry}
         tit={
           <div className="flex justify-between items-center flex-1">
@@ -222,6 +224,7 @@ export default function MyDashboard() {
 
       {/*  */}
       <IconCard
+        className="flip_item"
         icon={SVGS.SvgReferral}
         tit={
           <div className="flex justify-between items-center flex-1">
@@ -257,6 +260,7 @@ export default function MyDashboard() {
       />
       {/*  */}
       <IconCard
+        className="flip_item"
         icon={SVGS.SvgNodes}
         tit={<span>My Nodes</span>}
         content={
@@ -276,7 +280,7 @@ export default function MyDashboard() {
         }
       />
       <CurrentTask />
-      <TrendingChart />
+      <TrendingChart className="flip_item"/>
     </div>
   );
 }

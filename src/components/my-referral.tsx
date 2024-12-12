@@ -31,6 +31,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
   return (
     <div className="grid xl:grid-cols-3 gap-4">
       <IconCard
+        className="flip_item"
         icon={IoTerminal}
         iconSize={20}
         tit={<div className="text-xl">My Referral Code</div>}
@@ -48,6 +49,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
       />
 
       <IconCard
+        className="flip_item"
         icon={SVGS.SvgReferral}
         iconSize={20}
         tit={<div className="text-xl">My Referrals</div>}
@@ -76,6 +78,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         }
       />
       <IconCard
+        className="flip_item"
         icon={SVGS.SvgRewards}
         iconSize={20}
         tit={
@@ -90,7 +93,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
           </div>
         }
       />
-      <TitCard className="col-span-full flex-row gap-[3.125rem] flex-wrap justify-center">
+      <TitCard className="flip_item col-span-full flex-row gap-[3.125rem] flex-wrap justify-center">
         <div className="flex flex-col gap-4 items-center shrink-0">
           <SVGS.SvgMedal className="text-[5rem] shrink-0" />
           <div className="uppercase text-[2rem] whitespace-nowrap font-HelveticaNeue leading-8">Get Referral Rewards</div>

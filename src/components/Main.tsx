@@ -6,6 +6,7 @@ import { MAvatar } from "./avatar";
 import { fmtBerry } from "./fmtData";
 import { levels } from "./level";
 import { SVGS } from "@/svg";
+import { AutoFlip } from "./auto-flip";
 
 function Header() {
   const ac = useAuthContext();
@@ -51,14 +52,14 @@ function Header() {
 function Menus() {
   const mc = useMenusCtx();
   return (
-    <div className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
+    <AutoFlip className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
       {menus.map((m) => {
         const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
         const selected = m.name === mc.current.name;
         return (
           <div
             key={m.name}
-            className={cn("flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-2xl cursor-pointer select-none", {
+            className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-2xl cursor-pointer select-none", {
               "bg-primary text-white": selected,
               "text-white/50 hover:bg-default": !selected,
             })}
@@ -73,7 +74,7 @@ function Menus() {
           </div>
         );
       })}
-    </div>
+    </AutoFlip>
   );
 }
 
@@ -87,10 +88,10 @@ const Main = () => {
         {menus.map((item) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
-              <div className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
-                <h2 className="text-[2rem] font-medium">{mc.current.name}</h2>
+              <AutoFlip className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
+                <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2>
                 {mc.current.content}
-              </div>
+              </AutoFlip>
             )}
           </Fragment>
         ))}

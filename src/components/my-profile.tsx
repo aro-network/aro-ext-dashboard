@@ -109,7 +109,7 @@ export default function MyProfile() {
   // })
   return (
     <div className="grid xl:grid-cols-2 gap-4">
-      <TitCard tit="Berry-Up Program">
+      <TitCard className="flip_item" tit="Berry-Up Program">
         <div className="flex gap-7">
           <currentLevel.icon className="text-[7.5rem]" />
           <div className="flex flex-col gap-5">
@@ -158,7 +158,7 @@ export default function MyProfile() {
           </div>
         </div>
       </TitCard>
-      <TitCard tit="My Profile">
+      <TitCard className="flip_item" tit="My Profile">
         <div className="flex items-center gap-4">
           <MAvatar name={user?.email} size={60} />
           <span className="text-xl font-medium">{user?.email || ""}</span>
