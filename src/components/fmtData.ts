@@ -16,7 +16,8 @@ export function fmtBerry(berry?: string | number | null, def: "-" | number = 0) 
 
 export function fmtNetqulity(last?: string | number | number, def: "-" | `${number}%` = "-") {
   const lastNum = _.toNumber(last);
-  return lastNum ? `${Math.min(_.round((lastNum * 100) / 10), 100)}%` : def;
+  const percent = lastNum ? Math.min(_.round((lastNum * 100) / 10), 100) : 0;
+  return lastNum ? (percent < 33.33 ? "Poor" : percent < 66.66 ? "Good" : "Superb") : def;
 }
 
 export function fmtBoost(boost?: string | number | number) {
