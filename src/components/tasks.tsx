@@ -79,11 +79,11 @@ function useTasks() {
       !user
         ? []
         : [
-            { complete: Boolean(user?.task.extension), onGoTo: onToDownExtension },
-            { complete: Boolean(user?.social.x), onGoTo: () => mc.toMenu("My Profile") },
-            { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("My Profile") },
-            { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("My Profile") },
-          ].map((item, i) => ({ ...item, ...TASKS[i] })),
+          { complete: Boolean(user?.task.extension), onGoTo: onToDownExtension },
+          { complete: Boolean(user?.social.x), onGoTo: () => mc.toMenu("My Profile") },
+          { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("My Profile") },
+          { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("My Profile") },
+        ].map((item, i) => ({ ...item, ...TASKS[i] })),
     [user]
   );
   return TasksStat;
@@ -178,7 +178,7 @@ export function CurrentTask() {
   return (
     <>
       {cTask ? (
-        <BgCard className="flip_item justify-between px-5 py-7 xl:order-2">
+        <BgCard className="justify-between px-5 py-7 xl:order-2">
           <div className="flex items-center justify-center mt-6 text-[3rem]">
             <div className="shadow-2 rounded-full">{cTask.icon}</div>
             <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>
@@ -192,7 +192,7 @@ export function CurrentTask() {
           </TransBtn>
         </BgCard>
       ) : (
-        <BgCard className="flip_item justify-between px-5 py-7 min-h-[12.5rem] xl:order-2 relative">
+        <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] xl:order-2 relative">
           {Boolean(tasks.length) && (
             <>
               <img className="object-cover absolute left-0 top-0 w-full h-full" src="bg-coming.svg" alt="bg" />
