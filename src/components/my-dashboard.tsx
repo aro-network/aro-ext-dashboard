@@ -256,8 +256,7 @@ export default function MyDashboard() {
         <div className="absolute -right-5 -bottom-5 bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0" />
         <div className="font-medium mt-16 z-10">Dashboard Overview</div>
         <div className="font-semibold text-3xl mb-20 z-10">
-          Hello,
-          example@gmail.com  👋
+          Hello,<br />{user?.email || '-'}  👋
         </div>
       </div>
       <div className="flip_item flex flex-col justify-between lg:col-span-2 lg:flex-row xl:col-span-1 xl:row-span-2 xl:flex-col rounded-[1.25rem] bg-[#373737]">
