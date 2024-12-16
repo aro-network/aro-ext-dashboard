@@ -7,88 +7,93 @@ import { fmtBerry } from "./fmtData";
 import { levels } from "./level";
 import { SVGS } from "@/svg";
 import { AutoFlip } from "./auto-flip";
+import { SocialButtons } from "./social-buttons";
 
-function Header() {
+function Menus() {
+  const mc = useMenusCtx();
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
   const exp = user?.stat.exp || 0;
-  const mc = useMenusCtx();
   return (
-    <div className="flex justify-between items-center flex-grow-0 flex-shrink-0 h-16 overflow-hidden px-4 border border-black gap-4">
-      <img className="h-12" src="/logo.svg" alt="Logo" />
-      <div
-        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[1.25rem] ml-auto bg-l2 cursor-pointer"
-        onClick={() => mc.toMenu("My Rewards")}
-      >
-        {/* <img src="/berry.png" className="flex-grow-0 flex-shrink-0 w-6 h-6 object-cover" alt="Berry" /> */}
-        <span className="relative text-2xl">
-          <SVGS.SvgBerry />
-        </span>
-        <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left">
-          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{fmtBerry(user?.point.total)} </span>
-          <span className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white/50">BERRY</span>
-        </p>
-      </div>
-      <div
-        className="flex justify-start items-center flex-grow-0 flex-shrink-0 h-8 relative overflow-hidden gap-2 p-1 rounded-3xl backdrop-blur-[1.25rem] bg-l2 cursor-pointer"
-        onClick={() => mc.toMenu("My Profile")}
-      >
-        <div className="flex-grow-0 flex-shrink-0 px-2 h-6 rounded-full text-white flex justify-center items-center gap-1 font-medium text-sm bg-primary">
-          {exp} <SVGS.SvgExp className="fix-v-center-inflex"/>
-        </div>
-        <p className="flex-grow-0 flex-shrink-0 text-sm font-medium text-left text-white">{levelName}</p>
-      </div>
-      <div
-        className="flex justify-center items-center flex-grow-0 flex-shrink-0 w-8 h-8 relative overflow-hidden gap-2.5 p-2 rounded-3xl bg-white/10 cursor-pointer"
-        onClick={() => mc.toMenu("My Profile")}
-      >
-        <MAvatar name={user?.email} size={24} />
-      </div>
-    </div>
-  );
-}
-
-function Menus() {
-  const mc = useMenusCtx();
-  return (
-    <AutoFlip className="flex flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
-      {menus.map((m) => {
-        const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
-        const selected = m.name === mc.current.name;
-        return (
-          <div
-            key={m.name}
-            className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-2xl cursor-pointer select-none", {
-              "bg-primary text-white": selected,
-              "text-white/50 hover:bg-default": !selected,
-            })}
-            onClick={() => {
-              mc.toMenu(m.name);
-            }}
-          >
-            <div className={cn("flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2.5 rounded-full", { "bg-blue-400": selected })}>
-              <Micon className={cn("text-base")} />
-            </div>
-            <div className="text-xs font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>
+    <>
+      <AutoFlip className="flex bg-[#404040] flex-col justify-between ">
+        <div className="flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
+          <div className=" h-[7.375rem] flex items-center justify-center">
+            <img className="" src="/logo.svg" alt="Logo" />
           </div>
-        );
-      })}
-    </AutoFlip>
+          <div className="flex pb-8 gap-6 w-full  justify-start ">
+            <div onClick={() => mc.toMenu("My Rewards")} className=" w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
+              <div
+                className=" mt-1 "
+
+              >
+                <SVGS.SvgBerry />
+              </div>
+              <label className="asFont font-medium text-base">
+                {fmtBerry(user?.point.total)}
+              </label>
+            </div>
+            <div onClick={() => mc.toMenu("My Profile")} className=" w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
+              <div className=" mt-1 "
+
+              >
+                <SVGS.SvgExp2 />
+              </div>
+              <label className="asFont font-medium text-base">
+                {exp}
+              </label>
+            </div>
+          </div>
+
+          {menus.map((m) => {
+            const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
+            const selected = m.name === mc.current.name;
+            return (
+              <div
+                key={m.name}
+                className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-[1.875rem] cursor-pointer select-none", {
+                  "bg-primary text-white ": selected,
+                  "text-white/50 hover:bg-default": !selected,
+                })}
+                onClick={() => {
+                  mc.toMenu(m.name);
+                }}
+              >
+                <div className={cn("flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2.5 rounded-full", { "bg-blue-400": selected })}>
+                  <Micon className={cn("text-base")} />
+                </div>
+                <div className="text-xs font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="flex  pb-[1.875rem] flex-col items-center gap-5">
+          <SocialButtons />
+          <div className=" asFont font-normal text-xs leading-[.9rem] text-[#999999] flex gap-6 ">
+            <a href="https://enreach.network/" className="underline-offset-4 underline">WebSite</a>
+            <a href="https://docs.enreach.network/user-guide" className="underline-offset-4 underline">Guide</a>
+
+          </div>
+        </div>
+
+      </AutoFlip>
+
+
+    </>
   );
 }
 
 const Main = () => {
   const mc = useMenusCtx();
   return (
-    <div className="flex flex-col min-h-full">
-      <Header />
+    <div className="flex flex-col h-screen">
       <div className="flex-1 flex">
         <Menus />
         {menus.map((item) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
-              <AutoFlip className="flex-1 px-4 py-4 md:px-6 flex flex-col w-0 gap-4">
+              <AutoFlip className="flex-1 px-4 py-4 pt-[7.4375rem] md:px-6 flex flex-col w-full gap-4">
                 <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2>
                 {mc.current.content}
               </AutoFlip>

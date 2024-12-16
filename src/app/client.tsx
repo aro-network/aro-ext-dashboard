@@ -14,7 +14,7 @@ const googleClientId = "425165933886-vpv32tvbhfeqfujnel0fdjm88kfn1lhn.apps.googl
 export function Providers({ children }: { children: React.ReactNode }) {
   useThemeState();
   return (
-    <NextUIProvider className="App max-w-[96rem] mx-auto">
+    <NextUIProvider className="App  ">
       <GoogleOAuthProvider clientId={googleClientId}>
         <QueryClientProvider client={client}>
           <AuthProvider>{children}</AuthProvider>
@@ -34,7 +34,7 @@ export function PageLayout({ children }: { children: ReactNode }) {
   if (!init) return null;
   return (
     <>
-      <Toaster position="top-right" offset={70} theme="light"/>
+      <Toaster position="top-right" offset={70} theme="light" />
       <Providers>{children}</Providers>
     </>
   );

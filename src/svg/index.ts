@@ -8,12 +8,12 @@ import SvgBerry2 from "./berry2.svg";
 import SvgRocket from "./rocket.svg";
 import SvgMedal from "./medal.svg";
 import SvgExp from "./exp.svg";
+import SvgExp2 from "./exp2.svg";
 import SvgExt from "./ext.svg";
 import SvgX from "./x.svg";
 import SvgDiscord from "./discord.svg";
 import SvgTg from "./tg.svg";
 import SvgBgIconCard from "./bg-icon-card.svg";
-
 
 export const SVGS = {
   SvgOverview,
@@ -26,9 +26,10 @@ export const SVGS = {
   SvgRocket,
   SvgMedal,
   SvgExp,
+  SvgExp2,
   SvgExt,
   SvgX,
   SvgDiscord,
   SvgTg,
-  SvgBgIconCard
+  SvgBgIconCard,
 };

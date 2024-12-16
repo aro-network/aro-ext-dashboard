@@ -13,7 +13,7 @@ html {
 }
 body {
   overflow: auto;
-  background: url("/bg.svg") center no-repeat;
+  background: #000000;
   background-size: cover;
   color: white;
   font-size: 16px; /* width 1512 */
@@ -97,4 +97,12 @@ body {
 
 .fix-v-center-inflex {
   transform: translateY(-5%);
+}
+
+.alexandriaFont {
+  font-family: "Alexandria", sans-serif;
+}
+
+.asFont {
+  font-family: "Albert Sans", sans-serif;
 }
