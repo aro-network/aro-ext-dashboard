@@ -81,7 +81,7 @@ function Menus() {
 const Main = () => {
   const mc = useMenusCtx();
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-full">
       <Header />
       <div className="flex-1 flex">
         <Menus />

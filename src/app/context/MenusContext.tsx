@@ -7,6 +7,7 @@ import { strToSearchParams } from "@/lib/utils";
 import { SVGS } from "@/svg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { useAuthContext } from "./AuthContext";
 export const menus = [
   {
     name: "Overview",
@@ -42,13 +43,16 @@ export function MenusProvider({ children }: PropsWithChildren) {
   const spTab = sp.get("tab");
   const menu = menus.find((item) => strToSearchParams(item.name) === spTab) || menus[0];
   const r = useRouter();
+  const ac = useAuthContext()
   const toMenu = (name: string) => {
+    
     const to = menus.find((item) => item.name === name);
     if (to) {
       const usp = new URLSearchParams(location.search);
       usp.set("tab", strToSearchParams(to.name));
       r.push(`/?${usp.toString()}`);
       setMName(to.name);
+      ac.queryUserInfo?.refetch()
     }
   };
 
