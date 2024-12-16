@@ -5,10 +5,11 @@ import { InputEmail, InputPassword } from "@/components/inputs";
 import { MLink } from "@/components/links";
 import { SignInWithGoogle } from "@/components/SignInWithGoogle";
 import { handlerError } from "@/lib/utils";
-import { validateEmail, validatePassword } from "@/lib/validates";
+import { validateEmail } from "@/lib/validates";
 import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { AutoFlip } from "@/components/auto-flip";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -24,8 +25,8 @@ export default function Page() {
 
   const disableSignIn = isPendingSignIn || validateEmail(email) !== true || !password;
   return (
-    <div className="mx-auto px-5 min-h-full flex flex-col gap-4 items-center w-full max-w-[25rem]">
-      <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" />
+    <AutoFlip className="mx-auto px-5 min-h-full flex flex-col gap-4 items-center w-full max-w-[25rem]">
+      <img src="logo.svg" alt="Logo" className="flip_item mt-auto h-[4.9375rem]" />
       <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
         <InputEmail setEmail={setEmail} />
         <InputPassword setPassword={setPassword} validate={() => null} />
@@ -34,7 +35,7 @@ export default function Page() {
         </Btn>
         <SignInWithGoogle />
       </form>
-      <div className="mb-auto flex items-center w-full text-xs text-white/60">
+      <div className="flip_item mb-auto flex items-center w-full text-xs text-white/60">
         Don’t have an account?
         <MLink href="/signup" className="ml-2 text-xs">
           Sign Up
@@ -43,6 +44,6 @@ export default function Page() {
           Forget Password?
         </MLink>
       </div>
-    </div>
+    </AutoFlip>
   );
 }

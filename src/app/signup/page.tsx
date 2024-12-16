@@ -14,6 +14,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, MouseEvent, useRef, useState } from "react";
 import { useCounter, useInterval, useToggle } from "react-use";
 import { useAuthContext } from "../context/AuthContext";
+import { AutoFlip } from "@/components/auto-flip";
 
 export default function Page() {
   const sq = useSearchParams();
@@ -81,7 +82,7 @@ export default function Page() {
     validateConfirmPassword(confirmPassword, password) !== true;
   const disableResendEmail = reSendSecends > 0 || isPendingResendVerify;
   return (
-    <div className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
+    <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
       <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" />
       {showToVerify ? (
         <div className="flex flex-col items-center gap-5 w-full mb-auto">
@@ -105,7 +106,7 @@ export default function Page() {
           <InputPassword setPassword={setPassword} />
           <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
           <InputReferralCode value={referalCode} setReferalCode={setReferalCode} />
-          <Checkbox classNames={{ label: "text-xs text-white/60", icon: "w-2.5 h-2.5" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
+          <Checkbox classNames={{ wrapper: 'flip_item', label: "text-xs text-white/60", icon: "w-2.5 h-2.5" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
             I agree to the EnReach{" "}
             <MLink className="text-xs" href="/terms">
               Term of Service
@@ -120,7 +121,7 @@ export default function Page() {
             Sign Up
           </Btn>
           <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode} />
-          <div className="text-center text-xs text-white/60">
+          <div className="flip_item text-center text-xs text-white/60">
             Already have an account?{" "}
             <MLink href="/signin" className="text-xs">
               Sign In
@@ -128,6 +129,6 @@ export default function Page() {
           </div>
         </form>
       )}
-    </div>
+    </AutoFlip>
   );
 }

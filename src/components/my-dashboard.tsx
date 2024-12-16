@@ -209,7 +209,7 @@ export default function MyDashboard() {
         icon={SVGS.SvgBerry}
         tit={
           <div className="flex justify-between items-center flex-1">
-            <span>BERRY</span>
+            <span className="text-xl">BERRY</span>
             <Booster />
           </div>
         }
@@ -228,7 +228,7 @@ export default function MyDashboard() {
         icon={SVGS.SvgReferral}
         tit={
           <div className="flex justify-between items-center flex-1">
-            <span>My Referrals</span>
+            <span className="text-xl">My Referrals</span>
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
@@ -262,7 +262,7 @@ export default function MyDashboard() {
       <IconCard
         className="flip_item"
         icon={SVGS.SvgNodes}
-        tit={<span>My Nodes</span>}
+        tit={<span className="text-xl">My Nodes</span>}
         content={
           <div className="flex flex-1 items-center gap-[10%] min-w-[12.5rem]">
             <DupleInfo

@@ -5,7 +5,7 @@ import { useToggle } from "react-use";
 import VerificationInput from "react-verification-input";
 
 const inputClassNames: SlotsToClasses<InputSlots> = {
-  inputWrapper: "h-[2.625rem] rounded-lg bg-l1 border-none backdrop-blur-lg shadow-1 text-xs",
+  inputWrapper: "flip_item h-[2.625rem] rounded-lg bg-l1 border-none backdrop-blur-lg shadow-1 text-xs",
   label: "text-xs",
   input: "text-xs !text-white",
 };
@@ -99,7 +99,7 @@ export function InputSplitCode({ onComplete, onChange }: { onComplete?: (value: 
       onChange={onChange}
       onComplete={onComplete}
       classNames={{
-        container: "w-full justify-between h-[2.625rem] ",
+        container: "flip_item w-full justify-between h-[2.625rem] ",
         character: "rounded-lg max-w-[2.625rem]  w-[2.625rem] bg-l1 bg-transparent backdrop-blur-lg shadow-1 text-white text-xl leading-[2.625rem] uppercase",
       }}
     />
