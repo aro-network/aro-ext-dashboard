@@ -7,7 +7,7 @@ export function fmtBerry(berry?: string | number | null, def: "-" | number = 0) 
     ? numbro(total)
         .format({
           mantissa: 2,
-          trimMantissa: true,
+          trimMantissa: false,
           average: total >= 1000,
         })
         .toUpperCase()
