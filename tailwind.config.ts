@@ -15,9 +15,12 @@ const config: Config = {
         l2: "linear-gradient(44.61deg, rgba(255,255,255,0.1) 0.34%, rgba(255,255,255,0.15) 99.66%)",
         // background: linear-gradient(62.88deg, rgba(255, 255, 255, 0.2) 0.45%, rgba(255, 255, 255, 0.25) 99.55%);
         m1: "linear-gradient(37.63deg, #233F7B 5.22%, #00000F 88.49%)",
+        s1: "url('/bg-shadow.png')",
+
+        overview: "url('/overview.png')"
       },
       boxShadow: {
-        1: "0px 0px 2px 0px #FFFFFF1A inset",
+        1: "0px 2px 0px 0px #6D6D6D66",
         2: "0px 4px 4px 0 rgba(0,0,0,0.25)",
       },
       colors: {
@@ -29,6 +32,9 @@ const config: Config = {
         },
         green: {
           400: "#34D399",
+        },
+        gray: {
+          1: "#404040",
         },
       },
       fontFamily: {
