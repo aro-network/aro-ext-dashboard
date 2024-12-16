@@ -93,8 +93,8 @@ const Main = () => {
         {menus.map((item) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
-              <AutoFlip className="flex-1 px-4 py-4 pt-[7.4375rem] md:px-6 flex flex-col w-full gap-4">
-                <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2>
+              <AutoFlip className="flex-1 px-4 py-4 pt-[7.4375rem] md:px-6 flex flex-col w-full gap-4 max-h-screen overflow-y-auto">
+                {/* <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2> */}
                 {mc.current.content}
               </AutoFlip>
             )}
