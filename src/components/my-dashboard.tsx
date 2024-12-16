@@ -341,8 +341,8 @@ export default function MyDashboard() {
         }
       />
 
-      <CurrentTask />
       <TrendingChart className="flip_item" />
+      <CurrentTask />
     </div>
   );
 }
