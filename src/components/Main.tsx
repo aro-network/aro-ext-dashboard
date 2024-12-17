@@ -28,7 +28,7 @@ function Menus() {
   ]
   return (
     <>
-      <AutoFlip className="flex bg-[#404040] flex-col justify-between ">
+      <AutoFlip className="flex bg-[#404040] flex-col justify-between sticky top-0 h-screen">
         <div className="flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
           <div className="flex items-center justify-center">
             <img src="/logo.svg" className={`h-[7.375rem] w-[9.375rem]`} alt="Logo" />
@@ -47,7 +47,7 @@ function Menus() {
 
 
           </div>
-          <div className=" flex flex-col gap-[1.6875rem]">
+          <div className=" flex flex-col gap-3">
             {menus.map((m) => {
               const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
               const selected = m.name === mc.current.name;
@@ -96,7 +96,7 @@ const Main = () => {
         {menus.map((item) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
-              <AutoFlip className="flex-1 p-5 flex flex-col w-full gap-[2.125rem] h-screen max-h-screen overflow-y-auto">
+              <AutoFlip className="flex-1 p-5 flex flex-col w-full gap-[2.125rem] min-h-screen  overflow-y-auto">
                 {/* <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2> */}
                 {mc.current.name !== 'Overview' && <div className="flip_item relative pl-5 pt-28">
                   <div className="bg-tit absolute z-0 right-0 top-[.3125rem] h-[14.5rem] w-[31.25rem] bg-cover" />

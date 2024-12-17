@@ -140,13 +140,26 @@ export function TrendingChart({ className }: { className?: string }) {
           type: "bar",
           itemStyle: {
             borderRadius: 15,
-            color: "#4281FF",
+            color: "rgba(0,0,0,0)",
+            decal: {
+              color: "rgba(256,256,256,0.2)",
+              dashArrayY: 3,
+              dashArrayX: 1000,
+              rotation: Math.PI/4,
+            },
           },
+
           label: {
             show: true,
             formatter: (d: any) => fmtBerry(d.value),
             position: "top",
             color: "rgba(255,255,255,0.5)",
+          },
+          emphasis: {
+            itemStyle: {
+              color: "#4281FF",
+              decal: "none"
+            },
           },
           barWidth: 30,
           barMinWidth: 30,
