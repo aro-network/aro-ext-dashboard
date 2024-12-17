@@ -206,23 +206,21 @@ export function ExpProgress() {
   // const percent = (exp - leftLevel.exp)/(nextLevel.exp - leftLevel.exp)
   const [percent, setPercent] = useState(0)
   useEffect(() => {
-    return setPercent((exp) / (nextLevel.exp))
+    const task = setTimeout(() => setPercent((exp) / (nextLevel.exp)), 500)
+    return () => clearTimeout(task)
   }, [exp, nextLevel.exp])
   const offset = 346 - _.round(percent * 346)
   console.info('percent:', _.round(percent, 4))
   const expRotate = Math.min(_.round(percent * 180), 180)
-
-  return <div className="p-[2.875rem] flex flex-col items-center gap-2 relative">
+  const transition = `all 0.8s ease`
+  return <div className="flip_item p-[2.875rem] flex flex-col items-center gap-2 relative">
     <div className="w-full max-w-[15.625rem] relative">
       <svg width="100%" height="auto" viewBox="0 0 250 140" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15 125A110 110 0,0,1,235 125" strokeLinecap="round" strokeWidth="30" stroke="#616161" />
-        <path d="M15 125A110 110 0,0,1,235 125" strokeLinecap="round" strokeWidth="30" stroke="#D7D7D7" strokeDasharray="346" strokeDashoffset={offset} >
-          <animate from="346" to={offset} dur="0.5s" attributeName="strokeDashoffset" repeatCount={1} />
-        </path>
-
+        <path d="M15 125A110 110 0,0,1,235 125" strokeLinecap="round" strokeWidth="30" stroke="#D7D7D7" strokeDasharray="346" strokeDashoffset={offset} style={{ transition }} />
         <text fontSize="40" fill="white" textAnchor="middle" x="125" y="120">{exp}</text>
       </svg>
-      <div style={{ transform: `rotate(${expRotate}deg)`, transformOrigin: '100% 50%', transition: 'all 0.5s' }} className="w-1/2 flex items-center h-[1.875rem] overflow-visible absolute bottom-0 px-[6%] left-0">
+      <div style={{ transform: `rotate(${expRotate}deg)`, transformOrigin: '100% 50%', transition }} className="w-1/2 flex items-center h-[1.875rem] overflow-visible absolute bottom-0 px-[6%] left-0">
         <SVGS.SvgExp className="text-[2.5rem] -translate-x-1/2" />
       </div>
     </div>

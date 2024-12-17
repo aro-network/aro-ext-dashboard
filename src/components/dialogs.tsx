@@ -40,7 +40,7 @@ export function TitModal({
         {(onClose) => (
           <>
             <ModalHeader className="justify-between p-0">
-              <span className="text-base font-semibold text-left text-white font-Alexandria">{tit}</span>
+              <span className="text-base font-semibold text-left text-white">{tit}</span>
               <div className="p-0 rounded-full w-6 h-6 flex justify-center items-center text-xs cursor-pointer bg-white/10 hover:bg-white/30" onClick={onClose}>
                 <FiX />
               </div>

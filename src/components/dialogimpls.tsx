@@ -16,9 +16,9 @@ export function AddNodeDialog() {
           <div className="flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
             <SVGS.SvgExt className="text-[3.75rem]" />
             <p className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-white">
-              <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center font-Alexandria text-white">Chrome Extension Node</span>
+              <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-semibold text-center text-white">Chrome Extension Node</span>
               <br />
-              <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-white">
+              <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-[#CBCBCB] font-AlbertSans">
                 The super light-weight node that helps EnReach Network to gain perception to the network’s capability and potential to serve the network
               </span>
             </p>
@@ -29,10 +29,10 @@ export function AddNodeDialog() {
         </div>
         <div className="flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
           <IoDesktopOutline className="text-[3.75rem] text-white" />
-          <p className="self-stretch flex-grow-0 flex-shrink-0  text-sm text-center text-white/50">
-            <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white/40 font-Alexandria">Desktop Node (Coming Soon)</span>
+          <p className="self-stretch flex-grow-0 flex-shrink-0  text-sm text-center  opacity-40">
+            <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white">Desktop Node (Coming Soon)</span>
             <br />
-            <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-white/40">
+            <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-[#CBCBCB] font-AlbertSans">
               Edge Node (Coming Soon) The working nodes at edge side that provides qualified edge cloud capabilities
             </span>
           </p>
@@ -46,12 +46,12 @@ export function ConfirmDialog(p: { onCancel?: () => void; onConfirm?: () => void
   return (
     <TitModal className={p.className} isOpen={p.isOpen} tit={p.tit} onClose={p.onCancel}>
       <div className="flex flex-col gap-6 w-full">
-        <div className="text-center text-sm whitespace-pre-wrap">{p.msg}</div>
+        <div className="text-center text-sm whitespace-pre-wrap font-AlbertSans">{p.msg}</div>
         <div className="grid grid-cols-2 gap-2.5">
-          <Btn color="default" onClick={p.onConfirm}>
+          <Btn className="h-10" color="default" onClick={p.onConfirm}>
             Confirm
           </Btn>
-          <Btn onClick={p.onCancel}>Cancel</Btn>
+          <Btn className="h-10" onClick={p.onCancel}>Cancel</Btn>
         </div>
       </div>
     </TitModal>
