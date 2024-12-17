@@ -66,7 +66,7 @@ export function TitCard(p: PropsWithChildren & { tit?: string; right?: ReactNode
     <Card className={cn("bg-gray-1 bg-no-repeat flex p-6 gap-6", p.className)}>
       {p.tit && (
         <div className="flex items-center justify-between">
-          <span className="text-base font-bold">{p.tit}</span>
+          <span className="text-base font-semibold">{p.tit}</span>
           {p.right}
         </div>
       )}

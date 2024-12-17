@@ -38,7 +38,7 @@ export function DupleInfo({
   return (
     <div className={cn("flex flex-col justify-start items-start relative shrink-0", className)}>
       <p className={cn("self-stretchflex-shrink-0 text-2xl font-medium text-left text-white", titClassName)}>{tit}</p>
-      <div className={cn("flex justify-start items-center flex-shrink-0 relative gap-1 text-sm opacity-50 text-white", subClassName)}>
+      <div className={cn("font-AlbertSans flex justify-start items-center flex-shrink-0 relative gap-1 text-sm opacity-50 text-white", subClassName)}>
         {sub}
         {subTip && <HelpTip content={subTip} />}
       </div>
@@ -164,9 +164,9 @@ export function TrendingChart({ className }: { className?: string }) {
         <Select
           className="w-[10rem]"
           classNames={{
-            mainWrapper: "rounded-lg bg-neutral-100/10",
-            trigger: "rounded-lg bg-transparent text-xs",
-            value: "text-xs",
+            mainWrapper: "rounded-full bg-neutral-100/10 ",
+            trigger: "rounded-full bg-transparent text-xs",
+            value: "text-xs !text-white/80",
           }}
           selectionMode="single"
           selectedKeys={[rewardType]}
@@ -289,7 +289,7 @@ export default function MyDashboard() {
         icon={SVGS.SvgReferral}
         tit={
           <div className="flex justify-between items-center flex-1">
-            <span className="text-xl">My Referrals</span>
+            <span className="text-xl ">My Referrals</span>
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
