@@ -14,35 +14,38 @@ function Menus() {
   const user = ac.queryUserInfo?.data;
   const levelName = levels.find((_l, i) => user?.stat.level === i)?.name || levels[0].name;
   const exp = user?.stat.exp || 0;
+  const list = [
+    {
+      onClick: () => mc.toMenu("My Rewards"),
+      svg: <SVGS.SvgBerry />,
+      label: fmtBerry(user?.point.total),
+    },
+    {
+      onClick: () => mc.toMenu("My Profile"),
+      svg: <SVGS.SvgExp />,
+      label: exp,
+    }
+  ]
   return (
     <>
       <AutoFlip className="flex bg-[#404040] flex-col justify-between ">
         <div className="flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
-          <div className=" h-[7.375rem] flex items-center justify-center">
-            <img className="" src="/logo.svg" alt="Logo" />
+          <div className="flex items-center justify-center">
+            <img src="/logo.svg" className={`h-[7.375rem] w-[9.375rem]`} alt="Logo" />
           </div>
           <div className="flex pb-8 gap-6 w-full  justify-start ">
-            <div onClick={() => mc.toMenu("My Rewards")} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
-              <div
-                className=" mt-1 text-2xl"
-
-              >
-                <SVGS.SvgBerry />
+            {list.map((item, index) => {
+              return <div onClick={item.onClick} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
+                <div className=" mt-1 text-2xl" >
+                  {item.svg}
+                </div>
+                <label className=" font-medium text-base">
+                  {item.label}
+                </label>
               </div>
-              <label className=" font-medium text-base">
-                {fmtBerry(user?.point.total)}
-              </label>
-            </div>
-            <div onClick={() => mc.toMenu("My Profile")} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
-              <div className=" mt-1 text-2xl"
+            })}
 
-              >
-                <SVGS.SvgExp />
-              </div>
-              <label className=" font-medium text-base">
-                {exp}
-              </label>
-            </div>
+
           </div>
           <div className=" flex flex-col gap-[1.6875rem]">
             {menus.map((m) => {
@@ -93,12 +96,12 @@ const Main = () => {
         {menus.map((item) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
-              <AutoFlip className="flex-1 p-5 flex flex-col w-full gap-4 h-screen max-h-screen overflow-y-auto">
+              <AutoFlip className="flex-1 p-5 flex flex-col w-full gap-[2.125rem] h-screen max-h-screen overflow-y-auto">
                 {/* <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2> */}
                 {mc.current.name !== 'Overview' && <div className="flip_item relative pl-5 pt-28">
-                  <div className="bg-tit absolute z-0 right-0 top-0 h-[14.5rem] w-[31.25rem] bg-cover" />
+                  <div className="bg-tit absolute z-0 right-0 top-[.3125rem] h-[14.5rem] w-[31.25rem] bg-cover" />
                   <div className="text-3xl font-medium z-10 relative">
-                    {mc.current.name}
+                    {mc.current.contentName}
                   </div>
                 </div>}
                 {mc.current.content}

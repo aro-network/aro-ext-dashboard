@@ -18,24 +18,29 @@ export const menus = [
     name: "My Nodes",
     icon: SVGS.SvgNodes,
     content: <MyNodes />,
+    contentName: 'Dashboard my nodes'
   },
   {
     name: "My Rewards",
     icon: SVGS.SvgRewards,
     content: <MyRewards />,
+    contentName: 'Dashboard my rewards'
   },
   {
     name: "My Referral",
     icon: SVGS.SvgReferral,
     content: <MyReferral />,
+    contentName: 'Dashboard my referral'
+
   },
   {
     name: "My Profile",
     icon: SVGS.SvgProfile,
     content: <MyProfile />,
+    contentName: 'Dashboard my profile'
   },
 ];
-export const MenusContext = createContext({ toMenu: (name: string) => {}, current: menus[0] });
+export const MenusContext = createContext({ toMenu: (name: string) => { }, current: menus[0] });
 
 export function MenusProvider({ children }: PropsWithChildren) {
   const [_mName, setMName] = useState("");
@@ -45,7 +50,7 @@ export function MenusProvider({ children }: PropsWithChildren) {
   const r = useRouter();
   const ac = useAuthContext()
   const toMenu = (name: string) => {
-    
+
     const to = menus.find((item) => item.name === name);
     if (to) {
       const usp = new URLSearchParams(location.search);

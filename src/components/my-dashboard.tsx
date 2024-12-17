@@ -159,7 +159,7 @@ export function TrendingChart({ className }: { className?: string }) {
   return (
     <TitCard
       tit="Trending"
-      className={cn("col-span-1 lg:col-span-2 h-full", className)}
+      className={cn("col-span-1  lg:col-span-2 h-full", className)}
       right={
         <Select
           className="w-[10rem]"
@@ -255,8 +255,8 @@ export default function MyDashboard() {
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
       <div className="flip_item title lg:col-span-2 p-5 overflow-visible flex flex-col gap-5 text-white relative">
         <div className="absolute -right-5 -bottom-5 bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0 hidden lg:block" />
-        <div className="font-medium mt-16 text-sm z-10 relative">Dashboard Overview</div>
-        <div className="font-semibold text-3xl mb-20 z-10 relative">
+        <div className="font-medium mt-16 text-sm z-10 relative font-Alexandria">Dashboard Overview</div>
+        <div className="font-semibold text-3xl mb-20 z-10 relative font-Alexandria">
           Hello,<br />{user?.email || '-'}  👋
         </div>
       </div>
@@ -267,7 +267,7 @@ export default function MyDashboard() {
           icon={SVGS.SvgBerry}
           tit={
             <div className="flex justify-between items-center flex-1">
-              <span className="text-xl">BERRY</span>
+              <span className="text-xl font-Alexandria">BERRY</span>
               <Booster />
             </div>
           }
@@ -289,7 +289,7 @@ export default function MyDashboard() {
         icon={SVGS.SvgReferral}
         tit={
           <div className="flex justify-between items-center flex-1">
-            <span className="text-xl ">My Referrals</span>
+            <span className="text-xl font-Alexandria">My Referrals</span>
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
@@ -324,7 +324,7 @@ export default function MyDashboard() {
       <IconCard
         className="flip_item h-[11.875rem] self-end"
         icon={SVGS.SvgNodes}
-        tit={<span className="text-xl">My Nodes</span>}
+        tit={<span className="text-xl font-Alexandria">My Nodes</span>}
         content={
           <div className="flex flex-1 items-center gap-[10%] min-w-[12.5rem]">
             <DupleInfo
@@ -343,7 +343,7 @@ export default function MyDashboard() {
       />
 
       <TrendingChart className="flip_item" />
-      <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1"/>
+      <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1" />
     </div>
   );
 }

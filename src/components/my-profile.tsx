@@ -21,7 +21,7 @@ import { levels } from "./level";
 import { Booster, DupleInfo } from "./my-dashboard";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
-  
+
   const ac = useAuthContext();
   const social = ac.queryUserInfo?.data?.social;
   const [tit, isConnected]: [string, boolean] = useMemo(() => {
@@ -46,7 +46,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
       case "telegram":
         const result = await telegramAuth("7324509153", { windowFeatures: { popup: true, width: 600, height: 800 } });
         const res = await axios.get(`${BASE_API}/user/auth/handler/telegram`, { params: { ...result, state: token }, });
-        console.info('bingTG:',res.request)
+        console.info('bingTG:', res.request)
         if (typeof res.request?.responseURL === 'string') {
           const err = new URL(res.request?.responseURL).searchParams.get("err");
           handlerErrForBind(err);
@@ -109,7 +109,7 @@ export default function MyProfile() {
   // })
   return (
     <div className="grid xl:grid-cols-2 gap-4">
-      <TitCard className="flip_item" tit="Berry-Up Program">
+      <TitCard className="flip_item " tit="Berry-Up Program">
         <div className="flex gap-7">
           <currentLevel.icon className="text-[7.5rem]" />
           <div className="flex flex-col gap-5">

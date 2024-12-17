@@ -34,7 +34,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         className="flip_item"
         icon={IoTerminal}
         iconSize={20}
-        tit={<div className="text-xl">My Referral Code</div>}
+        tit={<div className="text-xl font-Alexandria">My Referral Code</div>}
         content={
           <div className="flex items-center gap-4">
             <div className="uppercase text-4xl leading-8 font-bold">{user?.inviteCode}</div>
@@ -52,7 +52,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         className="flip_item"
         icon={SVGS.SvgReferral}
         iconSize={20}
-        tit={<div className="text-xl">My Referrals</div>}
+        tit={<div className="text-xl font-Alexandria">My Referrals</div>}
         content={
           <div className="flex items-center gap-[10%] min-w-[13.75rem]">
             <DupleInfo
@@ -82,7 +82,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         icon={SVGS.SvgRewards}
         iconSize={20}
         tit={
-          <div className="text-xl flex items-center gap-2">
+          <div className="text-xl flex items-center gap-2  font-Alexandria">
             Referral Bonus{" "}
             <HelpTip content="Referral Bonus include an one-time bonus for a qualified referral, and a permanent percentage share of your referees’ Network Bonus." />
           </div>
@@ -96,7 +96,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
       <TitCard className="flip_item col-span-full flex-row gap-[3.125rem] flex-wrap justify-center">
         <div className="flex flex-col gap-4 items-center shrink-0">
           <SVGS.SvgMedal className="text-[5rem] shrink-0" />
-          <div className="uppercase text-[2rem] whitespace-nowrap leading-8">Get Referral Rewards</div>
+          <div className="uppercase  font-Alexandria text-[2rem] whitespace-nowrap leading-8">Get Referral Rewards</div>
           <Btn className="w-full" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
             Copy Referral Link
           </Btn>

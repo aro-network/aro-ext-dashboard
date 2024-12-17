@@ -104,7 +104,7 @@ export default function MyNodes() {
     return nodes
       .sort((a, b) => (a.isConnected !== b.isConnected ? b.isConnected - a.isConnected : b.lastConnectedAt - a.lastConnectedAt))
       .map((item, i) => [
-        <NodeName node={item} key={`nodeName_${i}`}/>,
+        <NodeName node={item} key={`nodeName_${i}`} />,
         "Extension",
         <CountryIP country={item.countryCode} ip={item.ipAddress} key={"CountryIp"} />,
         <Status isConnected={Boolean(item.isConnected)} key={"status"} />,

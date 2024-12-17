@@ -15,7 +15,7 @@ export default function MyRewards() {
         className="flip_item col-span-10 xl:col-span-4 justify-between"
         tit={
           <div className="flex justify-between items-center w-full">
-            <span className="text-xl">BERRY</span>
+            <span className="text-xl font-Alexandria">BERRY</span>
             <Booster />
           </div>
         }
