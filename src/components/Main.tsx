@@ -94,9 +94,11 @@ const Main = () => {
             {mc.current.name === item.name && (
               <AutoFlip className="flex-1 p-5 flex flex-col w-full gap-4 h-screen max-h-screen overflow-y-auto">
                 {/* <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2> */}
-                {mc.current.name !== 'Overview' && <div className="flip_item text-3xl font-medium relative pl-5 pt-28">
+                {mc.current.name !== 'Overview' && <div className="flip_item relative pl-5 pt-28">
                   <div className="bg-tit absolute z-0 right-0 top-0 h-[14.5rem] w-[31.25rem] bg-cover" />
-                  {mc.current.name}
+                  <div className="text-3xl font-medium z-10 relative">
+                    {mc.current.name}
+                  </div>
                 </div>}
                 {mc.current.content}
               </AutoFlip>

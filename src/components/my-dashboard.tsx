@@ -116,6 +116,7 @@ export function TrendingChart({ className }: { className?: string }) {
           endValue,
           zoomOnMouseWheel: false,
           moveOnMouseWheel: true,
+          preventDefaultMouseMove: false,
         },
         {
           show: false,
@@ -253,9 +254,9 @@ export default function MyDashboard() {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
       <div className="flip_item title lg:col-span-2 p-5 overflow-visible flex flex-col gap-5 text-white relative">
-        <div className="absolute -right-5 -bottom-5 bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0" />
-        <div className="font-medium mt-16 z-10">Dashboard Overview</div>
-        <div className="font-semibold text-3xl mb-20 z-10">
+        <div className="absolute -right-5 -bottom-5 bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0 hidden lg:block" />
+        <div className="font-medium mt-16 text-sm z-10 relative">Dashboard Overview</div>
+        <div className="font-semibold text-3xl mb-20 z-10 relative">
           Hello,<br />{user?.email || '-'}  👋
         </div>
       </div>
@@ -342,7 +343,7 @@ export default function MyDashboard() {
       />
 
       <TrendingChart className="flip_item" />
-      <CurrentTask />
+      <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1"/>
     </div>
   );
 }

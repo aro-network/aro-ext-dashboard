@@ -172,13 +172,13 @@ export function TaskList() {
   );
 }
 
-export function CurrentTask() {
+export function CurrentTask(p: { wrapClassName?: string }) {
   const tasks = useTasks();
   const cTask = tasks.find((item) => !item.complete);
   return (
     <>
       {cTask ? (
-        <BgCard className="justify-between px-5 py-7">
+        <BgCard className="justify-between px-5 py-7" wrapClassName={p.wrapClassName}>
           <div className="flex items-center justify-center mt-6 text-[3rem]">
             <div className="shadow-2 rounded-full">{cTask.icon}</div>
             <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>
@@ -187,12 +187,12 @@ export function CurrentTask() {
             <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white gap-2">Get {cTask.reward}</p>
             <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
           </div>
-          <TransBtn className="flex-grow-0 flex-shrink-0 w-full text-xs font-medium" onClick={cTask.onGoTo}>
+          <Btn className="flex-grow-0 flex-shrink-0 w-full max-w-[14.125rem]" onClick={cTask.onGoTo}>
             {cTask.btn}
-          </TransBtn>
+          </Btn>
         </BgCard>
       ) : (
-        <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] relative">
+        <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] relative" wrapClassName={p.wrapClassName}>
           {Boolean(tasks.length) && (
             <>
               <img className="object-cover absolute left-0 top-0 w-full h-full" src="bg-coming.svg" alt="bg" />
