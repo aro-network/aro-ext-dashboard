@@ -1,5 +1,6 @@
-import { Modal, ModalBody, ModalBodyProps, ModalContent, ModalContentProps, ModalHeader, ModalProps } from "@nextui-org/react";
+import { Modal, cn, ModalBody, ModalBodyProps, ModalContent, ModalContentProps, ModalHeader, ModalProps } from "@nextui-org/react";
 import { FiX } from "react-icons/fi";
+
 
 export function ForceModal({
   children,
@@ -26,6 +27,7 @@ export function TitModal({
   children,
   contentProps,
   bodyProps,
+  className,
   ...props
 }: ModalProps & {
   contentProps?: ModalContentProps;
@@ -33,12 +35,12 @@ export function TitModal({
   tit?: string;
 }) {
   return (
-    <Modal hideCloseButton backdrop="blur" classNames={{ backdrop: "backdrop-blur" }} {...props}>
-      <ModalContent className="w-[31.25rem] bg-m1 gap-6 p-6 rounded-3xl" {...(contentProps || {})}>
+    <Modal hideCloseButton backdrop="blur" className={className} classNames={{ backdrop: "backdrop-blur" }} {...props}>
+      <ModalContent className={cn('w-[31.25rem] bg-m1 gap-6 p-6 rounded-3xl', className)} {...(contentProps || {})}>
         {(onClose) => (
           <>
             <ModalHeader className="justify-between p-0">
-              <span className="text-base font-bold text-left text-white">{tit}</span>
+              <span className="text-base font-semibold text-left text-white font-Alexandria">{tit}</span>
               <div className="p-0 rounded-full w-6 h-6 flex justify-center items-center text-xs cursor-pointer bg-white/10 hover:bg-white/30" onClick={onClose}>
                 <FiX />
               </div>

@@ -170,6 +170,7 @@ export default function MyProfile() {
           </IconBtn>
           <ConfirmDialog
             tit="Log Out"
+            className={'bg-[#404040]'}
             msg={
               <>
                 You are going to log out your account.
