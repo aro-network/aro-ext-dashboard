@@ -94,7 +94,7 @@ export function TrendingChart({ className }: { className?: string }) {
     const xData = datas.map((item) => fmtDate(item.date * 1000, "MMMD"));
     const yData = datas.map((item) => _.toNumber(rewardType === "Total Rewards" ? item.totalPoint : rewardType === "Network Rewards" ? item.networkPoint : item.referralPoint));
     console.info("width:", width);
-    const showCount = Math.floor(width / 48);
+    const showCount = Math.floor(width / 60);
     const endValue = xData.length - 1;
     const startValue = Math.max(0, endValue - showCount);
     return {
@@ -138,7 +138,7 @@ export function TrendingChart({ className }: { className?: string }) {
           data: yData,
           type: "bar",
           itemStyle: {
-            borderRadius: 10,
+            borderRadius: 15,
             color: "#4281FF",
           },
           label: {
@@ -147,9 +147,9 @@ export function TrendingChart({ className }: { className?: string }) {
             position: "top",
             color: "rgba(255,255,255,0.5)",
           },
-          barWidth: 20,
-          barMinWidth: 20,
-          barCategoryGap: 38,
+          barWidth: 30,
+          barMinWidth: 30,
+          barCategoryGap: 30,
         },
       ],
       darkMode: true,

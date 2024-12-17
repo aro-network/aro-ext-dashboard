@@ -17,7 +17,8 @@ const config: Config = {
         m1: "linear-gradient(37.63deg, #233F7B 5.22%, #00000F 88.49%)",
         s1: "url('/bg-shadow.png')",
 
-        overview: "url('/overview.png')"
+        overview: "url('/overview.png')",
+        tit: "url('/bg-title.png')"
       },
       boxShadow: {
         1: "0px 2px 0px 0px #6D6D6D66",

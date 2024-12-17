@@ -1,12 +1,11 @@
 import { useAuthContext } from "@/app/context/AuthContext";
 import { menus, MenusProvider, useMenusCtx } from "@/app/context/MenusContext";
+import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
 import React, { Fragment, SVGProps } from "react";
-import { MAvatar } from "./avatar";
+import { AutoFlip } from "./auto-flip";
 import { fmtBerry } from "./fmtData";
 import { levels } from "./level";
-import { SVGS } from "@/svg";
-import { AutoFlip } from "./auto-flip";
 import { SocialButtons } from "./social-buttons";
 
 function Menus() {
@@ -23,7 +22,7 @@ function Menus() {
             <img className="" src="/logo.svg" alt="Logo" />
           </div>
           <div className="flex pb-8 gap-6 w-full  justify-start ">
-            <div onClick={() => mc.toMenu("My Rewards")} className=" w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
+            <div onClick={() => mc.toMenu("My Rewards")} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
               <div
                 className=" mt-1 "
 
@@ -34,7 +33,7 @@ function Menus() {
                 {fmtBerry(user?.point.total)}
               </label>
             </div>
-            <div onClick={() => mc.toMenu("My Profile")} className=" w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
+            <div onClick={() => mc.toMenu("My Profile")} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
               <div className=" mt-1 "
 
               >
@@ -95,7 +94,10 @@ const Main = () => {
             {mc.current.name === item.name && (
               <AutoFlip className="flex-1 p-5 flex flex-col w-full gap-4 h-screen max-h-screen overflow-y-auto">
                 {/* <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2> */}
-                {mc.current.name !== 'Overview' && <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2>}
+                {mc.current.name !== 'Overview' && <div className="flip_item text-3xl font-medium relative pl-5 pt-28">
+                  <div className="bg-tit absolute z-0 right-0 top-0 h-[14.5rem] w-[31.25rem] bg-cover" />
+                  {mc.current.name}
+                </div>}
                 {mc.current.content}
               </AutoFlip>
             )}
