@@ -44,28 +44,29 @@ function Menus() {
               </label>
             </div>
           </div>
-
-          {menus.map((m) => {
-            const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
-            const selected = m.name === mc.current.name;
-            return (
-              <div
-                key={m.name}
-                className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-[1.875rem] cursor-pointer select-none", {
-                  "bg-primary text-white ": selected,
-                  "text-white/50 hover:bg-default": !selected,
-                })}
-                onClick={() => {
-                  mc.toMenu(m.name);
-                }}
-              >
-                <div className={cn("flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2.5 rounded-full", { "bg-blue-400": selected })}>
-                  <Micon className={cn("text-base")} />
+          <div className=" flex flex-col gap-[1.6875rem]">
+            {menus.map((m) => {
+              const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
+              const selected = m.name === mc.current.name;
+              return (
+                <div
+                  key={m.name}
+                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-[1.875rem] cursor-pointer select-none", {
+                    "bg-primary text-white ": selected,
+                    "text-white/50 hover:bg-default": !selected,
+                  })}
+                  onClick={() => {
+                    mc.toMenu(m.name);
+                  }}
+                >
+                  <div className={cn("flex justify-center items-center flex-grow-0 flex-shrink-0 w-6 h-6 relative gap-2.5 rounded-full", { "bg-blue-400": selected })}>
+                    <Micon className={cn("text-base")} />
+                  </div>
+                  <div className="text-xs font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>
                 </div>
-                <div className="text-xs font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
         <div className="flex  pb-[1.875rem] flex-col items-center gap-5">
           <SocialButtons />
