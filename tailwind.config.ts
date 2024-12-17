@@ -18,7 +18,7 @@ const config: Config = {
         s1: "url('/bg-shadow.png')",
 
         overview: "url('/overview.png')",
-        tit: "url('/bg-title.png')"
+        tit: "url('/bg-title.png')",
       },
       boxShadow: {
         1: "0px 2px 0px 0px #6D6D6D66",
@@ -40,7 +40,8 @@ const config: Config = {
       },
       fontFamily: {
         HelveticaNeue: "var(--HelveticaNeue)",
-        Poppins: "var(--Poppins)",
+        AlbertSans: "var(--font-albert-sans)",
+        Alexandria: "var(--font-alexandria)",
       },
     },
   },

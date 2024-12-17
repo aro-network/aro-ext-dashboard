@@ -24,7 +24,7 @@ function Menus() {
           <div className="flex pb-8 gap-6 w-full  justify-start ">
             <div onClick={() => mc.toMenu("My Rewards")} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
               <div
-                className=" mt-1 "
+                className=" mt-1 text-2xl"
 
               >
                 <SVGS.SvgBerry />
@@ -34,10 +34,10 @@ function Menus() {
               </label>
             </div>
             <div onClick={() => mc.toMenu("My Profile")} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
-              <div className=" mt-1 "
+              <div className=" mt-1 text-2xl"
 
               >
-                <SVGS.SvgExp2 />
+                <SVGS.SvgExp />
               </div>
               <label className=" font-medium text-base">
                 {exp}

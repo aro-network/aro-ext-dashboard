@@ -24,10 +24,11 @@ const alexandria = Alexandria({
   variable: '--font-alexandria',
 });
 
+const fonts = [albertSans, alexandria]
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={cn("dark", `${albertSans.className} ${alexandria.className}`)}>
+    <html lang="en" className={cn("dark", fonts.map(item => item.variable).join(" "), "font-AlbertSans")}>
 
       <head>
       </head>

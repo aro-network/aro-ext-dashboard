@@ -8,7 +8,6 @@ import SvgBerry2 from "./berry2.svg";
 import SvgRocket from "./rocket.svg";
 import SvgMedal from "./medal.svg";
 import SvgExp from "./exp.svg";
-import SvgExp2 from "./exp2.svg";
 import SvgExt from "./ext.svg";
 import SvgX from "./x.svg";
 import SvgDiscord from "./discord.svg";
@@ -26,7 +25,6 @@ export const SVGS = {
   SvgRocket,
   SvgMedal,
   SvgExp,
-  SvgExp2,
   SvgExt,
   SvgX,
   SvgDiscord,
