@@ -9,16 +9,17 @@ export const metadata = {
 };
 
 import { Albert_Sans, Alexandria } from "next/font/google";
+import { cn } from "@nextui-org/react";
 const albertSans = Albert_Sans({
   subsets: ['latin'],
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal',],
   variable: '--font-albert-sans',
 });
 
 const alexandria = Alexandria({
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '500', '600', '700'],
   style: ['normal'],
   variable: '--font-alexandria',
 });
@@ -26,7 +27,8 @@ const alexandria = Alexandria({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${albertSans.className} ${alexandria.className}`}>
+    <html lang="en" className={cn("dark", `${albertSans.className} ${alexandria.className}`)}>
+
       <head>
       </head>
       <body>
