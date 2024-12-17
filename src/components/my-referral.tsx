@@ -37,7 +37,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         tit={<div className="text-xl">My Referral Code</div>}
         content={
           <div className="flex items-center gap-4">
-            <div className="uppercase text-4xl leading-8 font-bold font-HelveticaNeue">{user?.inviteCode}</div>
+            <div className="uppercase text-4xl leading-8 font-bold">{user?.inviteCode}</div>
             <IconBtn tip="Copy Referral Link" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
               <FaLink />
             </IconBtn>
@@ -96,7 +96,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
       <TitCard className="flip_item col-span-full flex-row gap-[3.125rem] flex-wrap justify-center">
         <div className="flex flex-col gap-4 items-center shrink-0">
           <SVGS.SvgMedal className="text-[5rem] shrink-0" />
-          <div className="uppercase text-[2rem] whitespace-nowrap font-HelveticaNeue leading-8">Get Referral Rewards</div>
+          <div className="uppercase text-[2rem] whitespace-nowrap leading-8">Get Referral Rewards</div>
           <Btn className="w-full" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
             Copy Referral Link
           </Btn>
