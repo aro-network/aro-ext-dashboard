@@ -11,7 +11,7 @@ export function AddNodeDialog() {
   return (
     <>
       <Btn onClick={() => toggleOpen()}>Add New Node</Btn>
-      <TitModal isOpen={isOpen} onClose={() => toggleOpen(false)} tit="Add New Node">
+      <TitModal className="bg-[#404040]" isOpen={isOpen} onClose={() => toggleOpen(false)} tit="Add New Node">
         <div className="flex flex-col justify-start items-center self-stretch flex-grow-0 flex-shrink-0 gap-2.5">
           <div className="flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
             <SVGS.SvgExt className="text-[3.75rem]" />
