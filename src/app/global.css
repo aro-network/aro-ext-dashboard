@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-albert-sans: 'Albert Sans', sans-serif;
+  --font-alexandria: 'Alexandria', sans-serif;
+}
 html,
 body {
   width: 100%;
@@ -17,6 +21,7 @@ body {
   background-size: cover;
   color: white;
   font-size: 16px; /* width 1512 */
+  font-family: var(--font-alexandria);
 }
 
 .App {
@@ -99,10 +104,5 @@ body {
   transform: translateY(-5%);
 }
 
-.alexandriaFont {
-  font-family: "Alexandria", sans-serif;
-}
 
-.asFont {
-  font-family: "Albert Sans", sans-serif;
-}
+

@@ -29,7 +29,7 @@ function Menus() {
               >
                 <SVGS.SvgBerry />
               </div>
-              <label className="asFont font-medium text-base">
+              <label className=" font-medium text-base">
                 {fmtBerry(user?.point.total)}
               </label>
             </div>
@@ -39,7 +39,7 @@ function Menus() {
               >
                 <SVGS.SvgExp2 />
               </div>
-              <label className="asFont font-medium text-base">
+              <label className=" font-medium text-base">
                 {exp}
               </label>
             </div>
@@ -69,7 +69,7 @@ function Menus() {
         </div>
         <div className="flex  pb-[1.875rem] flex-col items-center gap-5">
           <SocialButtons />
-          <div className=" asFont font-normal text-xs leading-[.9rem] text-[#999999] flex gap-6 ">
+          <div className="  font-normal text-xs leading-[.9rem] text-[#999999] flex gap-6 ">
             <a href="https://enreach.network/" className="underline-offset-4 underline">WebSite</a>
             <a href="https://docs.enreach.network/user-guide" className="underline-offset-4 underline">Guide</a>
 
