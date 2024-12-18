@@ -158,6 +158,7 @@ export function TrendingChart({ className }: { className?: string }) {
           emphasis: {
             itemStyle: {
               color: "#4281FF",
+              decal: "none"
             },
           },
           barWidth: 30,
