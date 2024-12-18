@@ -8,7 +8,7 @@ import { IconCard, TitCard } from "./cards";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useCopy } from "@/hooks/useCopy";
 import backendApi from "@/lib/api";
-import { fmtDate } from "@/lib/utils";
+import { fmtDate, truncateEmail } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
@@ -145,7 +145,7 @@ export function TrendingChart({ className }: { className?: string }) {
               color: "rgba(256,256,256,0.2)",
               dashArrayY: 3,
               dashArrayX: 1000,
-              rotation: Math.PI/4,
+              rotation: Math.PI / 4,
             },
           },
 
@@ -175,11 +175,11 @@ export function TrendingChart({ className }: { className?: string }) {
       className={cn("col-span-1  lg:col-span-2 h-full", className)}
       right={
         <Select
-          className="w-[10rem]"
+          className="w-[9.375rem]"
           classNames={{
             mainWrapper: "rounded-full bg-neutral-100/10 ",
             trigger: "rounded-full bg-transparent text-xs",
-            value: "text-xs !text-white/80",
+            value: "text-xs !text-white/80 ",
           }}
           selectionMode="single"
           selectedKeys={[rewardType]}
@@ -263,12 +263,12 @@ export default function MyDashboard() {
   const connectedNodes = user?.node.connected || 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
-      <div className="flip_item title lg:col-span-2 p-5 overflow-visible flex flex-col gap-5 text-white relative">
-        <div className="absolute -right-5 -bottom-5 bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0 hidden lg:block" />
-        <div className="font-medium mt-16 text-sm z-10 relative font-Alexandria">Dashboard Overview</div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 ">
+      <div className="flip_item title lg:col-span-2 px-5 overflow-visible flex flex-col gap-[1.5625rem] text-white relative  mt-[3.875rem]">
+        <div className="absolute -right-5 -bottom-[3.5625rem] bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0 hidden lg:block" />
+        <div className="font-medium  text-sm z-10 relative font-Alexandria">Dashboard Overview</div>
         <div className="font-semibold text-3xl mb-20 z-10 relative font-Alexandria">
-          Hello,<br />{user?.email || '-'}  👋
+          Hello,<br /><div title={user?.email}>{truncateEmail(user?.email)} 👋</div>
         </div>
       </div>
       <div className="flip_item flex flex-col justify-between lg:col-span-2 lg:flex-row xl:col-span-1 xl:row-span-2 xl:flex-col rounded-[1.25rem] bg-[#373737]">
@@ -277,7 +277,7 @@ export default function MyDashboard() {
           className=" min-h-[11.875rem]"
           icon={SVGS.SvgBerry}
           tit={
-            <div className="flex justify-between items-center flex-1">
+            <div className="flex justify-between gap-2 items-center flex-1">
               <span className="text-xl font-Alexandria">BERRY</span>
               <Booster />
             </div>

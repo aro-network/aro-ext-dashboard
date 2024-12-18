@@ -13,7 +13,8 @@ export function getErrorMsg(error: any) {
   // msg
   let msg = "Unkown";
   if (typeof error == "string") msg = error;
-  else if (error instanceof AxiosError) msg = error.response?.data?.message || error.message;
+  else if (error instanceof AxiosError)
+    msg = error.response?.data?.message || error.message;
   else if (typeof error?.msg == "string") msg = error?.msg;
   else if (typeof error?.message == "string") msg = error?.message;
   // replace
@@ -40,4 +41,16 @@ export function fmtDuration(time: number, fmt: string) {
 
 export function pxToRem(px: number, base: number = 16) {
   return _.round(px / base, 4) + "rem";
+}
+
+export function truncateEmail(email: string = "", maxLength = 25) {
+  if (email.length <= maxLength) return email || "-";
+
+  const [localPart, domainPart] = email.split("@");
+  const localPartLength = localPart.length;
+
+  if (localPartLength <= 4) {
+    return `${localPart}@${domainPart.slice(0, 3)}...`;
+  }
+  return `${localPart.slice(0, 7)}...@${domainPart}`;
 }

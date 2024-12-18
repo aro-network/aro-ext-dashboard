@@ -16,7 +16,7 @@ export function STable({
 }) {
   return (
     <Table removeWrapper className={cn("overflow-auto pb-3")} disabledBehavior="selection">
-      <TableHeader className="p-0">
+      <TableHeader hidden className="p-0 ">
         {head.map((h, i) => (
           <TableColumn className="bg-transparent py-0 h-6 whitespace-nowrap text-sm font-normal text-white" key={i}>
             {h}
@@ -37,7 +37,7 @@ export function STable({
               {item.map((cell, ci) => (
                 <TableCell
                   data-focus-visible={false}
-                  className={cn("bg-white/10 h-[3.125rem] whitespace-nowrap text-xs text-white/80", { "rounded-l-lg": ci == 0, "rounded-r-lg": ci == item.length - 1 })}
+                  className={cn("bg-white/10 h-[3.125rem] whitespace-nowrap text-xs text-white/80 overflow-y-hidden", { "rounded-l-lg": ci == 0, "rounded-r-lg": ci == item.length - 1 })}
                   key={`stable_cell_${ri}_${ci}`}
                 >
                   {cell}

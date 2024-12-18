@@ -2,9 +2,9 @@ import { Button, ButtonProps, cn } from "@nextui-org/react";
 import { HelpTip } from "./tips";
 import { ReactNode } from "react";
 
-export function Btn({ children, className, ...props }: ButtonProps) {
+export function Btn({ children, isDisabled, className, ...props }: ButtonProps) {
   return (
-    <Button color="primary" className={cn("flip_item h-[2.125rem] text-xs font-medium rounded-full hover:bg-default", props.color == "default" ? "hover:bg-l1" : "", className)} {...props}>
+    <Button isDisabled={isDisabled} color="primary" className={cn("flip_item h-[2.125rem] text-xs font-medium rounded-full hover:bg-default", props.color == "default" ? "hover:bg-l1" : "", className)} {...props}>
       {children}
     </Button>
   );

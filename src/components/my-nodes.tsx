@@ -18,7 +18,7 @@ import { fmtBerry, fmtNetqulity } from "./fmtData";
 import { NodeItem } from "@/types/node";
 
 const inputNameClassNames: SlotsToClasses<InputSlots> = {
-  inputWrapper: "h-5 min-h-5 w-[7.5rem] outline-none rounded-lg border-1 !border-white/20 bg-transparent text-xs",
+  inputWrapper: "h-5 min-h-5 w-[7.5rem]  h-[.875rem] outline-none rounded-lg border-1 !border-white/20 bg-transparent text-xs",
   label: "text-xs",
   input: "text-xs !text-white/80",
 };
@@ -43,7 +43,7 @@ function NodeName({ node }: { node: NodeItem }) {
     }
   };
   return (
-    <div className="flex min-w-[10rem] gap-2.5 items-center">
+    <div className="flex min-w-[10rem] gap-2.5 items-center ">
       {edit ? (
         <Input
           className="w-fit"
@@ -77,7 +77,7 @@ function NodeName({ node }: { node: NodeItem }) {
 
 function CountryIP({ ip, country }: { ip: string; country: string }) {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-1 items-center ">
       <span className={cn(`text-base fi fi-${(country || "").toLowerCase()}`)}></span>
       <span>{ip}</span>
     </div>
