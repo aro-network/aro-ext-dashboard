@@ -108,11 +108,11 @@ export default function Page() {
           <InputReferralCode value={referalCode} setReferalCode={setReferalCode} />
           <Checkbox classNames={{ wrapper: 'flip_item', label: "text-xs text-white/60", icon: "w-2.5 h-2.5" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
             I agree to the EnReach{" "}
-            <MLink className="text-xs" href="/terms">
+            <MLink target="_blank" className="text-xs" href="https://enreach.network/terms" >
               Term of Service
             </MLink>{" "}
             and{" "}
-            <MLink className="text-xs" href="/privacy">
+            <MLink target="_blank" className="text-xs" href="https://enreach.network/privacy">
               Privacy Policy
             </MLink>
             .

@@ -19,6 +19,7 @@ import { TitCard } from "./cards";
 import { ConfirmDialog } from "./dialogimpls";
 import { levels } from "./level";
 import { Booster, DupleInfo } from "./my-dashboard";
+import { useMenusCtx } from "@/app/context/MenusContext";
 
 function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
 
@@ -95,6 +96,7 @@ export default function MyProfile() {
     return _.round(oneLevelValue * (cLevel.level - 1) + (oneLevelValue * (exp - cStartExp)) / (cLevel.exp - cStartExp), 1);
   }, [exp]);
   const r = useRouter();
+  const mc = useMenusCtx();
   // useQuery({
   //   queryKey: ['testBind'],
   //   queryFn: async () => {
@@ -129,8 +131,9 @@ export default function MyProfile() {
             />
           </div>
         </div>
+
         <p className="text-sm">
-          Unlock <span className="underline">achievements</span> to earn <strong>Sunshine</strong>.<br />
+          Unlock <button onClick={() => mc.toMenu("My Rewards")} className="underline">achievements</button> to earn <strong>Sunshine</strong>.<br />
           More <strong>Sunshine</strong> grows your user level.<br />
           With higher user level, you enjoy higher Extra Boost on your <strong> BERRY</strong> rewards!
         </p>

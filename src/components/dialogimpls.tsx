@@ -30,7 +30,7 @@ export function AddNodeDialog() {
         <div className="flex flex-col justify-center items-center self-stretch flex-grow-0 flex-shrink-0 relative gap-5">
           <IoDesktopOutline className="text-[3.75rem] text-white" />
           <p className="self-stretch flex-grow-0 flex-shrink-0  text-sm text-center  opacity-40">
-            <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white">Desktop Node (Coming Soon)</span>
+            <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-semibold text-center text-white">Desktop Node (Coming Soon)</span>
             <br />
             <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-[#CBCBCB] font-AlbertSans">
               The working nodes in EnReach’s Distributed Acceleration  Network (DAN) that provides qualified capabilities for content acceleration and AI acceleration.
