@@ -4,15 +4,15 @@ import { Card, cn } from "@nextui-org/react";
 import _ from "lodash";
 import React, { PropsWithChildren, ReactNode } from "react";
 
-export function IconCard({ icon, className, iconSize = 20, tit, content }: { icon: React.FC; className?: string; iconSize?: number; tit: ReactNode; content: ReactNode }) {
+export function IconCard({ icon, className, iconSize = 24, tit, content }: { icon: React.FC; className?: string; iconSize?: number; tit: ReactNode; content: ReactNode }) {
   const Micon = icon;
   const sizeRem = pxToRem(iconSize);
   const leftSizeRem = pxToRem(120 - iconSize);
-  const pl = pxToRem((30 - iconSize) / 2);
+  const pl = pxToRem((40 - iconSize) / 2);
   return (
-    <Card className={cn("bg-gray-1 bg-no-repeat rounded-3xl flex flex-col p-[1.75rem] gap-[2.8125rem] relative", className)}>
-      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6rem] z-0" />
-      <div className="flex items-center whitespace-nowrap " style={{ height: sizeRem }}>
+    <Card className={cn("bg-gray-1 bg-no-repeat rounded-3xl flex flex-col p-6 gap-[2.8125rem] relative", className)}>
+      <SVGS.SvgBgIconCard className="absolute left-0 top-0 text-[6.5rem] z-0" />
+      <div className="flex items-center whitespace-nowrap" style={{ height: pxToRem(40) }}>
         <div
           className="shrink-0 "
           style={{
