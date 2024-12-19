@@ -72,7 +72,7 @@ const backendApi = {
     _.keys(p).forEach((key) => {
       p[key] = _.toNumber(p[key]);
     });
-    p.total = fmtBoost(response.data.data.stat.extraBoost) * p.total;
+    p.total = _.toNumber(fmtBoost(response.data.data.stat.extraBoost)) * p.total;
     return response.data.data;
   },
   sendResetPassword: async (email: string) => {
