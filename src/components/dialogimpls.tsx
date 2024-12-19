@@ -33,7 +33,7 @@ export function AddNodeDialog() {
             <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm font-bold text-center text-white">Desktop Node (Coming Soon)</span>
             <br />
             <span className="self-stretch flex-grow-0 flex-shrink-0 text-sm text-center text-[#CBCBCB] font-AlbertSans">
-              Edge Node (Coming Soon) The working nodes at edge side that provides qualified edge cloud capabilities
+              The working nodes in EnReach’s Distributed Acceleration  Network (DAN) that provides qualified capabilities for content acceleration and AI acceleration.
             </span>
           </p>
         </div>
