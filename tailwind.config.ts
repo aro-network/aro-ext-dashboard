@@ -24,6 +24,9 @@ const config: Config = {
         1: "0px 2px 0px 0px #6D6D6D66",
         2: "0px 4px 4px 0 rgba(0,0,0,0.25)",
       },
+      screens: {
+        smd: { max: "1000px" },
+      },
       colors: {
         primary: {
           DEFAULT: "#4281FF",

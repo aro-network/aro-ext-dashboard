@@ -30,9 +30,9 @@ function Menus() {
       <AutoFlip className="flex bg-[#404040] flex-col justify-between sticky top-0 h-screen">
         <div className="flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
           <div className="flex items-center justify-center">
-            <img src="/logo.svg" className={`h-[7.375rem] w-[9.375rem]`} alt="Logo" />
+            <img src="/logo.svg" className={`h-[7.375rem] w-[9.375rem] `} alt="Logo" />
           </div>
-          <div className="flex pb-8 gap-6 w-full 2xl:flex-nowrap  justify-start flex-wrap ">
+          <div className="flex pb-8 gap-6 w-full   justify-start smd:flex-wrap ">
             {list.map((item, index) => {
               return <div key={`list_${index}`} onClick={item.onClick} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
                 <div className=" mt-1 text-2xl" >
@@ -53,7 +53,7 @@ function Menus() {
               return (
                 <div
                   key={m.name}
-                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-6 rounded-[1.875rem] cursor-pointer select-none", {
+                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-[1.875rem] cursor-pointer select-none", {
                     "bg-primary text-white ": selected,
                     "text-white/50 hover:bg-default": !selected,
                   })}
