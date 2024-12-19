@@ -53,7 +53,7 @@ function Menus() {
               return (
                 <div
                   key={m.name}
-                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-[1.875rem] smd:px-3 rounded-[1.875rem] cursor-pointer select-none", {
+                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-5 smd:px-3 rounded-[1.875rem] cursor-pointer select-none", {
                     "bg-primary text-white ": selected,
                     "text-white/50 hover:bg-default": !selected,
                   })}

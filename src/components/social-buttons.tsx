@@ -1,26 +1,36 @@
-'use client'
-
 import React from 'react'
+import { FaTelegramPlane } from 'react-icons/fa';
+
+import { FaDiscord, FaXTwitter } from 'react-icons/fa6'
+
+
+
+
+
 
 const socialLinks = [
-    { href: 'https://discord.gg/Rc4BMUjbNB', icon: './discord.svg' },
-    { href: 'https://x.com/EnReachNetwork', icon: './x.svg' },
-    { href: 'https://t.me/EnReachNetwork', icon: './telegram.svg' },
+    { href: 'https://discord.gg/Rc4BMUjbNB', },
+    { href: 'https://x.com/EnReachNetwork', },
+    { href: 'https://t.me/EnReachNetwork', },
 ]
 
+const iconArr = [<FaDiscord />, <FaXTwitter />, <FaTelegramPlane />]
+
 export function SocialButtons() {
+
     return <div className="flex items-center gap-8">
         {
-            socialLinks.map(({ href, icon }) => {
+            socialLinks.map((item, index) => {
+
 
                 return <a
-                    key={href}
-                    className=" mo:w-6 w-[31px] h-[31px] mo:h-6 border-white/20 hover:bg-[#4281FF] rounded-full "
-                    href={href}
+                    key={item.href}
+                    className=" mo:w-6  border  text-lg items-center justify-center flex hover:text-[#4281FF] hover:border-[#4281FF]  w-[1.9375rem] h-[1.9375rem] mo:h-6 border-white/20 rounded-full "
+                    href={item.href}
                     target="_blank"
                     rel="noreferrer"
                 >
-                    <img src={icon}></img>
+                    {iconArr[index]}
                 </a>
             })
         }
