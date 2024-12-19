@@ -33,7 +33,6 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
       <IconCard
         className="flip_item"
         icon={IoTerminal}
-        iconSize={20}
         tit={<div className="text-xl font-Alexandria">My Referral Code</div>}
         content={
           <div className="flex items-center gap-4">
@@ -51,7 +50,6 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
       <IconCard
         className="flip_item"
         icon={SVGS.SvgReferral}
-        iconSize={20}
         tit={<div className="text-xl font-Alexandria">My Referrals</div>}
         content={
           <div className="flex items-center gap-[10%] min-w-[13.75rem]">
@@ -80,7 +78,6 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
       <IconCard
         className="flip_item"
         icon={SVGS.SvgRewards}
-        iconSize={20}
         tit={
           <div className="text-xl flex items-center gap-2  font-Alexandria">
             Referral Bonus{" "}
