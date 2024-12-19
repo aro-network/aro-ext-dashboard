@@ -21,5 +21,5 @@ export function fmtNetqulity(last?: string | number | number, def: "-" | `${numb
 }
 
 export function fmtBoost(boost?: string | number | number) {
-  return Math.max(_.round(_.toNumber(boost || "1"), 1), 1);
+  return numbro(Math.max(_.toNumber(boost || "1"), 1)).format({ mantissa: 1, trimMantissa: false });
 }
