@@ -194,6 +194,7 @@ export default function MyProfile() {
                 You will leave current page and redirect to the Reset Password page.
               </>
             }
+            className="bg-[#404040]"
             isOpen={showConfirmReset}
             onCancel={toggleShowConfirmReset}
             onConfirm={() => r.push(`/reset?email=${user?.email}`)}
