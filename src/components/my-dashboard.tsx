@@ -281,6 +281,7 @@ export default function MyDashboard() {
         <IconCard
           className=" min-h-[11.875rem]"
           icon={SVGS.SvgBerry}
+          iconSize={24}
           tit={
             <div className="flex justify-between gap-2 items-center flex-1">
               <span className="text-xl font-Alexandria">BERRY</span>
@@ -303,6 +304,7 @@ export default function MyDashboard() {
       <IconCard
         className="flip_item h-[11.875rem] self-end"
         icon={SVGS.SvgReferral}
+        iconSize={24}
         tit={
           <div className="flex justify-between items-center flex-1">
             <span className="text-xl font-Alexandria">My Referrals</span>
@@ -340,6 +342,7 @@ export default function MyDashboard() {
       <IconCard
         className="flip_item h-[11.875rem] self-end"
         icon={SVGS.SvgNodes}
+        iconSize={24}
         tit={<span className="text-xl font-Alexandria">My Nodes</span>}
         content={
           <div className="flex flex-1 items-center gap-[10%] min-w-[12.5rem]">

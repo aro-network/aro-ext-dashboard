@@ -53,7 +53,7 @@ function Menus() {
               return (
                 <div
                   key={m.name}
-                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-3 rounded-[1.875rem] cursor-pointer select-none", {
+                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-[1.875rem] smd:px-3 rounded-[1.875rem] cursor-pointer select-none", {
                     "bg-primary text-white ": selected,
                     "text-white/50 hover:bg-default": !selected,
                   })}
@@ -73,8 +73,8 @@ function Menus() {
         <div className="flex  pb-[1.875rem] flex-col items-center gap-5">
           <SocialButtons />
           <div className="  font-normal text-xs leading-[.9rem] text-[#999999] flex gap-6 ">
-            <a href="https://enreach.network/" target="_blank" className="underline-offset-4 underline">WebSite</a>
-            <a href="https://docs.enreach.network/user-guide" target="_blank" className="underline-offset-4 underline">Guide</a>
+            <a href="https://enreach.network/" target="_blank" className="underline-offset-4 hover:text-[#4281FF] underline ">WebSite</a>
+            <a href="https://docs.enreach.network/user-guide" target="_blank" className="underline-offset-4 hover:text-[#4281FF] underline">Guide</a>
 
           </div>
         </div>
