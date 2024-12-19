@@ -246,14 +246,14 @@ export function ExpProgress() {
       <div className="flex flex-col justify-center -translate-x-1/2 text-xs font-medium text-white text-center">
         <span className="text-[#8a8a8a]">{leftLevel.exp}</span>
         <div className="flex gap-0.5 items-center pl-1">
-          <span>{leftLevel.boostNum}x</span>
+          <span>{fmtBoost(leftLevel.boostNum)}x</span>
           <SVGS.SvgRocket className="text-base" />
         </div>
       </div>
       <div className="flex flex-col justify-center translate-x-1/2 text-xs font-medium text-white text-center">
         <span className="text-[#8a8a8a]">{nextLevel.exp}</span>
         <div className="flex gap-0.5 items-center pl-1">
-          <span>{nextLevel.boostNum}x</span>
+          <span>{fmtBoost(nextLevel.boostNum)}x</span>
           <SVGS.SvgRocket className="text-base" />
         </div>
       </div>
