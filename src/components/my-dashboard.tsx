@@ -105,6 +105,11 @@ export function TrendingChart({ className }: { className?: string }) {
         axisPointer: {
           type: "shadow",
         },
+        formatter: (params: any) => {
+          // console.info("params:", params)
+          // <span style="display:inline-block;margin-right:4px;border-radius:10px;width:10px;height:10px;background-color:rgba(0,0,0,0);"></span>
+          return `<div>${params[0].marker.replace('background-color:rgba(0,0,0,0)', 'background-color:#4281FF')}${params[0].data}</div>`
+        }
       },
       grid: { left: 40, top: 10, bottom: 30, right: 20, show: false },
       // toolbox: { show: false },
