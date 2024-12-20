@@ -34,8 +34,11 @@ export function PageLayout({ children }: { children: ReactNode }) {
   if (!init) return null;
   return (
     <>
-      <Toaster position="top-right" offset={50} theme="light" toastOptions={{
-        classNames: { 'toast': "rounded-2xl bg-[#585858] border border-solid border-white/10 text-white/60" }
+      <Toaster position="top-right" offset={50} theme="light" className="toaster" style={
+        // @ts-ignore
+        { '--width': '12.5rem' }
+      } toastOptions={{
+        classNames: { 'toast': "rounded-xl bg-[#585858] border border-solid border-white/10 text-white/60 text-xs px-4 py-2 h-[2.375rem]" }
       }} />
       <Providers>{children}</Providers>
     </>
