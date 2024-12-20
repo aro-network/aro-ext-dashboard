@@ -16,7 +16,7 @@ import { RiRefreshLine } from "react-icons/ri";
 import { useToggle } from "react-use";
 import { fmtBerry, fmtNetqulity } from "./fmtData";
 import { NodeItem } from "@/types/node";
-import { PaginationClassNames } from "./pagination";
+import { PaginationClassNames } from "./classes";
 
 const inputNameClassNames: SlotsToClasses<InputSlots> = {
   inputWrapper: "h-5 min-h-5 w-[7.5rem]  h-[.875rem] outline-none rounded-lg border-1 !border-white/20 bg-transparent text-xs",

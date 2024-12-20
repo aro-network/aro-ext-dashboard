@@ -34,7 +34,9 @@ export function PageLayout({ children }: { children: ReactNode }) {
   if (!init) return null;
   return (
     <>
-      <Toaster position="top-right" offset={70} theme="light" />
+      <Toaster position="top-right" offset={70} theme="light" toastOptions={{
+        classNames: { 'toast': "rounded-2xl bg-[#40414F] border border-solid border-white/10 text-white/60" }
+      }} />
       <Providers>{children}</Providers>
     </>
   );

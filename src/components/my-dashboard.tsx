@@ -19,6 +19,7 @@ import { fmtBerry, fmtBoost } from "./fmtData";
 import { CurrentTask } from "./tasks";
 import { HelpTip } from "./tips";
 import { levels } from "./level";
+import numbro from "numbro";
 
 export function DupleInfo({
   tit,
@@ -136,7 +137,16 @@ export function TrendingChart({ className }: { className?: string }) {
         type: "value",
         boundaryGap: [0, "10%"],
         // max: (value: number) => value * 1.2,
-        axisLabel: { color: "rgba(255,255,255,0.5)" },
+
+        axisLabel: {
+          color: "rgba(255,255,255,0.5)", formatter: (value: number) => numbro(value)
+            .format({
+              mantissa: 2,
+              trimMantissa: true,
+              average: true,
+            })
+            .toUpperCase(),
+        },
         splitLine: { lineStyle: { type: "dashed", color: "#fff", opacity: 0.05 } },
       },
       series: [
@@ -177,14 +187,15 @@ export function TrendingChart({ className }: { className?: string }) {
   return (
     <TitCard
       tit="Trending"
-      className={cn("col-span-1  lg:col-span-2 h-full", className)}
+      className={cn("col-span-1  lg:col-span-2 h-full gap-4", className)}
       right={
         <Select
           className="w-[9.375rem]"
           classNames={{
-            mainWrapper: "rounded-full bg-neutral-100/10 ",
-            trigger: "rounded-full bg-transparent text-xs",
+            mainWrapper: "rounded-full bg-transparent",
+            trigger: "rounded-full text-xs bg-white/10 hover:!bg-white/20",
             value: "text-xs !text-white/80 ",
+            popoverContent: "bg-[#585858] border border-solid border-white/10 p-0"
           }}
           selectionMode="single"
           selectedKeys={[rewardType]}
@@ -195,9 +206,10 @@ export function TrendingChart({ className }: { className?: string }) {
         >
           {options.map((opt) => (
             <SelectItem
-              className="text-xs "
+              className="!rounded-full"
               key={opt}
               classNames={{
+                wrapper: "text-xs !rounded-full data-[hover=true]:bg-white/20",
                 title: "text-xs whitespace-nowrap",
               }}
             >
