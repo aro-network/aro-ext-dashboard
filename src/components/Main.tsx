@@ -34,7 +34,7 @@ function Menus() {
           </div>
           <div className="flex pb-8 gap-6 w-full   justify-start smd:flex-wrap ">
             {list.map((item, index) => {
-              return <div key={`list_${index}`} onClick={item.onClick} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-[#FFFFFF1A] rounded-[.9375rem] flex flex-col  justify-center items-center">
+              return <div key={`list_${index}`} onClick={item.onClick} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-white/10 hover:bg-white/20 rounded-[.9375rem] flex flex-col  justify-center items-center">
                 <div className=" mt-1 text-2xl" >
                   {item.svg}
                 </div>
