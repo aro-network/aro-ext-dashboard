@@ -143,7 +143,7 @@ export function TrendingChart({ className }: { className?: string }) {
             .format({
               mantissa: 2,
               trimMantissa: true,
-              average: true,
+              average: value >= 1000,
             })
             .toUpperCase(),
         },
