@@ -36,7 +36,7 @@ export function PageLayout({ children }: { children: ReactNode }) {
     <>
       <Toaster position="top-right" offset={50} theme="light" style={
         // @ts-ignore
-        { '--width': '12.5rem' }
+        { '--width': '15rem' }
       } toastOptions={{
         classNames: { 'toast': "rounded-xl bg-[#585858] border border-solid border-white/10 text-white/60 text-xs px-4 py-2" }
       }} />

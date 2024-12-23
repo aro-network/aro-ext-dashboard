@@ -100,7 +100,7 @@ export function InputSplitCode({ onComplete, onChange }: { onComplete?: (value: 
       onComplete={onComplete}
       classNames={{
         container: "flip_item w-full justify-between h-[2.625rem] ",
-        character: "rounded-lg max-w-[2.625rem]  w-[2.625rem] bg-l1 bg-transparent backdrop-blur-lg shadow-1 text-white text-xl leading-[2.625rem] uppercase",
+        character: "rounded-lg max-w-[2.625rem]  w-[2.625rem] bg-l1 bg-transparent backdrop-blur-[20px] text-white text-xl leading-[2.625rem] uppercase",
       }}
     />
   );

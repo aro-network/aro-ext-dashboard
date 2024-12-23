@@ -23,7 +23,7 @@ export default function Page() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [referalCode, setReferalCode] = useState(sq.get("referral") || "");
-  const [showToVerify, setShowToVerify] = useState(false);
+  const [showToVerify, setShowToVerify] = useState(true);
   const [checkedTermPrivacy, setCheckedTermPrivacy] = useToggle(false);
   // const [checkedReceiveEmail, setCheckedReceiveEmail] = useToggle(false);
   const [reSendSecends, actionResendScends] = useCounter(60, 60, 0);
