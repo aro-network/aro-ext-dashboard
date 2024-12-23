@@ -28,17 +28,17 @@ function Menus() {
   return (
     <>
       <AutoFlip className="flex bg-[#404040] flex-col justify-between sticky top-0 h-screen overflow-y-auto">
-        <div className="flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 pl-3 lg:px-3 transition-width">
-          <div className="flex items-center justify-center">
-            <img src="/logo.svg" className={`h-[7.375rem] w-[9.375rem] `} alt="Logo" />
+        <div className="flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 lg:px-3 transition-width">
+          <div className="flex items-center justify-center h-36">
+            <img src="/logo.svg" className={`h-12 min-w-36 shrink-0 rotate-90 lg:ml-0 lg:rotate-0 lg:h-[7.375rem] lg:w-[9.375rem]`} alt="Logo" />
           </div>
-          <div className="flex pb-8 gap-6 w-full   justify-start smd:flex-wrap ">
+          <div className="flex pb-8 gap-3 w-full justify-start flex-wrap">
             {list.map((item, index) => {
-              return <div key={`list_${index}`} onClick={item.onClick} className="cursor-pointer w-full h-[4.4375rem] gap-1 bg-white/10 hover:bg-white/20 rounded-[.9375rem] flex flex-col  justify-center items-center">
-                <div className=" mt-1 text-2xl" >
+              return <div key={`list_${index}`} onClick={item.onClick} className="flex-1 basis-0 mx-1.5 lg:mx-0 cursor-pointer h-[4.4375rem] gap-1 bg-white/10 hover:bg-white/20 rounded-[.9375rem] flex flex-col  justify-center items-center">
+                <div className=" mt-1 text-xl lg:text-2xl" >
                   {item.svg}
                 </div>
-                <label className=" font-medium text-base">
+                <label className=" font-medium text-xs lg:text-base">
                   {item.label}
                 </label>
               </div>
@@ -46,14 +46,14 @@ function Menus() {
 
 
           </div>
-          <div className=" flex flex-col gap-3">
+          <div className=" flex flex-col gap-3 px-1.5 lg:px-0">
             {menus.map((m) => {
               const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
               const selected = m.name === mc.current.name;
               return (
                 <div
                   key={m.name}
-                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 px-5 smd:px-3 rounded-[1.875rem] cursor-pointer select-none", {
+                  className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 h-12 gap-2.5 lg:px-5 px-3 rounded-[1.875rem] cursor-pointer select-none", {
                     "bg-primary text-white ": selected,
                     "text-white/50 hover:bg-default": !selected,
                   })}
@@ -72,10 +72,9 @@ function Menus() {
         </div>
         <div className="flex  pb-[1.875rem] flex-col items-center gap-5">
           <SocialButtons />
-          <div className="  font-normal text-xs leading-[.9rem] text-[#999999] flex gap-6 ">
+          <div className=" font-normal text-xs leading-[.9rem] text-[#999999] flex flex-col items-center lg:flex-row gap-6 ">
             <a href="https://enreach.network/" target="_blank" className="underline-offset-4 hover:text-[#4281FF] underline ">WebSite</a>
             <a href="https://docs.enreach.network/user-guide" target="_blank" className="underline-offset-4 hover:text-[#4281FF] underline">Guide</a>
-
           </div>
         </div>
 

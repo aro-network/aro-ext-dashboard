@@ -150,7 +150,7 @@ function TaskCard({
           value={progress}
         />
       ) : (
-        <Btn isDisabled={complete} className={cn("flex items-center gap-1.5 w-[5.0625rem] px-1 justify-center", { " text-primary bg-[#FFFFFFCC]": complete })} onClick={() => !complete && onClickCarry?.()}>
+        <Btn isDisabled={complete} className={cn("flex items-center gap-1.5 w-[5.0625rem] px-1 justify-center", { " text-primary bg-white/80 !opacity-100": complete })} onClick={() => !complete && onClickCarry?.()}>
 
           {complete ? "Done" : "Go"}
           {complete && <IoIosCheckmarkCircle className="text-[1.0769rem] " />}
