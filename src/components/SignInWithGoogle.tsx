@@ -86,7 +86,7 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
         <Btn isDisabled={disableGetBoosted} className="w-full" onClick={() => onConfirmReferralCode()} isLoading={isPendingConfirmReferralCode}>
           Get Boosted
         </Btn>
-        <div className="flex justify-center text-white/80  text-sm">
+        <div className="flex justify-center text-white/80  text-sm h-5 items-center">
           <MLink onClick={() => onSkipReferralCode()} className="ml-2 text-xs">
             {isPendingSkiping ? <Spinner size="sm" /> : "Skip"}
           </MLink>
