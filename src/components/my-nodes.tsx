@@ -103,7 +103,7 @@ export default function MyNodes() {
       // nodes.push({...nodes[0], isConnected: false})
     }
     return nodes
-      .sort((a, b) => (a.isConnected !== b.isConnected ? b.isConnected - a.isConnected : b.lastConnectedAt - a.lastConnectedAt))
+      .sort((a, b) => (a.isConnected !== b.isConnected ? b.isConnected - a.isConnected : _.toNumber(b.totalPoints) - _.toNumber(a.totalPoints)))
       .map((item, i) => [
         <NodeName node={item} key={`nodeName_${i}`} />,
         "Extension",
