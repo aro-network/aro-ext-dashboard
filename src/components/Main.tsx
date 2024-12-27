@@ -20,7 +20,7 @@ function Menus() {
       label: fmtBerry(user?.point.total),
     },
     {
-      onClick: () => mc.toMenu("My Profile"),
+      onClick: () => mc.toMenu("My Account"),
       svg: <SVGS.SvgExp />,
       label: exp,
     }

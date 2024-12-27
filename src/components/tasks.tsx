@@ -80,9 +80,9 @@ function useTasks() {
         ? []
         : [
           { complete: Boolean(user?.task.extension), onGoTo: onToDownExtension },
-          { complete: Boolean(user?.social.x), onGoTo: () => mc.toMenu("My Profile") },
-          { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("My Profile") },
-          { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("My Profile") },
+          { complete: Boolean(user?.social.x), onGoTo: () => mc.toMenu("My Account") },
+          { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("My Account") },
+          { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("My Account") },
         ].map((item, i) => ({ ...item, ...TASKS[i] })),
     [user]
   );

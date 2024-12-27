@@ -10,7 +10,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useAuthContext } from "./AuthContext";
 export const menus = [
   {
-    name: "Overview",
+    name: "Highlights",
     icon: SVGS.SvgOverview,
     content: <MyDashboard />,
   },
@@ -18,26 +18,26 @@ export const menus = [
     name: "My Nodes",
     icon: SVGS.SvgNodes,
     content: <MyNodes />,
-    contentName: 'Dashboard my nodes'
+    contentName: 'Dashboard - My Nodes'
   },
   {
     name: "My Rewards",
     icon: SVGS.SvgRewards,
     content: <MyRewards />,
-    contentName: 'Dashboard my rewards'
+    contentName: 'Dashboard - My Rewards'
   },
   {
     name: "My Referral",
     icon: SVGS.SvgReferral,
     content: <MyReferral />,
-    contentName: 'Dashboard my referral'
+    contentName: 'Dashboard - My Referral'
 
   },
   {
-    name: "My Profile",
+    name: "My Account",
     icon: SVGS.SvgProfile,
     content: <MyProfile />,
-    contentName: 'Dashboard my profile'
+    contentName: 'Dashboard - My Account'
   },
 ];
 export const MenusContext = createContext({ toMenu: (name: string) => { }, current: menus[0] });
