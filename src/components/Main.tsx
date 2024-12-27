@@ -74,7 +74,7 @@ function Menus() {
           <SocialButtons />
           <div className=" font-normal text-xs leading-[.9rem] text-[#999999] flex flex-col items-center lg:flex-row gap-6 ">
             <a href="https://enreach.network/" target="_blank" className="underline-offset-4 hover:text-[#4281FF] underline ">WebSite</a>
-            <a href="https://docs.enreach.network/user-guide" target="_blank" className="underline-offset-4 hover:text-[#4281FF] underline">Guide</a>
+            <a href="https://docs.enreach.network/berry-season-1" target="_blank" className="underline-offset-4 hover:text-[#4281FF] underline">Guide</a>
           </div>
         </div>
 

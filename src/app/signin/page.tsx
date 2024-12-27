@@ -10,6 +10,7 @@ import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { AutoFlip } from "@/components/auto-flip";
+import { PageUnlogin } from "@/components/layouts";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -25,25 +26,28 @@ export default function Page() {
 
   const disableSignIn = isPendingSignIn || validateEmail(email) !== true || !password;
   return (
-    <AutoFlip className="mx-auto px-5 min-h-full flex flex-col gap-4 items-center w-full max-w-[25rem]">
-      <img src="logo.svg" alt="Logo" className="flip_item mt-auto h-[4.9375rem]" />
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
-        <InputEmail setEmail={setEmail} />
-        <InputPassword setPassword={setPassword} validate={() => null} />
-        <Btn type="submit" isDisabled={disableSignIn} isLoading={isPendingSignIn}>
-          Sign In
-        </Btn>
-        <SignInWithGoogle />
-      </form>
-      <div className="flip_item mb-auto flex items-center w-full text-xs text-white/60">
-        Don’t have an account?
-        <MLink href="/signup" className="ml-2 text-xs">
-          Sign Up
-        </MLink>
-        <MLink href={`/reset?email=${email}`} className="ml-auto text-xs">
-          Forget Password?
-        </MLink>
-      </div>
-    </AutoFlip>
+    <PageUnlogin>
+      <AutoFlip className="mx-auto px-5 min-h-full flex flex-col gap-4 items-center w-full max-w-[25rem]">
+        {/* <img src="logo.svg" alt="Logo" className="flip_item mt-auto h-[4.9375rem]" /> */}
+        <span className="font-medium text-3xl mt-auto">Sign In</span>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
+          <InputEmail setEmail={setEmail} />
+          <InputPassword setPassword={setPassword} validate={() => null} />
+          <Btn type="submit" isDisabled={disableSignIn} isLoading={isPendingSignIn}>
+            Sign In
+          </Btn>
+          <SignInWithGoogle />
+        </form>
+        <div className="flip_item mb-auto flex items-center w-full text-xs text-white/60">
+          Don’t have an account?
+          <MLink href="/signup" className="ml-2 text-xs">
+            Sign Up
+          </MLink>
+          <MLink href={`/reset?email=${email}`} className="ml-auto text-xs">
+            Forget Password?
+          </MLink>
+        </div>
+      </AutoFlip>
+    </PageUnlogin>
   );
 }

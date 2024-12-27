@@ -15,6 +15,7 @@ import { FormEvent, MouseEvent, useRef, useState } from "react";
 import { useCounter, useInterval, useToggle } from "react-use";
 import { useAuthContext } from "../context/AuthContext";
 import { AutoFlip } from "@/components/auto-flip";
+import { PageUnlogin } from "@/components/layouts";
 
 export default function Page() {
   const sq = useSearchParams();
@@ -82,53 +83,56 @@ export default function Page() {
     validateConfirmPassword(confirmPassword, password) !== true;
   const disableResendEmail = reSendSecends > 0 || isPendingResendVerify;
   return (
-    <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
-      <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" />
-      {showToVerify ? (
-        <div className="flex flex-col items-center gap-5 w-full mb-auto">
-          <div className="text-center whitespace-nowrap">
-            Verify your email
-            <br />
-            Enter the 6-digit verification code we sent to your inbox below:
-          </div>
-          <InputSplitCode onChange={setVerifyCode} />
-          <Btn className="w-full" onClick={() => handlerVerify()} isDisabled={disableVerifyEmail} isLoading={isPendingVerify}>
-            Verify Email
-          </Btn>
-          <MLink className="text-xs -mt-1 flex items-center gap-2" onClick={handlerResendVerify} isDisable={disableResendEmail}>
-            {isPendingResendVerify && <Spinner size="sm" />}
-            {reSendSecends > 0 ? `Resend Email (${reSendSecends}s)` : "Resend Email"}
-          </MLink>
-        </div>
-      ) : (
-        <form onSubmit={handlerSubmit} className="flex flex-col gap-5 w-full mb-auto">
-          <InputEmail setEmail={setEmail} />
-          <InputPassword setPassword={setPassword} />
-          <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
-          <InputReferralCode value={referalCode} setReferalCode={setReferalCode} />
-          <Checkbox classNames={{ wrapper: 'flip_item', label: "text-xs text-white/60", icon: "w-2.5 h-2.5" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
-            I agree to the EnReach{" "}
-            <MLink target="_blank" className="text-xs" href="https://enreach.network/terms" >
-              Term of Service
-            </MLink>{" "}
-            and{" "}
-            <MLink target="_blank" className="text-xs" href="https://enreach.network/privacy">
-              Privacy Policy
-            </MLink>
-            .
-          </Checkbox>
-          <Btn type="submit" isDisabled={disableSignUp} isLoading={isPending}>
-            Sign Up
-          </Btn>
-          <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode} />
-          <div className="flip_item text-center text-xs text-white/60">
-            Already have an account?{" "}
-            <MLink href="/signin" className="text-xs">
-              Sign In
+    <PageUnlogin>
+      <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
+        <span className="font-medium text-3xl mt-auto">Sign Up</span>
+        {/* <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" /> */}
+        {showToVerify ? (
+          <div className="flex flex-col items-center gap-5 w-full mb-auto">
+            <div className="text-center whitespace-nowrap">
+              Verify your email
+              <br />
+              Enter the 6-digit verification code we sent to your inbox below:
+            </div>
+            <InputSplitCode onChange={setVerifyCode} />
+            <Btn className="w-full" onClick={() => handlerVerify()} isDisabled={disableVerifyEmail} isLoading={isPendingVerify}>
+              Verify Email
+            </Btn>
+            <MLink className="text-xs -mt-1 flex items-center gap-2" onClick={handlerResendVerify} isDisable={disableResendEmail}>
+              {isPendingResendVerify && <Spinner size="sm" />}
+              {reSendSecends > 0 ? `Resend Email (${reSendSecends}s)` : "Resend Email"}
             </MLink>
           </div>
-        </form>
-      )}
-    </AutoFlip>
+        ) : (
+          <form onSubmit={handlerSubmit} className="flex flex-col gap-5 w-full mb-auto">
+            <InputEmail setEmail={setEmail} />
+            <InputPassword setPassword={setPassword} />
+            <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
+            <InputReferralCode value={referalCode} setReferalCode={setReferalCode} />
+            <Checkbox classNames={{ wrapper: 'flip_item', label: "text-xs text-white/60", icon: "w-2.5 h-2.5" }} checked={checkedTermPrivacy} onValueChange={setCheckedTermPrivacy}>
+              I agree to the EnReach{" "}
+              <MLink target="_blank" className="text-xs" href="https://enreach.network/terms" >
+                Term of Service
+              </MLink>{" "}
+              and{" "}
+              <MLink target="_blank" className="text-xs" href="https://enreach.network/privacy">
+                Privacy Policy
+              </MLink>
+              .
+            </Checkbox>
+            <Btn type="submit" isDisabled={disableSignUp} isLoading={isPending}>
+              Sign Up
+            </Btn>
+            <SignInWithGoogle btn="Sign up with Google" defReferralCode={referalCode} />
+            <div className="flip_item text-center text-xs text-white/60">
+              Already have an account?{" "}
+              <MLink href="/signin" className="text-xs">
+                Sign In
+              </MLink>
+            </div>
+          </form>
+        )}
+      </AutoFlip>
+    </PageUnlogin>
   );
 }

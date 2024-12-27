@@ -13,6 +13,8 @@ import SvgX from "./x.svg";
 import SvgDiscord from "./discord.svg";
 import SvgTg from "./tg.svg";
 import SvgBgIconCard from "./bg-icon-card.svg";
+import SvgLogin from './login.svg'
+import { SvgLogo } from "./logo";
 
 export const SVGS = {
   SvgOverview,
@@ -30,4 +32,6 @@ export const SVGS = {
   SvgDiscord,
   SvgTg,
   SvgBgIconCard,
+  SvgLogin,
+  SvgLogo
 };

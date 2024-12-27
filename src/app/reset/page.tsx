@@ -12,6 +12,7 @@ import { useCounter, useInterval } from "react-use";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext";
 import { AutoFlip } from "@/components/auto-flip";
+import { PageUnlogin } from "@/components/layouts";
 
 export default function Page() {
   const sp = useSearchParams();
@@ -62,22 +63,25 @@ export default function Page() {
     validateConfirmPassword(confirmPassword, password) !== true;
   const disableSend = isPendingSend || sendCount > 0 || validateEmail(email) !== true;
   return (
-    <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
-      <img src="logo.svg" alt="Logo" className="flip_item mt-auto h-[4.9375rem]" />
-      <form onSubmit={onReset} className="flex flex-col gap-5 w-full mb-auto">
-        <InputEmail value={email} setEmail={setEmail} />
-        <InputPassword label="New Password" setPassword={setPassword} />
-        <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
-        <div className="flex gap-5 items-center">
-          <InputVerifyCode setVerifyCode={setVerifyCode} />
-          <Btn type="button" isDisabled={disableSend} isLoading={isPendingSend} onClick={onSend as any}>
-            {isPendingSend ? "" : isIdleSend ? "Send" : sendCount > 0 ? `${sendCount}s` : "Resend"}
+    <PageUnlogin>
+      <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
+        {/* <img src="logo.svg" alt="Logo" className="flip_item mt-auto h-[4.9375rem]" /> */}
+        <span className="font-medium text-3xl mt-auto">Reset Password</span>
+        <form onSubmit={onReset} className="flex flex-col gap-5 w-full mb-auto">
+          <InputEmail value={email} setEmail={setEmail} />
+          <InputPassword label="New Password" setPassword={setPassword} />
+          <InputPassword label="Confirm Password" setPassword={setConfirmPassword} validate={(value) => validateConfirmPassword(value, password)} />
+          <div className="flex gap-5 items-center">
+            <InputVerifyCode setVerifyCode={setVerifyCode} />
+            <Btn type="button" isDisabled={disableSend} isLoading={isPendingSend} onClick={onSend as any}>
+              {isPendingSend ? "" : isIdleSend ? "Send" : sendCount > 0 ? `${sendCount}s` : "Resend"}
+            </Btn>
+          </div>
+          <Btn type="submit" isDisabled={disableReset} isLoading={isPending}>
+            Reset Password
           </Btn>
-        </div>
-        <Btn type="submit" isDisabled={disableReset} isLoading={isPending}>
-          Reset Password
-        </Btn>
-      </form>
-    </AutoFlip>
+        </form>
+      </AutoFlip>
+    </PageUnlogin>
   );
 }
