@@ -97,7 +97,7 @@ Get your EnReach Edge Node ready for🫐BerryBurst Season 1🫐
         <div className="flex flex-col gap-4 items-center shrink-0">
           <SVGS.SvgMedal className="text-[5rem] shrink-0" />
           <div className="uppercase  font-Alexandria text-[2rem] whitespace-nowrap leading-8">Get Referral Rewards</div>
-          <Btn className="w-full" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
+          <Btn className="w-full h-[2.125rem]" onClick={() => copy(`${origin}/signup?referral=${user?.inviteCode}`)}>
             Copy Referral Link
           </Btn>
         </div>

@@ -71,7 +71,7 @@ function ConnectItem({ type }: { type: "x" | "telegram" | "discord" }) {
         </div>
       </div>
       {!isConnected && (
-        <Btn className="ml-auto w-[6.25rem]" onClick={onConnect}>
+        <Btn className="ml-auto w-[6.25rem] h-[2.125rem]" onClick={onConnect}>
           {isConnected ? "Disconnect" : "Connect"}
         </Btn>
       )}

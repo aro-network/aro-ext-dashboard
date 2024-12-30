@@ -5,7 +5,7 @@ import { cn } from "@nextui-org/react";
 import { ReactNode, useMemo } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-import { Btn, TransBtn } from "./btns";
+import { Btn } from "./btns";
 import { BgCard, TitCard } from "./cards";
 
 export const TASKS = [
@@ -150,8 +150,7 @@ function TaskCard({
           value={progress}
         />
       ) : (
-        <Btn isDisabled={complete} className={cn("flex items-center gap-1.5 w-[5.0625rem] px-1 justify-center", { " text-primary bg-white/80 !opacity-100": complete })} onClick={() => !complete && onClickCarry?.()}>
-
+        <Btn isDisabled={complete} className={cn("flex items-center gap-1.5 w-[5.0625rem] px-1 justify-center h-[2.125rem]", { " text-primary bg-white/80 !opacity-100": complete })} onClick={() => !complete && onClickCarry?.()}>
           {complete ? "Done" : "Go"}
           {complete && <IoIosCheckmarkCircle className="text-[1.0769rem] " />}
         </Btn>
@@ -188,7 +187,7 @@ export function CurrentTask(p: { wrapClassName?: string }) {
             <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white gap-2">Get {cTask.reward}</p>
             <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
           </div>
-          <Btn className="flex-grow-0 flex-shrink-0 w-full max-w-[14.125rem]" onClick={cTask.onGoTo}>
+          <Btn className="flex-grow-0 flex-shrink-0 w-full max-w-[14.125rem] h-[2.125rem]" onClick={cTask.onGoTo}>
             {cTask.btn}
           </Btn>
         </BgCard>

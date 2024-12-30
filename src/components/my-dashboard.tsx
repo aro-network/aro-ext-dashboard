@@ -281,7 +281,7 @@ export default function MyDashboard() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 ">
-      <div className="flip_item title lg:col-span-2 px-5 overflow-visible flex flex-col gap-[1.5625rem] text-white relative  mt-[3.875rem]">
+      <div className="flip_item title lg:col-span-2 px-5 overflow-visible flex flex-col gap-[1.5625rem] text-white relative mt-16 ">
         <div className="absolute -right-5 -bottom-[2.1875rem] bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0 hidden lg:block" />
         <div className="font-medium  text-sm z-10 relative font-Alexandria">Dashboard Overview</div>
         <div className="font-semibold text-3xl mb-20 z-10 relative font-Alexandria">

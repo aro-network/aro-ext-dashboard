@@ -29,7 +29,7 @@ function Menus() {
     <>
       <AutoFlip className="flex bg-[#404040] flex-col justify-between sticky top-0 h-screen overflow-y-auto">
         <div className="flex-col justify-start items-center flex-grow-0 flex-shrink-0 w-[3.75rem] lg:w-60 py-3 lg:px-3 transition-width">
-          <div className="flex items-center justify-center h-36">
+          <div className="flex items-center justify-center h-36 lg:h-[7.5rem]">
             <img src="/logo.svg" className={`h-12 min-w-36 shrink-0 rotate-90 lg:ml-0 lg:rotate-0 lg:h-[7.375rem] lg:w-[9.375rem]`} alt="Logo" />
           </div>
           <div className="flex pb-8 gap-3 w-full justify-start flex-wrap">
