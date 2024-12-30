@@ -50,7 +50,7 @@ export function InputEmail({ setEmail, value }: { setEmail: (email: string) => v
       classNames={inputClassNames}
       type="email"
       // label="Email"
-      placeholder="Email"
+      placeholder="Email Address"
       labelPlacement="inside"
       variant="bordered"
       isRequired

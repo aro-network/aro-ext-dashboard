@@ -11,6 +11,7 @@ import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { AutoFlip } from "@/components/auto-flip";
 import { PageUnlogin } from "@/components/layouts";
+import { loginTitleClassName } from "@/components/classes";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ export default function Page() {
     <PageUnlogin>
       <AutoFlip className="mx-auto px-5 min-h-full flex flex-col gap-4 items-center w-full max-w-[25rem]">
         {/* <img src="logo.svg" alt="Logo" className="flip_item mt-auto h-[4.9375rem]" /> */}
-        <span className="font-medium text-3xl mt-auto">Sign In</span>
+        <span className={loginTitleClassName}>Sign In</span>
         <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full">
           <InputEmail setEmail={setEmail} />
           <InputPassword setPassword={setPassword} validate={() => null} />

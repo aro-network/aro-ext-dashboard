@@ -7,6 +7,6 @@ export function PageUnlogin(p: PropsWithChildren) {
             <SVGS.SvgLogin />
             <SVGS.SvgLogo colors={['white', 'white']} />
         </div>
-        <div className="flex-[6] min-h-full basis-0 overflow-y-auto">{p.children}</div>
+        <div className="flex-[6] min-h-full basis-0 overflow-y-auto bg-[#272727]">{p.children}</div>
     </div>
 }

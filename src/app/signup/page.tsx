@@ -16,6 +16,7 @@ import { useCounter, useInterval, useToggle } from "react-use";
 import { useAuthContext } from "../context/AuthContext";
 import { AutoFlip } from "@/components/auto-flip";
 import { PageUnlogin } from "@/components/layouts";
+import { loginTitleClassName } from "@/components/classes";
 
 export default function Page() {
   const sq = useSearchParams();
@@ -85,7 +86,7 @@ export default function Page() {
   return (
     <PageUnlogin>
       <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
-        <span className="font-medium text-3xl mt-auto">Sign Up</span>
+        <span className={loginTitleClassName}>Sign Up</span>
         {/* <img src="logo.svg" alt="Logo" className="mt-auto h-[4.9375rem]" /> */}
         {showToVerify ? (
           <div className="flex flex-col items-center gap-5 w-full mb-auto">

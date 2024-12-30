@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext";
 import { AutoFlip } from "@/components/auto-flip";
 import { PageUnlogin } from "@/components/layouts";
+import { loginTitleClassName } from "@/components/classes";
 
 export default function Page() {
   const sp = useSearchParams();
@@ -66,7 +67,7 @@ export default function Page() {
     <PageUnlogin>
       <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">
         {/* <img src="logo.svg" alt="Logo" className="flip_item mt-auto h-[4.9375rem]" /> */}
-        <span className="font-medium text-3xl mt-auto">Reset Password</span>
+        <span className={loginTitleClassName}>Reset Password</span>
         <form onSubmit={onReset} className="flex flex-col gap-5 w-full mb-auto">
           <InputEmail value={email} setEmail={setEmail} />
           <InputPassword label="New Password" setPassword={setPassword} />
