@@ -199,6 +199,7 @@ export function TrendingChart({ className }: { className?: string }) {
           }}
           selectionMode="single"
           selectedKeys={[rewardType]}
+          disallowEmptySelection
           onSelectionChange={(k) => {
             console.info("k:", k);
             setRewardType(k.currentKey as any);
