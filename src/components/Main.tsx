@@ -91,12 +91,12 @@ const Main = () => {
     <div className="flex flex-col h-screen">
       <div className="flex-1 flex ">
         <Menus />
-        {menus.map((item) => (
+        {menus.map((item, mi) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
               <AutoFlip className="flex-1 p-5 flex flex-col w-full gap-[2.125rem]  min-h-full  overflow-y-auto">
                 {/* <h2 className="flip_item text-[2rem] font-medium">{mc.current.name}</h2> */}
-                {mc.current.name !== 'Overview' && <div className=" relative pl-5 pt-28">
+                {mi > 0 && <div className=" relative pl-5 pt-28">
                   <div className="bg-tit absolute z-0 right-0 top-[.3125rem] h-[14.5rem] w-[31.25rem] bg-cover" />
                   <div className="text-3xl font-medium z-10 relative">
                     {mc.current.contentName}
