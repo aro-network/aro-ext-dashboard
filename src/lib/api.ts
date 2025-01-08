@@ -74,7 +74,7 @@ const backendApi = {
     });
     // p.total = _.toNumber(fmtBoost(response.data.data.stat.extraBoost)) * p.total;
     p.network = _.toNumber(fmtBoost(response.data.data.stat.extraBoost)) * p.network;
-    p.total = p.referral + p.network + p.other;
+    p.total = p.referral + p.network;
     return response.data.data;
   },
   sendResetPassword: async (email: string) => {
