@@ -19,12 +19,12 @@ function Menus() {
 
   const list = [
     {
-      onClick: () => mc.toMenu("My Rewards"),
+      onClick: () => mc.toMenu("Rewards"),
       svg: <SVGS.SvgBerry />,
       label: fmtBerry(user?.point.total),
     },
     {
-      onClick: () => mc.toMenu("My Account"),
+      onClick: () => mc.toMenu("Profile"),
       svg: <SVGS.SvgExp />,
       label: exp,
     }
