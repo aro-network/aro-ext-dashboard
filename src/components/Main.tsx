@@ -58,7 +58,7 @@ function Menus() {
                 <a href="https://docs.enreach.network/berry-season-1" target="_blank" className="underline-offset-4 hover:text-[#4281FF] rounded-[.625rem] border p-[.625rem] border-[#999999]">Guide</a>
               </div>
             </div>
-            <MAvatar name={user?.email} size={32} />
+            <MAvatar name={user?.email} size={50} />
           </div>
         </div>
 
