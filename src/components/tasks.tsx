@@ -188,9 +188,9 @@ export function CurrentTask(p: { wrapClassName?: string }) {
             <p className="flex-grow-0 flex-shrink-0 text-sm font-normal text-center uppercase text-white gap-2">Get {cTask.reward}</p>
             <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
           </div>
-          <Btn className="   !min-h-8   !min-w-8 !text-base" onClick={cTask.onGoTo}>
+          <button className=" bg-[#4281FF]  hover:bg-default rounded-full flex items-center justify-center w-8 h-8 text-base" onClick={cTask.onGoTo}>
             <GoArrowUpRight />
-          </Btn>
+          </button>
         </BgCard>
       ) : (
         <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] relative" wrapClassName={p.wrapClassName}>
