@@ -187,7 +187,7 @@ export function TrendingChart({ className }: { className?: string }) {
   return (
     <TitCard
       tit="Trending"
-      className={cn("col-span-1  lg:col-span-2 h-full gap-4", className)}
+      className={cn("col-span-1  lg:col-span-2  gap-4", className)}
       right={
         <Select
           className="w-[9.375rem]"
@@ -244,7 +244,7 @@ export function ExpProgress() {
   console.info('percent:', _.round(percent, 4))
   const expRotate = Math.min(_.round(percent * 180), 180)
   const transition = `all 0.8s ease`
-  return <div className="flip_item p-[2.875rem] flex flex-col items-center gap-2 relative">
+  return <div className="flip_item p-5 flex flex-col items-center gap-2 relative">
     <div className="w-full max-w-[15.625rem] relative">
       <svg width="100%" height="auto" viewBox="0 0 250 140" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15 125A110 110 0,0,1,235 125" strokeLinecap="round" strokeWidth="30" stroke="#616161" />
@@ -281,41 +281,27 @@ export default function MyDashboard() {
   const connectedNodes = user?.node.connected || 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 ">
-      <div className="flip_item title lg:col-span-2 px-5 overflow-visible flex flex-col gap-[1.5625rem] text-white relative mt-16 ">
+    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5  h-full ">
+      <TrendingChart className="flip_item" />
+
+      {/* <div className="flip_item title lg:col-span-2 px-5 overflow-visible flex flex-col gap-[1.5625rem] text-white relative mt-16 ">
         <div className="absolute -right-5 -bottom-[2.1875rem] bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0 hidden lg:block" />
         <div className="font-medium  text-sm z-10 relative font-Alexandria">Dashboard Overview</div>
         <div className="font-semibold text-3xl mb-20 z-10 relative font-Alexandria">
           Hello,<br /><div title={user?.email}>{truncateEmail(user?.email)} 👋</div>
         </div>
-      </div>
-      <div className="flip_item flex flex-col justify-between lg:col-span-2 lg:flex-row xl:col-span-1 xl:row-span-2 xl:flex-col rounded-[1.25rem] bg-[#373737]">
+      </div> */}
+      <div className="flip_item  flex flex-col justify-between xl:flex-col rounded-[1.25rem] bg-[#373737]">
         <ExpProgress />
-        <IconCard
-          className=" min-h-[11.875rem]"
-          icon={SVGS.SvgBerry}
-          iconSize={24}
-          tit={
-            <div className="flex justify-between gap-2 items-center flex-1">
-              <span className="text-xl font-Alexandria">BERRY</span>
-              <Booster />
-            </div>
-          }
-          content={
-            <div className="flex flex-1 items-center gap-[10%] min-w-[11.25rem]">
-              <DupleInfo tit={`${fmtBerry(user?.point.today)}`} sub="Today" />
-              <DupleSplit />
-              <DupleInfo tit={`${fmtBerry(user?.point.total)}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
-            </div>
-          }
-        />
+        <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1" />
+
       </div>
       {/*  */}
 
 
       {/*  */}
       <IconCard
-        className="flip_item h-[11.875rem] self-end"
+        className="flip_item  "
         icon={SVGS.SvgReferral}
         iconSize={24}
         tit={
@@ -353,7 +339,7 @@ export default function MyDashboard() {
 
 
       <IconCard
-        className="flip_item h-[11.875rem] self-end"
+        className="flip_item"
         icon={SVGS.SvgNodes}
         iconSize={24}
         tit={<span className="text-xl font-Alexandria">My Nodes</span>}
@@ -373,9 +359,25 @@ export default function MyDashboard() {
           </div>
         }
       />
+      <IconCard
+        className=""
+        icon={SVGS.SvgBerry}
+        iconSize={24}
+        tit={
+          <div className="flex justify-between gap-2 items-center flex-1">
+            <span className="text-xl font-Alexandria">BERRY</span>
+            <Booster />
+          </div>
+        }
+        content={
+          <div className="flex flex-1 items-center gap-[10%] min-w-[11.25rem]">
+            <DupleInfo tit={`${fmtBerry(user?.point.today)}`} sub="Today" />
+            <DupleSplit />
+            <DupleInfo tit={`${fmtBerry(user?.point.total)}`} sub="Season 1" subTip="You are currently on Season 1 stage." />
+          </div>
+        }
+      />
 
-      <TrendingChart className="flip_item" />
-      <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1" />
     </div>
   );
 }

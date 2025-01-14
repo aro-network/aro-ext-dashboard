@@ -12,7 +12,7 @@ export default function MyRewards() {
     <div className="grid grid-cols-10 gap-4">
       <IconCard
         icon={SVGS.SvgBerry}
-        className="flip_item col-span-10 xl:col-span-4 justify-between gap-8"
+        className="flip_item col-span-10  xl:col-span-4 justify-between gap-8"
         tit={
           <div className="flex justify-between items-center w-full">
             <span className="text-xl font-Alexandria">BERRY</span>
@@ -41,7 +41,7 @@ export default function MyRewards() {
         }
       />
       <div className="flip_item col-span-10 xl:col-span-6">
-        <TrendingChart />
+        <TrendingChart className="h-full" />
       </div>
       <TaskList />
     </div>

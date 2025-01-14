@@ -5,6 +5,7 @@ import { cn } from "@nextui-org/react";
 import { ReactNode, useMemo } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { IoIosCheckmarkCircle } from "react-icons/io";
+import { GoArrowUpRight } from "react-icons/go";
 import { Btn } from "./btns";
 import { BgCard, TitCard } from "./cards";
 
@@ -178,17 +179,17 @@ export function CurrentTask(p: { wrapClassName?: string }) {
   return (
     <>
       {cTask ? (
-        <BgCard className="justify-between px-5 py-7" wrapClassName={p.wrapClassName}>
-          <div className="flex items-center justify-center mt-6 text-[3rem]">
+        <BgCard className="justify-between px-5 py-7 flex-row items-center" wrapClassName={p.wrapClassName}>
+          <div className="flex items-center justify-center text-[3rem]">
             <div className="shadow-2 rounded-full">{cTask.icon}</div>
             <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>
           </div>
           <div className="flex flex-col justify-start items-center relative gap-1">
-            <p className="flex-grow-0 flex-shrink-0 text-4xl font-bold text-center uppercase text-white gap-2">Get {cTask.reward}</p>
+            <p className="flex-grow-0 flex-shrink-0 text-sm font-normal text-center uppercase text-white gap-2">Get {cTask.reward}</p>
             <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
           </div>
-          <Btn className="flex-grow-0 flex-shrink-0 w-full max-w-[14.125rem] h-[2.125rem]" onClick={cTask.onGoTo}>
-            {cTask.btn}
+          <Btn className="   !min-h-8   !min-w-8 !text-base" onClick={cTask.onGoTo}>
+            <GoArrowUpRight />
           </Btn>
         </BgCard>
       ) : (
