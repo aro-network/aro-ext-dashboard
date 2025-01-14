@@ -15,28 +15,34 @@ export const menus = [
     content: <MyDashboard />,
   },
   {
-    name: "My Nodes",
+    name: "Nodes",
     icon: SVGS.SvgNodes,
     content: <MyNodes />,
     contentName: 'Dashboard - My Nodes'
   },
   {
-    name: "My Rewards",
+    name: "Rewards",
     icon: SVGS.SvgRewards,
     content: <MyRewards />,
     contentName: 'Dashboard - My Rewards'
   },
   {
-    name: "My Referral",
+    name: "Referral",
     icon: SVGS.SvgReferral,
     content: <MyReferral />,
     contentName: 'Dashboard - My Referral'
 
   },
   {
-    name: "My Account",
+    name: "Profile",
     icon: SVGS.SvgProfile,
     content: <MyProfile />,
+    contentName: 'Dashboard - My Account'
+  },
+  {
+    name: "Album",
+    icon: SVGS.SvgProfile,
+    content: null,
     contentName: 'Dashboard - My Account'
   },
 ];

@@ -15,9 +15,9 @@ interface AuthContextProps {
 }
 
 export const AuthContext = createContext<AuthContextProps>({
-  login: async () => {},
-  setUser: () => {},
-  logout: () => {},
+  login: async () => { },
+  setUser: () => { },
+  logout: () => { },
 });
 
 interface AuthProviderProps {
@@ -25,7 +25,7 @@ interface AuthProviderProps {
 }
 
 const storageKey = "last-login-user";
-const getLastLoginUser = () => {
+export const getLastLoginUser = () => {
   try {
     const json = localStorage.getItem(storageKey);
     if (!json) return null;

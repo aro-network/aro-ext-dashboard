@@ -7,16 +7,18 @@ import { SignInWithGoogle } from "@/components/SignInWithGoogle";
 import { handlerError } from "@/lib/utils";
 import { validateEmail } from "@/lib/validates";
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { AutoFlip } from "@/components/auto-flip";
 import { PageUnlogin } from "@/components/layouts";
 import { loginTitleClassName } from "@/components/classes";
+import useRedirect from "@/hooks/useRedirect";
 
 export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const ac = useContext(AuthContext);
+
   const { mutate: handleSubmit, isPending: isPendingSignIn } = useMutation({
     onError: handlerError,
     mutationFn: async (e: FormEvent) => {
@@ -24,6 +26,8 @@ export default function Page() {
       await ac.login({ email, password });
     },
   });
+
+  useRedirect()
 
   const disableSignIn = isPendingSignIn || validateEmail(email) !== true || !password;
   return (

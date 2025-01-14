@@ -1,19 +1,22 @@
-import { useAuthContext } from "@/app/context/AuthContext";
+import { getLastLoginUser, useAuthContext } from "@/app/context/AuthContext";
 import { menus, MenusProvider, useMenusCtx } from "@/app/context/MenusContext";
 import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
-import React, { Fragment, SVGProps } from "react";
+import React, { Fragment, SVGProps, useEffect } from "react";
 import { AutoFlip } from "./auto-flip";
 import { fmtBerry } from "./fmtData";
 import { levels } from "./level";
 import { SocialButtons } from "./social-buttons";
 import { MAvatar } from "./avatar";
 
+
 function Menus() {
   const mc = useMenusCtx();
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const exp = user?.stat.exp || 0;
+
+
   const list = [
     {
       onClick: () => mc.toMenu("My Rewards"),
@@ -26,6 +29,9 @@ function Menus() {
       label: exp,
     }
   ]
+
+
+
   return (
     <>
       <AutoFlip >
@@ -40,7 +46,7 @@ function Menus() {
           <div className="flex gap-[1.875rem] items-center">
             <div className="flex gap-[.625rem]  h-8">
               {list.map((item, index) => {
-                return <div key={`list_${index}`} onClick={item.onClick} className="flex-1 basis-0 mx-1.5 lg:mx-0 cursor-pointer gap-1 bg-white/10 hover:bg-white/20 rounded-[.625rem] h-8 flex justify-center items-center py-[.375rem] px-3">
+                return <div key={`list_${index}`} onClick={item.onClick} className="flex-1 basis-0 mx-1.5 lg:mx-0 cursor-pointer gap-[.625rem] border-[#FFF] border hover:bg-white/20 rounded-[.625rem] h-8 flex justify-center items-center py-[.375rem] px-3">
                   <div className="text-xl lg:text-2xl" >
                     {item.svg}
                   </div>
@@ -65,12 +71,11 @@ function Menus() {
       </AutoFlip>
       <div className=" flex flex-row gap-3 px-[3.125rem] py-[.625rem] border-b border-[#404040]">
         {menus.map((m) => {
-          const Micon: React.FC<SVGProps<SVGElement>> = m.icon as any;
           const selected = m.name === mc.current.name;
           return (
             <div
               key={m.name}
-              className={cn("flip_item flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0  gap-2.5 p-1 lg:px-5 px-3 rounded-[1.875rem] cursor-pointer select-none", {
+              className={cn("flip_item flex justify-start items-center  self-stretch flex-grow-0 flex-shrink-0  gap-2.5 px-[.375rem] rounded-[1.875rem] cursor-pointer select-none", {
                 "bg-[#404040] text-white ": selected,
                 "text-white/50 hover:bg-default": !selected,
               })}
@@ -79,7 +84,7 @@ function Menus() {
               }}
             >
 
-              <div className="text-xs font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>
+              <div className="text-sm font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>
             </div>
           );
         })}
@@ -99,7 +104,7 @@ const Main = () => {
         {menus.map((item) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
-              <AutoFlip className=" p-10  px-[6.5rem] flex flex-col w-full h-full gap-[2.125rem]">
+              <AutoFlip className=" p-10  px-[6.5rem] flex flex-col w-full  gap-[2.125rem]">
                 {mc.current.content}
               </AutoFlip>
             )}
