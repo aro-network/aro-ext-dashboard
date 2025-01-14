@@ -93,7 +93,7 @@ function Menus() {
 const Main = () => {
   const mc = useMenusCtx();
   return (
-    <div className="h-screen flex-1 flex flex-col overflow-hidden">
+    <div className="h-screen flex-1 flex flex-col ">
       <Menus />
       <div className="h-full">
         {menus.map((item) => (
