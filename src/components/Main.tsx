@@ -35,7 +35,7 @@ function Menus() {
         <div className=" flex h-[3.75rem] flex-row w-full justify-between items-center py-5 bg-[#404040]  px-[50px]  ">
           <div className="flex items-center  gap-5 smd:flex-col">
             <img src="/logo.svg" className={`shrink-0 rotate-90 lg:ml-0 max-w-[9.375rem] h-[2.375rem] lg:rotate-0 `} alt="Logo" />
-            <div className="rounded-[.625rem] cursor-default h-8 border p-[.625rem] border-[#999999] text-[#999999] font-normal text-xs leading-3">
+            <div className="rounded-[.625rem] cursor-default h-8 border flex items-center p-[.625rem] border-[#999999] text-[#999999] font-normal text-xs leading-3">
               Season 1
             </div>
           </div>
@@ -56,10 +56,11 @@ function Menus() {
 
             <div className="flex items-center gap-5">
               <SocialButtons />
-              <div className=" font-normal text-xs leading-[.9rem] text-[#999999] h-8 flex flex-col items-center lg:flex-row gap-6 ">
-                <a href="https://enreach.network/" target="_blank" className="underline-offset-4 hover:text-[#4281FF] hover:border-[#4281FF] h-8 rounded-[.625rem] items-center flex border p-[.625rem] border-[#999999]">WebSite</a>
-                <a href="https://docs.enreach.network/berry-season-1" target="_blank" className="underline-offset-4 h-8 hover:text-[#4281FF] hover:border-[#4281FF]  items-center flex rounded-[.625rem] border p-[.625rem] border-[#999999]">Guide</a>
-              </div>
+
+            </div>
+            <div className=" font-normal text-xs leading-[.9rem] text-[#999999] h-8 flex flex-col items-center lg:flex-row gap-6 ">
+              <a href="https://enreach.network/" target="_blank" className="underline-offset-4 hover:text-[#4281FF] hover:border-[#4281FF] h-8 rounded-[.625rem] items-center flex border p-[.625rem] border-[#999999]">WebSite</a>
+              <a href="https://docs.enreach.network/berry-season-1" target="_blank" className="underline-offset-4 h-8 hover:text-[#4281FF] hover:border-[#4281FF]  items-center flex rounded-[.625rem] border p-[.625rem] border-[#999999]">Guide</a>
             </div>
             <div className="w-8">
               <MAvatar name={user?.email} />
@@ -82,14 +83,11 @@ function Menus() {
                 mc.toMenu(m.name);
               }}
             >
-
               <div className="text-sm font-medium text-left whitespace-nowrap hidden lg:block">{m.name}</div>
             </div>
           );
         })}
       </div>
-
-
     </div>
   );
 }
