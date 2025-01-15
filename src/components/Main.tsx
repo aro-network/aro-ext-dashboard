@@ -43,14 +43,14 @@ function Menus() {
           <div className="flex gap-[1.875rem] items-center">
             <div className="flex gap-[.625rem] h-8 ">
               {list.map((item, index) => {
-                return <div key={`list_${index}`} onClick={item.onClick} className="flex-1 basis-0 mx-1.5 lg:mx-0 cursor-pointer gap-[.625rem] border-[#FFF] border hover:bg-white/20 rounded-[.625rem] flex justify-center items-center py-[.375rem] px-3">
-                  <div className="text-xl" >
+                return <button key={`list_${index}`} onClick={item.onClick} className="flex-1 basis-0 mx-1.5 lg:mx-0 cursor-pointer gap-[.625rem] border-[#FFF] border hover:bg-white/20 rounded-[.625rem] flex justify-center items-center py-[.375rem] px-3">
+                  <div className="text-xl cursor-pointer " >
                     {item.svg}
                   </div>
-                  <label className=" font-medium  text-base leading-8">
+                  <button className=" font-medium  text-base leading-8">
                     {item.label}
-                  </label>
-                </div>
+                  </button>
+                </button>
               })}
             </div>
 
