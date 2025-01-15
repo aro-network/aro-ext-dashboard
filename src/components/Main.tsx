@@ -16,7 +16,6 @@ function Menus() {
   const user = ac.queryUserInfo?.data;
   const exp = user?.stat.exp || 0;
 
-
   const list = [
     {
       onClick: () => mc.toMenu("Rewards"),
@@ -30,15 +29,13 @@ function Menus() {
     }
   ]
 
-
-
   return (
     <div className=" sticky top-0">
       <AutoFlip >
         <div className=" flex h-[3.75rem] flex-row w-full justify-between items-center py-5 bg-[#404040]  px-[50px]  ">
           <div className="flex items-center  gap-5 smd:flex-col">
             <img src="/logo.svg" className={`shrink-0 rotate-90 lg:ml-0 max-w-[9.375rem] h-[2.375rem] lg:rotate-0 `} alt="Logo" />
-            <div className="rounded-[.625rem] cursor-default border p-[.625rem] border-[#999999] text-[#999999] font-normal text-xs leading-3">
+            <div className="rounded-[.625rem] cursor-default h-8 border p-[.625rem] border-[#999999] text-[#999999] font-normal text-xs leading-3">
               Season 1
             </div>
           </div>
@@ -47,7 +44,7 @@ function Menus() {
             <div className="flex gap-[.625rem] h-8 ">
               {list.map((item, index) => {
                 return <div key={`list_${index}`} onClick={item.onClick} className="flex-1 basis-0 mx-1.5 lg:mx-0 cursor-pointer gap-[.625rem] border-[#FFF] border hover:bg-white/20 rounded-[.625rem] flex justify-center items-center py-[.375rem] px-3">
-                  <div className="text-xl lg:text-2xl" >
+                  <div className="text-xl" >
                     {item.svg}
                   </div>
                   <label className=" font-medium  text-base leading-8">
@@ -64,7 +61,9 @@ function Menus() {
                 <a href="https://docs.enreach.network/berry-season-1" target="_blank" className="underline-offset-4 h-8 hover:text-[#4281FF] hover:border-[#4281FF]  items-center flex rounded-[.625rem] border p-[.625rem] border-[#999999]">Guide</a>
               </div>
             </div>
-            <MAvatar name={user?.email} size={50} />
+            <div className="w-8">
+              <MAvatar name={user?.email} />
+            </div>
           </div>
         </div>
 
