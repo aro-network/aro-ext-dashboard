@@ -58,7 +58,7 @@ function Menus() {
               <SocialButtons />
 
             </div>
-            <div className=" font-normal text-xs leading-[.9rem] text-[#999999] h-8 flex flex-col items-center lg:flex-row gap-6 ">
+            <div className=" font-normal text-xs leading-[.9rem] text-[#999999] h-8 flex flex-col items-center lg:flex-row gap-[.625rem]">
               <a href="https://enreach.network/" target="_blank" className="underline-offset-4 hover:text-[#4281FF] hover:border-[#4281FF] h-8 rounded-[.625rem] items-center flex border p-[.625rem] border-[#999999]">WebSite</a>
               <a href="https://docs.enreach.network/berry-season-1" target="_blank" className="underline-offset-4 h-8 hover:text-[#4281FF] hover:border-[#4281FF]  items-center flex rounded-[.625rem] border p-[.625rem] border-[#999999]">Guide</a>
             </div>
