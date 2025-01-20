@@ -133,7 +133,7 @@ export default function MyProfile() {
         </div>
 
         <p className="text-sm">
-          Unlock <button onClick={() => mc.toMenu("My Rewards")} className="underline">achievements</button> to earn <strong>Sunshine</strong>.<br />
+          Unlock <button onClick={() => mc.toMenu("Rewards")} className="underline">achievements</button> to earn <strong>Sunshine</strong>.<br />
           More <strong>Sunshine</strong> grows your user level.<br />
           With higher user level, you enjoy higher Extra Boost on your <strong> BERRY</strong> rewards!
         </p>

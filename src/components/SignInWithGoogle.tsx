@@ -12,6 +12,7 @@ import backendApi from "@/lib/api";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { Spinner } from "@nextui-org/react";
 import { MLink } from "./links";
+import { useRouter } from "next/navigation";
 
 export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google", isDisabled }: { defReferralCode?: string; btn?: string; isDisabled?: boolean }) {
   const ac = useAuthContext();
@@ -19,6 +20,11 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
   const [showInputReferral, toggleShowInputReferral] = useToggle(false);
   const [isAuthing, setIsAuthing] = useState(false);
   const refGoogleToken = useRef("");
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page");
+  const referral = params.get("referral");
+  const r = useRouter()
+
 
   const { mutate: handleGoogle, isPending } = useMutation({
     onError: handlerError,
@@ -26,7 +32,14 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
       setIsAuthing(false);
       refGoogleToken.current = tokenRes.access_token;
       const result = await backendApi.loginByGoogleApi({ accessToken: tokenRes.access_token });
+      console.log('resultresultresult', result);
+
+
+
       if (result.token) {
+        if (page === "displayCartoon") {
+          r.push(`/displayCartoon`);
+        }
         ac.setUser(result);
       } else if (defReferralCode && validateReferralCode(defReferralCode) === true) {
         const res = await backendApi.loginSetReferralApi({ accessToken: refGoogleToken.current, referralCode: defReferralCode }).catch(handlerError);

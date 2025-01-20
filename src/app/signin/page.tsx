@@ -13,11 +13,16 @@ import { AutoFlip } from "@/components/auto-flip";
 import { PageUnlogin } from "@/components/layouts";
 import { loginTitleClassName } from "@/components/classes";
 import useRedirect from "@/hooks/useRedirect";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const ac = useContext(AuthContext);
+  const r = useRouter()
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page");
+  const referral = params.get("referral");
 
   const { mutate: handleSubmit, isPending: isPendingSignIn } = useMutation({
     onError: handlerError,
@@ -45,7 +50,7 @@ export default function Page() {
         </form>
         <div className="flip_item mb-auto flex items-center w-full text-xs text-white/60">
           Don’t have an account?
-          <MLink href="/signup" className="ml-2 text-xs">
+          <MLink href={`/signup?page=displayCartoon&referral=${referral}`} className="ml-2 text-xs">
             Sign Up
           </MLink>
           <MLink href={`/reset?email=${email}`} className="ml-auto text-xs">

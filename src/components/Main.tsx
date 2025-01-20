@@ -8,6 +8,11 @@ import { fmtBerry } from "./fmtData";
 import { levels } from "./level";
 import { SocialButtons } from "./social-buttons";
 import { MAvatar } from "./avatar";
+import { FaXTwitter } from "react-icons/fa6";
+import { useCopy } from "@/hooks/useCopy";
+import { useQuery } from "@tanstack/react-query";
+import backendApi from "@/lib/api";
+
 
 
 function Menus() {
@@ -92,14 +97,68 @@ function Menus() {
 
 const Main = () => {
   const mc = useMenusCtx();
+  const ac = useAuthContext();
+  const user = ac.queryUserInfo?.data;
+  const copy = useCopy();
+
+  // http://localhost:3001/displayCartoon?referral=GJDH08
+  const shareLink = `${origin}/displayCartoon?referral=${user?.inviteCode}`;
+
+
+  const usp = new URLSearchParams(location.search);
+  console.log('uspuspuspusp', usp, location.search);
+
+
+  const onLike = async () => {
+
+    const res = await backendApi.currentUserLike('123', 'like')
+    console.log('ressss', res);
+
+
+  }
+
+
+
+  const onShareToX = () => {
+    const text = `
+this is test msg
+
+    `;
+    const postXUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareLink)}`;
+    window.open(postXUrl, "_blank");
+  };
+
   return (
     <div className="h-screen flex-1 flex flex-col ">
       <Menus />
       <div className="h-full overflow-auto">
-        {menus.map((item) => (
+        {menus.map((item, i) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
               <AutoFlip className=" p-10  px-[6.5rem] flex flex-col w-full  gap-[2.125rem]">
+                {i === 5 && <div className=" relative pl-5 flex items-center justify-between ">
+                  <div className="text-xl font-semibold z-10 relative">
+                    {mc.current.contentName}
+                  </div>
+                  <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-2">
+                      <button onClick={onLike}>
+                        <SVGS.SvgLike />
+                      </button>
+                      <span className="text-xl ">
+                        208
+                      </span>
+                    </div>
+                    <button onClick={() => copy(shareLink)}>
+                      <SVGS.SvgShare />
+                    </button>
+                    <button onClick={onShareToX} className="text-2xl">
+                      <FaXTwitter />
+                    </button>
+
+                  </div>
+
+                </div>}
                 {mc.current.content}
               </AutoFlip>
             )}

@@ -40,6 +40,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const refIsLogout = useRef(false);
   const r = useRouter();
   const [user, setUser] = useState<Opt<LoginResult>>(getLastLoginUser());
+  const params = new URLSearchParams(window.location.search);
+  const page = params.get("page");
   const wrapSetUser = (u?: Opt<LoginResult>) => {
     if (!u) {
       refIsLogout.current = true;
@@ -53,6 +55,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.setItem(storageKey, JSON.stringify(u));
       if (u.token) {
         getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.token }).catch(console.error);
+      }
+      if (page === "displayCartoon") {
+        r.push(`/displayCartoon`);
+        return
       }
       r.push("/");
     }

@@ -43,16 +43,43 @@ export function AddNodeDialog() {
   );
 }
 
-export function ConfirmDialog(p: { onCancel?: () => void; onConfirm?: () => void; tit: string; msg: ReactNode; isOpen: boolean, className?: string }) {
+export function ConfirmDialog({
+  confirmText = 'Confirm',
+  cancelText = 'Cancel',
+  cancelColor = 'primary',
+  onCancel,
+  onConfirm,
+  tit,
+  msg,
+  isOpen,
+  className,
+
+}: {
+  confirmText?: string | ReactNode;
+  cancelText?: string | ReactNode;
+  onCancel?: () => void;
+  onConfirm?: () => void;
+  tit: string;
+  msg: ReactNode;
+  isOpen: boolean;
+  className?: string;
+  cancelColor?: "default" | "primary" | "secondary" | "success" | "warning" | "danger" | undefined
+}) {
   return (
-    <TitModal className={p.className} isOpen={p.isOpen} tit={p.tit} onClose={p.onCancel}>
+    <TitModal className={className} isOpen={isOpen} tit={tit} onClose={onCancel}>
       <div className="flex flex-col gap-6 w-full">
-        <div className="text-center text-sm whitespace-pre-wrap font-AlbertSans">{p.msg}</div>
+        <div className="text-center text-sm whitespace-pre-wrap font-AlbertSans">{msg}</div>
         <div className="grid grid-cols-2 gap-2.5">
-          <Btn className="h-10" color="default" onClick={p.onConfirm}>
-            Confirm
-          </Btn>
-          <Btn className="h-10" onClick={p.onCancel}>Cancel</Btn>
+          {confirmText &&
+            <Btn className="h-10" color="default" onClick={onConfirm}>
+              {confirmText}
+            </Btn>
+          }
+          {cancelText &&
+            <Btn className="h-10" color={cancelColor} onClick={onCancel}>
+              {cancelText}
+            </Btn>
+          }
         </div>
       </div>
     </TitModal>

@@ -28,7 +28,9 @@ export type RES<T> = {
 const backendApi = {
   setAuth: (auth?: string) => {
     if (auth) {
-      Api.defaults.headers.common["Authorization"] = auth.startsWith("Bearer") ? auth : `Bearer ${auth}`;
+      Api.defaults.headers.common["Authorization"] = auth.startsWith("Bearer")
+        ? auth
+        : `Bearer ${auth}`;
     } else {
       delete Api.defaults.headers.common["Authorization"];
     }
@@ -39,22 +41,39 @@ const backendApi = {
     return response.data.data;
   },
   loginByGoogleApi: async (data: { accessToken: string }) => {
-    const response = await Api.post<RES<LoginResult>>("/user/google/signIn", data);
+    const response = await Api.post<RES<LoginResult>>(
+      "/user/google/signIn",
+      data
+    );
     backendApi.setAuth(response.data.data.token);
     return response.data.data;
   },
-  loginSetReferralApi: async (data: { accessToken: string; referralCode?: string }) => {
-    const response = await Api.post<RES<LoginResult>>("/user/referral/by", data);
+  loginSetReferralApi: async (data: {
+    accessToken: string;
+    referralCode?: string;
+  }) => {
+    const response = await Api.post<RES<LoginResult>>(
+      "/user/referral/by",
+      data
+    );
     backendApi.setAuth(response.data.data.token);
     return response.data.data;
   },
-  registerApi: async (data: { email: string; password: string; referralCode?: string }) => {
-    const response = await Api.post<RES<SingUpResult>>("/user/signUp", { ...data });
+  registerApi: async (data: {
+    email: string;
+    password: string;
+    referralCode?: string;
+  }) => {
+    const response = await Api.post<RES<SingUpResult>>("/user/signUp", {
+      ...data,
+    });
     return response.data.data;
   },
 
   registerByGoogleApi: async (accessToken: string) => {
-    const response = await Api.post<RES<SingUpResult>>("/user/google/signUp", { accessToken });
+    const response = await Api.post<RES<SingUpResult>>("/user/google/signUp", {
+      accessToken,
+    });
     return response.data.data;
   },
 
@@ -63,7 +82,9 @@ const backendApi = {
     return true;
   },
   verifyRegisterCode: async (uid: string, code: string) => {
-    const response = await Api.post<RES<LoginResult>>(`/user/verify/${uid}/${code}`);
+    const response = await Api.post<RES<LoginResult>>(
+      `/user/verify/${uid}/${code}`
+    );
     return response.data.data;
   },
   userInfo: async () => {
@@ -73,7 +94,8 @@ const backendApi = {
       p[key] = _.toNumber(p[key]);
     });
     // p.total = _.toNumber(fmtBoost(response.data.data.stat.extraBoost)) * p.total;
-    p.network = _.toNumber(fmtBoost(response.data.data.stat.extraBoost)) * p.network;
+    p.network =
+      _.toNumber(fmtBoost(response.data.data.stat.extraBoost)) * p.network;
     p.total = p.referral + p.network;
     return response.data.data;
   },
@@ -81,11 +103,18 @@ const backendApi = {
     await Api.post<RES<undefined>>("/user/password/reset/send", { email });
     return true;
   },
-  resetPassword: async (data: { email: string; password: string; verifyCode: string }) => {
+  resetPassword: async (data: {
+    email: string;
+    password: string;
+    verifyCode: string;
+  }) => {
     await Api.post<RES<undefined>>("/user/password/reset", data);
     return true;
   },
-  userUpdate: async (data: { username?: string; disconnect?: { x?: boolean; tg?: boolean; discord?: boolean } }) => {
+  userUpdate: async (data: {
+    username?: string;
+    disconnect?: { x?: boolean; tg?: boolean; discord?: boolean };
+  }) => {
     await Api.post<RES<undefined>>("/user/profile/update", data);
     return true;
   },
@@ -101,12 +130,16 @@ const backendApi = {
   },
 
   trendingRewards: async (type: "week" | "month" = "month") => {
-    const response = await Api.get<RES<TrendingReward[]>>("/trending/rewards", { params: { type } });
+    const response = await Api.get<RES<TrendingReward[]>>("/trending/rewards", {
+      params: { type },
+    });
     return response.data.data;
   },
 
   getAccessToken: async () => {
-    const response = await Api.get<RES<{ accessToken: string }>>("/user/accessToken");
+    const response = await Api.get<RES<{ accessToken: string }>>(
+      "/user/accessToken"
+    );
     return response.data.data.accessToken;
   },
 
@@ -120,9 +153,34 @@ const backendApi = {
 
   updateNodeName: async (node: NodeItem, name: string) => {
     // /api/node/rename/{clientId}/{name}
-    await Api.post<RES<undefined>>(`/node/rename/${node.connectionId}/${encodeURIComponent(node.ipAddress)}/${encodeURIComponent(name)}`);
+    await Api.post<RES<undefined>>(
+      `/node/rename/${node.connectionId}/${encodeURIComponent(
+        node.ipAddress
+      )}/${encodeURIComponent(name)}`
+    );
     return true;
   },
+
+  getCartoonList: async () => {
+    const response = await Api.get<RES<undefined>>(`/extension/tap/list`);
+    return response.data.data;
+  },
+
+  currentUserLike: async (uuid: string, like: "like" | "unlike") => {
+    const response = await Api.get<RES<undefined>>(
+      `/api/extension/tap/${uuid}${like}`
+    );
+    return response.data.data;
+  },
+
+  // currentUserLike: async (uuid: string, like: "like" | "unlike") => {
+  //   const response = await Api.get<RES<undefined>>(
+  //     `/eapi/extension/tap/${uuid}${like}`
+  //   );
+  //   return response.data.data;
+  // },
+
+  // /api/common/tap/{userUUID}/list
 };
 
 export default backendApi;

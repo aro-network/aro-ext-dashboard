@@ -8,6 +8,7 @@ import { SVGS } from "@/svg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 import { useAuthContext } from "./AuthContext";
+import AIBum from "@/components/aibum";
 export const menus = [
   {
     name: "Highlights",
@@ -42,8 +43,8 @@ export const menus = [
   {
     name: "Album",
     icon: SVGS.SvgProfile,
-    content: null,
-    contentName: 'Dashboard - My Account'
+    content: <AIBum />,
+    contentName: ' My Berry Album'
   },
 ];
 export const MenusContext = createContext({ toMenu: (name: string) => { }, current: menus[0] });
@@ -55,9 +56,11 @@ export function MenusProvider({ children }: PropsWithChildren) {
   const menu = menus.find((item) => strToSearchParams(item.name) === spTab) || menus[0];
   const r = useRouter();
   const ac = useAuthContext()
+
   const toMenu = (name: string) => {
 
     const to = menus.find((item) => item.name === name);
+
     if (to) {
       const usp = new URLSearchParams(location.search);
       usp.set("tab", strToSearchParams(to.name));
@@ -66,6 +69,7 @@ export function MenusProvider({ children }: PropsWithChildren) {
       ac.queryUserInfo?.refetch()
     }
   };
+
 
   return <MenusContext.Provider value={{ toMenu, current: menu }}>{children}</MenusContext.Provider>;
 }
