@@ -2,10 +2,13 @@ import { singleCartoon } from "./ACommonCartoonList";
 
 const ASSET_PATH = "/svg";
 
+interface ACartoonImageProps {
+  data: singleCartoon;
+}
 
 const getSvgPath = (type: "hand" | "shoes" | "pants" | "clothes" | "logo" | "eyes" | "head" | "hat", index: number, otherSvgPath?: string) => `${ASSET_PATH}/${type}/${otherSvgPath || type}${index}.svg`;
 
-const ACartoonImage = ({ data }) => {
+const ACartoonImage: React.FC<ACartoonImageProps> = ({ data }) => {
 
   return (
     <svg

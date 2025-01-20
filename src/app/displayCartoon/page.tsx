@@ -7,7 +7,7 @@ import ADisplayHeader from "@/components/ADisplayHeader";
 import { useAuthContext } from "../context/AuthContext";
 import { SVGS } from "@/svg";
 
-export const cartoonList: cartoonType[] = [
+const cartoonList: cartoonType[] = [
   {
     one: {
       hat: 0,
