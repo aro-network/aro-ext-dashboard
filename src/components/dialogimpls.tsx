@@ -3,7 +3,7 @@ import { IoDesktopOutline } from "react-icons/io5";
 import { useToggle } from "react-use";
 import { Btn } from "./btns";
 import { TitModal } from "./dialogs";
-import { HTMLAttributes, ReactNode } from "react";
+import { ReactNode } from "react";
 import { EXT_ID } from "@/lib/env";
 
 export function AddNodeDialog() {
