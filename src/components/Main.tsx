@@ -1,17 +1,12 @@
-import { getLastLoginUser, useAuthContext } from "@/app/context/AuthContext";
+import { useAuthContext } from "@/app/context/AuthContext";
 import { menus, MenusProvider, useMenusCtx } from "@/app/context/MenusContext";
 import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
-import React, { Fragment, SVGProps, useEffect } from "react";
+import React, { Fragment } from "react";
 import { AutoFlip } from "./auto-flip";
 import { fmtBerry } from "./fmtData";
-import { levels } from "./level";
 import { SocialButtons } from "./social-buttons";
 import { MAvatar } from "./avatar";
-import { FaXTwitter } from "react-icons/fa6";
-import { useCopy } from "@/hooks/useCopy";
-import { useQuery } from "@tanstack/react-query";
-import backendApi from "@/lib/api";
 
 
 
@@ -97,36 +92,6 @@ function Menus() {
 
 const Main = () => {
   const mc = useMenusCtx();
-  const ac = useAuthContext();
-  const user = ac.queryUserInfo?.data;
-  const copy = useCopy();
-
-  // http://localhost:3001/displayCartoon?referral=GJDH08
-  const shareLink = `${origin}/displayCartoon?referral=${user?.inviteCode}`;
-
-
-  const usp = new URLSearchParams(location.search);
-  console.log('uspuspuspusp', usp, location.search);
-
-
-  const onLike = async () => {
-
-    const res = await backendApi.currentUserLike('123', 'like')
-    console.log('ressss', res);
-
-
-  }
-
-
-
-  const onShareToX = () => {
-    const text = `
-this is test msg
-
-    `;
-    const postXUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareLink)}`;
-    window.open(postXUrl, "_blank");
-  };
 
   return (
     <div className="h-screen flex-1 flex flex-col ">

@@ -1,18 +1,14 @@
 "use client";
 
 import backendApi from "@/lib/api";
-import ACommonCartoonList, { cartoonType, singleCartoon } from "@/components/ACommonCartoonList";
+import ACommonCartoonList from "@/components/ACommonCartoonList";
 import ADisplayHeader from "@/components/ADisplayHeader";
 import { useAuthContext } from "../context/AuthContext";
 import { SVGS } from "@/svg";
 import { useEffect, useMemo, useState } from "react";
 import { TapData } from "@/components/aibum";
 import { convertNumber, convertToNew, mapDigitsToAttributes } from "@/lib/utils";
-
-
-const Tap = {
-
-};
+import { toast } from "sonner";
 
 const TapList = {
   like: 0,
@@ -33,27 +29,21 @@ const DispalyCartoon = () => {
   const params = new URLSearchParams(window.location.search);
   const uid = params.get("uid") || ''
   const name = params.get("name") || ''
-  const [cartoonList, setCartoonList] = useState<{ cartoonList?: TapData, loading: boolean }>({ cartoonList: TapList, loading: true })
-  const [loading, setLoading] = useState(true)
+  const username = name?.split('@')[0] || ''
+
+  const [cartoonList, setCartoonList] = useState<{ cartoonList?: TapData, loading: boolean, current?: { liked: boolean } }>({ cartoonList: TapList, loading: true, current: { liked: false } })
 
   const gerCartoonList = async () => {
-    console.log('useruser', user);
-
-    // if (!user?.id) return
 
     try {
-      const [liked, list] = await Promise.all([
-        backendApi.userIsLiked(user?.id),
+      const [current, list] = await Promise.all([
+        backendApi.userIsLiked(uid),
         backendApi.getShareUserList(uid)
       ]);
-      setCartoonList({ cartoonList: list, loading: false })
 
-
-      console.log("User liked:", liked);
-      console.log("Shared user list:", list);
+      setCartoonList({ cartoonList: list, loading: false, current })
     } catch (error) {
       setCartoonList({ ...cartoonList, loading: false })
-
       console.error("Error fetching data:", error);
     }
 
@@ -63,11 +53,22 @@ const DispalyCartoon = () => {
     gerCartoonList()
   }, [])
 
-
   const onLike = async () => {
-    // const res = await backendApi.currentUserLike(user?.id, 'like')
-    // console.log('ressss', res);
+    if (user?.id === uid) {
+      return
+    } else if (cartoonList.current?.liked) {
+      toast.success("You have liked this album.");
+    }
 
+
+    backendApi.currentUserLike('like', uid).then((res) => {
+      if (res.message === 'success') {
+        gerCartoonList()
+      }
+    }).catch((e) => {
+      toast.error(`You need to update to Teen Berry (Lv.2 User) to unlock 'Like'.`);
+
+    })
   }
 
   const createEmptyAttributes = () => ({
@@ -91,8 +92,6 @@ const DispalyCartoon = () => {
     [cartoonList]
   );
 
-
-
   useMemo(() => {
     if (!cartoonList.cartoonList?.list) return;
 
@@ -111,29 +110,25 @@ const DispalyCartoon = () => {
     });
   }, [cartoonList, template]);
 
-
-  console.log('cartoonListcartoonList', cartoonList);
-
-
-
   return (
     <>
       <ADisplayHeader />
-      <div className="  mx-[6.5rem]">
+      <div className="  mx-[6.5rem] xsl:mx-[3.75rem]">
         <div className=" flex justify-between ">
-          <div className="my-10 font-semibold text-xl leading-10">{name || ''}‘s Berry Album</div>
+          <div className="my-10 font-semibold text-xl leading-10">{username || ''}‘s Berry Album</div>
           <div className="flex items-center gap-2">
             <button onClick={onLike}>
-              <SVGS.SvgLike />
+              {cartoonList.current?.liked ?
+                <SVGS.SvgLiked /> :
+                <SVGS.SvgLike />
+              }
             </button>
             <span className="text-xl ">
               {cartoonList.cartoonList?.like}
             </span>
           </div>
         </div>
-
-        <ACommonCartoonList cartoonList={template} loading={cartoonList.loading} />
-
+        {template[0].name && <ACommonCartoonList cartoonList={template} loading={cartoonList.loading} />}
       </div>
     </>
 

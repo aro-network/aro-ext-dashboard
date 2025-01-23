@@ -8,6 +8,7 @@ import { useCopy } from "@/hooks/useCopy";
 import { SVGS } from "@/svg";
 import { FaXTwitter } from "react-icons/fa6";
 import { convertNumber, convertToNew, mapDigitsToAttributes } from "@/lib/utils";
+import { HelpTip } from "./tips";
 
 export type TapItem = {
   uuid: string;
@@ -72,7 +73,6 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
   );
 
 
-
   useMemo(() => {
     if (!data?.list) return;
 
@@ -95,27 +95,30 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
   return <div>
     <div className=" relative pl-5 mb-10 flex items-center justify-between ">
       <div className="text-xl font-semibold z-10 relative">
-        {mc.current.contentName}
+        {/* {mc.current.contentName} */}
       </div>
       <div className="flex items-center gap-6">
         <div className="flex items-center gap-2">
-          <button>
-            <SVGS.SvgLike />
-          </button>
+          {data?.like ? <SVGS.SvgLiked /> : <SVGS.SvgLike />}
           <span className="text-xl ">
             {data?.like || 0}
           </span>
         </div>
-        <button onClick={() => copy(shareLink)}>
-          <SVGS.SvgShare />
-        </button>
-        <button onClick={onShareToX} className="text-2xl">
-          <FaXTwitter />
-        </button>
+        <HelpTip content={'Copy Album Link'}>
+          <button onClick={() => copy(shareLink)}>
+            <SVGS.SvgShare />
+          </button>
+        </HelpTip>
+        <HelpTip content={'Share to Twitter'}>
+          <button onClick={onShareToX} className="text-2xl">
+            <FaXTwitter />
+          </button>
+        </HelpTip>
+
       </div>
     </div>
 
-    <ACommonCartoonList cartoonList={template} loading={isLoading} />
+    {template[0].name && <ACommonCartoonList cartoonList={template} loading={isLoading} />}
 
 
   </div>;

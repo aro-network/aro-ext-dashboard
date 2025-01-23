@@ -16,6 +16,8 @@ import SvgBgIconCard from "./bg-icon-card.svg";
 import SvgLogin from "./login.svg";
 import { SvgLogo } from "./logo";
 import SvgLike from "./like.svg";
+import SvgLiked from "./liked.svg";
+
 import SvgShare from "./share.svg";
 
 export const SVGS = {
@@ -37,5 +39,6 @@ export const SVGS = {
   SvgLogin,
   SvgLogo,
   SvgLike,
+  SvgLiked,
   SvgShare,
 };

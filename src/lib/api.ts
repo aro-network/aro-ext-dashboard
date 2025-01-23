@@ -23,6 +23,7 @@ const Api = axios.create({
 });
 
 export type RES<T> = {
+  message: string;
   data: T;
 };
 
@@ -168,11 +169,11 @@ const backendApi = {
     return response.data.data;
   },
 
-  currentUserLike: async (uuid: string, like: "like" | "unlike") => {
-    const response = await Api.get<RES<undefined>>(
-      `/api/extension/tap/${uuid}/${like}`
+  currentUserLike: async (like: "like" | "unlike", uuid?: string) => {
+    const response = await Api.post<RES<undefined>>(
+      `/extension/tap/${uuid}/${like}`
     );
-    return response.data.data;
+    return response.data;
   },
 
   getShareUserList: async (uuid: string) => {
