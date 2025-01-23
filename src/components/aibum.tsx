@@ -84,8 +84,8 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
 
     updatedList.forEach((item, index) => {
       if (template[index]) {
-        mapDigitsToAttributes(item.tapFromUserId2, template[index].one);
-        mapDigitsToAttributes(item.tapToUserId2, template[index].two);
+        mapDigitsToAttributes(template[index].one, item.tapFromUserId2);
+        mapDigitsToAttributes(template[index].two, item.tapToUserId2);
       }
       template[index].name = item.content
     });

@@ -104,8 +104,8 @@ const DispalyCartoon = () => {
 
     updatedList.forEach((item, index) => {
       if (template[index]) {
-        mapDigitsToAttributes(item.tapFromUserId2, template[index].one);
-        mapDigitsToAttributes(item.tapToUserId2, template[index].two);
+        mapDigitsToAttributes(template[index].one, item.tapFromUserId2,);
+        mapDigitsToAttributes(template[index].two, item.tapToUserId2,);
       }
       template[index].name = item.content
     });

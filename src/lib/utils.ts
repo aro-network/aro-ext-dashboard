@@ -85,8 +85,8 @@ export const createEmptyAttributes = () => ({
 });
 
 export const mapDigitsToAttributes = (
-  digits?: string,
-  obj: { [key: string]: number | number[] | null }
+  obj: { [key: string]: number | number[] | null },
+  digits?: string
 ) => {
   const keys = [
     "hat",
