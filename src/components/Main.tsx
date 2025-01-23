@@ -136,29 +136,7 @@ this is test msg
           <Fragment key={item.name}>
             {mc.current.name === item.name && (
               <AutoFlip className=" p-10  px-[6.5rem] flex flex-col w-full  gap-[2.125rem]">
-                {i === 5 && <div className=" relative pl-5 flex items-center justify-between ">
-                  <div className="text-xl font-semibold z-10 relative">
-                    {mc.current.contentName}
-                  </div>
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2">
-                      <button onClick={onLike}>
-                        <SVGS.SvgLike />
-                      </button>
-                      <span className="text-xl ">
-                        208
-                      </span>
-                    </div>
-                    <button onClick={() => copy(shareLink)}>
-                      <SVGS.SvgShare />
-                    </button>
-                    <button onClick={onShareToX} className="text-2xl">
-                      <FaXTwitter />
-                    </button>
 
-                  </div>
-
-                </div>}
                 {mc.current.content}
               </AutoFlip>
             )}

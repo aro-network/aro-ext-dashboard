@@ -5,6 +5,7 @@ import axios from "axios";
 import { ENV } from "./env";
 import _ from "lodash";
 import { fmtBoost } from "@/components/fmtData";
+import { TapData } from "@/components/aibum";
 
 const API_MAP: { [k in typeof ENV]: string } = {
   beta: "https://dev-api.enreach.network/api",
@@ -162,25 +163,28 @@ const backendApi = {
   },
 
   getCartoonList: async () => {
-    const response = await Api.get<RES<undefined>>(`/extension/tap/list`);
+    const response = await Api.get<RES<TapData>>(`/extension/tap/list`);
+
     return response.data.data;
   },
 
   currentUserLike: async (uuid: string, like: "like" | "unlike") => {
     const response = await Api.get<RES<undefined>>(
-      `/api/extension/tap/${uuid}${like}`
+      `/api/extension/tap/${uuid}/${like}`
     );
     return response.data.data;
   },
 
-  // currentUserLike: async (uuid: string, like: "like" | "unlike") => {
-  //   const response = await Api.get<RES<undefined>>(
-  //     `/eapi/extension/tap/${uuid}${like}`
-  //   );
-  //   return response.data.data;
-  // },
-
-  // /api/common/tap/{userUUID}/list
+  getShareUserList: async (uuid: string) => {
+    const response = await Api.get<RES<TapData>>(`/common/tap/${uuid}/list`);
+    return response.data.data;
+  },
+  userIsLiked: async (uuid?: string) => {
+    const response = await Api.get<RES<undefined>>(
+      `/extension/tap/${uuid}/liked`
+    );
+    return response.data.data;
+  },
 };
 
 export default backendApi;

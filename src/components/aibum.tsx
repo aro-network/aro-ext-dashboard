@@ -1,101 +1,124 @@
 import { useQuery } from "@tanstack/react-query";
 import backendApi from "@/lib/api";
-import ACommonCartoonList, { cartoonType } from "./ACommonCartoonList";
+import ACommonCartoonList from "./ACommonCartoonList";
+import { useMemo } from "react";
+import { useMenusCtx } from "@/app/context/MenusContext";
+import { useAuthContext } from "@/app/context/AuthContext";
+import { useCopy } from "@/hooks/useCopy";
+import { SVGS } from "@/svg";
+import { FaXTwitter } from "react-icons/fa6";
+import { convertNumber, convertToNew, mapDigitsToAttributes } from "@/lib/utils";
 
-export const cartoonList: cartoonType[] = [
-  {
-    one: {
-      hat: 0,
-      head: 1,
-      eyes: 0,
-      clothes: 1,
-      hand: [0, 0],
-      pants: 0,
-      shoes: 1,
-      logo: 1
+export type TapItem = {
+  uuid: string;
+  tapFromUserId: string;
+  tapFromcode: string;
+  tapToUserId: string;
+  tapTocode: string;
+  timestamp: number;
+  content: string;
+};
 
-    },
-    two: {
-      hat: 3,
-      head: 3,
-      eyes: 2,
-      clothes: 4,
-      hand: [0, 0],
-      pants: 1,
-      shoes: 2,
-      logo: 0
-    },
-  },
-  {
-    one: {
-      hat: 1,
-      head: 0,
-      eyes: 2,
-      clothes: 0,
-      hand: [0, 0],
-      pants: 1,
-      shoes: 0,
-      logo: 0
-    }
-  },
-  {
-    one: {
-      hat: 2,
-      head: 2,
-      eyes: 2,
-      clothes: 2,
-      hand: [0, 0],
-      pants: 1,
-      shoes: 1,
-      logo: 0
-    }
-  },
-  {
-    one: {
-      hat: 3,
-      head: 3,
-      eyes: 2,
-      clothes: 4,
-      hand: [0, 0],
-      pants: 1,
-      shoes: 2,
-      logo: 0
-    }
-  },
-  {
-    one: {
-      hat: 1,
-      head: 0,
-      eyes: 3,
-      clothes: 3,
-      hand: [0, 0],
-      pants: 1,
-      shoes: 3,
-      logo: 0
-    }
-  },
-
-
-]
+export type TapData = {
+  like: number;
+  list: TapItem[];
+};
 
 const AIBum = () => {
+  const mc = useMenusCtx();
+  const ac = useAuthContext();
+  const user = ac.queryUserInfo?.data;
+  const copy = useCopy();
 
+  const shareLink = `${origin}/displayCartoon?referral=${user?.inviteCode}&uid=${user?.id}&name=${user?.email}`;
 
+  const onShareToX = () => {
+    const text = `
+I have a new 🫐Berry Buddy! 
+
+Click this link to visit my EnReach Season 1 Album give me a Like💗.
+
+Join EnReach Season 1 and earn BERRY points by running a super lite node in Chrome Extension.
+
+`;
+    const postXUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareLink)}`;
+    window.open(postXUrl, "_blank");
+  };
   const { data, isLoading } = useQuery({
-    queryKey: [],
-    queryFn: () => backendApi.getCartoonList(),
+    queryKey: ["cartoonList"],
+    queryFn: backendApi.getCartoonList,
   });
 
 
+  const createEmptyAttributes = () => ({
+    hat: null,
+    head: null,
+    eyes: null,
+    clothes: null,
+    hand: null,
+    pants: null,
+    shoes: null,
+    logo: null,
+  });
 
-
-  return (
-    <ACommonCartoonList
-      cartoonList={cartoonList}
-    />
-
+  const template = useMemo(
+    () =>
+      Array.from({ length: data?.list.length || 1 }, () => ({
+        one: createEmptyAttributes(),
+        two: createEmptyAttributes(),
+        name: ''
+      })),
+    [data]
   );
-}
 
 
-export default AIBum
+
+  useMemo(() => {
+    if (!data?.list) return;
+
+    const updatedList = data.list.map((item) => ({
+      ...item,
+      tapFromUserId2: convertNumber(convertToNew(item.tapFromUserId)),
+      tapToUserId2: convertNumber(convertToNew(item.tapToUserId)),
+    }));
+
+    updatedList.forEach((item, index) => {
+      if (template[index]) {
+        mapDigitsToAttributes(item.tapFromUserId2, template[index].one);
+        mapDigitsToAttributes(item.tapToUserId2, template[index].two);
+      }
+      template[index].name = item.content
+    });
+  }, [data, template]);
+
+
+  return <div>
+    <div className=" relative pl-5 mb-10 flex items-center justify-between ">
+      <div className="text-xl font-semibold z-10 relative">
+        {mc.current.contentName}
+      </div>
+      <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2">
+          <button>
+            <SVGS.SvgLike />
+          </button>
+          <span className="text-xl ">
+            {data?.like || 0}
+          </span>
+        </div>
+        <button onClick={() => copy(shareLink)}>
+          <SVGS.SvgShare />
+        </button>
+        <button onClick={onShareToX} className="text-2xl">
+          <FaXTwitter />
+        </button>
+      </div>
+    </div>
+
+    <ACommonCartoonList cartoonList={template} loading={isLoading} />
+
+
+  </div>;
+};
+
+export default AIBum;
