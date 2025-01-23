@@ -10,7 +10,9 @@ const ADisplayHeader = () => {
   const onSwitchToHome = () => {
     const params = new URLSearchParams(window.location.search);
     const referral = params.get("referral");
-    r.push(`signin/?page=displayCartoon&referral=${referral}`)
+    const uid = params.get("uid");
+    const name = params.get("name");
+    r.push(`signin/?page=displayCartoon&referral=${referral}&uid=${uid}&name=${name}`)
   }
 
   return <div className=" flex h-[3.75rem] flex-row w-full justify-between items-center py-5 bg-[#404040]  px-[50px]  ">

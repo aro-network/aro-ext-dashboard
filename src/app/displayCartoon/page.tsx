@@ -5,10 +5,11 @@ import ACommonCartoonList from "@/components/ACommonCartoonList";
 import ADisplayHeader from "@/components/ADisplayHeader";
 import { useAuthContext } from "../context/AuthContext";
 import { SVGS } from "@/svg";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { TapData } from "@/components/aibum";
 import { convertNumber, convertToNew, mapDigitsToAttributes } from "@/lib/utils";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const TapList = {
   like: 0,
@@ -26,22 +27,28 @@ const TapList = {
 const DispalyCartoon = () => {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
+  const r = useRouter()
   const params = new URLSearchParams(window.location.search);
   const uid = params.get("uid") || ''
   const name = params.get("name") || ''
   const username = name?.split('@')[0] || ''
-
-  const [cartoonList, setCartoonList] = useState<{ cartoonList?: TapData, loading: boolean, current?: { liked: boolean } }>({ cartoonList: TapList, loading: true, current: { liked: false } })
+  const [cartoonList, setCartoonList] = useState<{ cartoonList?: TapData, loading?: boolean, current?: { liked: boolean } }>({ cartoonList: TapList, loading: true, current: { liked: false } })
 
   const gerCartoonList = async () => {
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get("uid") || ''
+    const name = params.get("name") || ''
 
     try {
-      const [current, list] = await Promise.all([
-        backendApi.userIsLiked(uid),
-        backendApi.getShareUserList(uid)
-      ]);
+      if (uid) {
+        if (user?.id && uid) {
+          const likedRes = await backendApi.userIsLiked(uid)
+          setCartoonList({ current: likedRes })
+        }
+        const sharedList = await backendApi.getShareUserList(uid)
+        setCartoonList({ cartoonList: sharedList, loading: false })
+      }
 
-      setCartoonList({ cartoonList: list, loading: false, current })
     } catch (error) {
       setCartoonList({ ...cartoonList, loading: false })
       console.error("Error fetching data:", error);
@@ -55,6 +62,13 @@ const DispalyCartoon = () => {
 
   const onLike = async () => {
     if (user?.id === uid) {
+      return
+    } else if (!user?.id) {
+      const params = new URLSearchParams(window.location.search);
+      const referral = params.get("referral");
+      const uid = params.get("uid");
+      const name = params.get("name");
+      r.push(`signin/?page=displayCartoon&referral=${referral}&uid=${uid}&name=${name}`)
       return
     } else if (cartoonList.current?.liked) {
       toast.success("You have liked this album.");

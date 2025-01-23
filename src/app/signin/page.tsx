@@ -50,7 +50,7 @@ export default function Page() {
         </form>
         <div className="flip_item mb-auto flex items-center w-full text-xs text-white/60">
           Don’t have an account?
-          <MLink href={`/signup?page=displayCartoon&referral=${referral}`} className="ml-2 text-xs">
+          <MLink href={`/signup?referral=${referral}`} className="ml-2 text-xs">
             Sign Up
           </MLink>
           <MLink href={`/reset?email=${email}`} className="ml-auto text-xs">

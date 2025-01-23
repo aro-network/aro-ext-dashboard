@@ -14,12 +14,17 @@ export default function Page() {
   const params = new URLSearchParams(window.location.search);
   const page = params.get("page");
   const referral = params.get("referral");
+  const uid = params.get("uid");
+  const name = params.get("name");
   backendApi.setAuth(user?.token);
   useShowParamsError();
 
+  // router.push(`/displayCartoon?referral=${referral}&uid=${uid}&name=${name}`)
+
   useEffect(() => {
     if (page === "displayCartoon") {
-      router.push(`/displayCartoon?referral=${referral}`);
+      router.push(`/displayCartoon?referral=${referral}&uid=${uid}&name=${name}`)
+
     }
   }, [router]);
 
