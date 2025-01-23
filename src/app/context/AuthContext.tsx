@@ -56,11 +56,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (u.token) {
         getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.token }).catch(console.error);
       }
-
-      if (page === "displayCartoon") {
-        r.push(`/displayCartoon`);
-        return
-      }
       r.push("/");
     }
   };

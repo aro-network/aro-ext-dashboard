@@ -37,7 +37,6 @@ const DispalyCartoon = () => {
   const gerCartoonList = async () => {
     const params = new URLSearchParams(window.location.search);
     const uid = params.get("uid") || ''
-    const name = params.get("name") || ''
 
     try {
       if (uid) {
@@ -129,9 +128,9 @@ const DispalyCartoon = () => {
       <ADisplayHeader />
       <div className="  mx-[6.5rem] xsl:mx-[3.75rem]">
         <div className=" flex justify-between ">
-          <div className="my-10 font-semibold text-xl leading-10">{username || ''}‘s Berry Album</div>
+          <div className="my-10 font-semibold text-xl leading-10">{`${(uid === user?.id ? 'My Berry Album' : username + '‘s Berry Album' || '')} `}</div>
           <div className="flex items-center gap-2">
-            <button onClick={onLike}>
+            <button className={`${uid === user?.id && 'cursor-not-allowed'}`} onClick={onLike}>
               {cartoonList.current?.liked ?
                 <SVGS.SvgLiked /> :
                 <SVGS.SvgLike />
