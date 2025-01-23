@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
-    "@heroui/skeleton": "^2.2.6",
     "@nextui-org/react": "^2.4.8",
     "@plasmohq/storage": "^1.12.0",
     "@react-oauth/google": "^0.12.1",
