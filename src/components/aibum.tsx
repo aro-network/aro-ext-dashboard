@@ -10,6 +10,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { convertNumber, convertToNew, mapDigitsToAttributes } from "@/lib/utils";
 import { HelpTip } from "./tips";
 
+
 export type TapItem = {
   uuid: string;
   tapFromUserId: string;
@@ -45,10 +46,11 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
     const postXUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareLink)}`;
     window.open(postXUrl, "_blank");
   };
-  const { data, isLoading } = useQuery({
+  const { data, isFetching: loading, refetch } = useQuery({
     queryKey: ["cartoonList"],
     queryFn: backendApi.getCartoonList,
   });
+
 
 
   const createEmptyAttributes = () => ({
@@ -92,7 +94,6 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
   }, [data, template]);
 
 
-
   return <div>
     <div className=" relative pl-5 mb-10 flex items-center justify-between ">
       <div className="text-xl font-semibold z-10 relative">
@@ -121,7 +122,9 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
       }
     </div>
 
-    {template[0]?.name ? <ACommonCartoonList cartoonList={template} loading={isLoading} /> : <div className=" text-xl w-full text-center">Oops! Nothing here yet.</div>}
+    <ACommonCartoonList cartoonList={template} loading={loading} />
+    {!template || !template[0].name && !loading && <div className=" text-xl w-full text-center flex justify-center ">Oops! Nothing here yet.</div>}
+
 
 
 

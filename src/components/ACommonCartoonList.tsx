@@ -34,8 +34,8 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ cartoonList, loading }) => 
   }
 
   return <div className="grid grid-cols-3 smd:grid-cols-1  xsl:grid-cols-2 w-full gap-10">
-    {cartoonList.map((item, index) => {
-      return <Skeleton key={`cartoon_${index}`} isLoaded={!loading} className=" border border-[#7e7e7e] rounded-3xl !bg-[#7E7E7E] ">
+    {cartoonList && cartoonList.map((item, index) => {
+      return <Skeleton key={`cartoon_${index}`} isLoaded={!loading} className=" border border-[#7e7e7e] rounded-3xl bg-[#7E7E7E] ">
         <button className="   flex-wrap flex-col items-center justify-center rounded-3xl  !bg-[#7E7E7E] gap-5 flex  w-full " onClick={() => onShowOne(item)} >
           <span className="text-xl pt-5">{item.name}</span>
           <div className="flex gap-5 smd:flex-wrap smd:flex-col smd:items-center smd:justify-center">
@@ -43,13 +43,12 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ cartoonList, loading }) => 
             {item.two && <ACartoonImage data={item.two} />}
           </div>
         </button>
-
       </Skeleton>
-    })}
+    })
+    }
 
-
-
-    {userClickedCartoon.isOpen &&
+    {
+      userClickedCartoon.isOpen &&
       <ConfirmDialog
         tit=""
         msg={
@@ -73,7 +72,7 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ cartoonList, loading }) => 
       />
 
     }
-  </div>
+  </div >
 }
 
 export default ACommonCartoonList

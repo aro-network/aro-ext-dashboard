@@ -185,7 +185,7 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
             }
           </div>
         </div>
-        {template[0].name && <ACommonCartoonList cartoonList={template} loading={cartoonList.loading} />}
+        <ACommonCartoonList cartoonList={template} loading={cartoonList.loading} />
       </div>
     </>
 
