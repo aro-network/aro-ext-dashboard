@@ -3,7 +3,7 @@ import { getInjectEnReachAI } from "@/lib/ext";
 import { Opt } from "@/lib/type";
 import { LoginResult, User } from "@/types/user";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 
 interface AuthContextProps {
@@ -40,8 +40,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const refIsLogout = useRef(false);
   const r = useRouter();
   const [user, setUser] = useState<Opt<LoginResult>>(getLastLoginUser());
-  const params = new URLSearchParams(window.location.search);
-  const page = params.get("page");
+  const params = useSearchParams()
+  const redirect = params.get("redirect");
+  console.info('redirect:', redirect)
   const wrapSetUser = (u?: Opt<LoginResult>) => {
     if (!u) {
       refIsLogout.current = true;
@@ -56,7 +57,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (u.token) {
         getInjectEnReachAI()?.request({ name: "setAccessToken", body: u.token }).catch(console.error);
       }
-      r.push("/");
+      r.push(redirect ? redirect : "/");
     }
   };
 

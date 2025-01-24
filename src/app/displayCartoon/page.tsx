@@ -15,7 +15,6 @@ import { IoShareSocialSharp } from "react-icons/io5";
 import { useSetState } from "react-use";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext";
-import { sleep } from "@/lib/utils";
 
 
 const DispalyCartoon = () => {

@@ -12,7 +12,7 @@ const ADisplayHeader = () => {
     const referral = params.get("referral");
     const uid = params.get("uid");
     const name = params.get("name");
-    r.push(`signin/?page=displayCartoon&referral=${referral}&uid=${uid}&name=${name}`)
+    r.push(`signin/?referral=${referral}&uid=${uid}&name=${name}&redirect=${encodeURIComponent(location.pathname + location.search)}`)
   }
 
   return <div className=" flex h-[3.75rem] flex-row w-full justify-between items-center py-5 bg-[#404040]  px-[50px]  ">

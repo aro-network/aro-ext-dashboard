@@ -12,7 +12,7 @@ import backendApi from "@/lib/api";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { Spinner } from "@nextui-org/react";
 import { MLink } from "./links";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google", isDisabled }: { defReferralCode?: string; btn?: string; isDisabled?: boolean }) {
   const ac = useAuthContext();
@@ -20,8 +20,7 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
   const [showInputReferral, toggleShowInputReferral] = useToggle(false);
   const [isAuthing, setIsAuthing] = useState(false);
   const refGoogleToken = useRef("");
-  const params = new URLSearchParams(window.location.search);
-  const page = params.get("page");
+  const params = useSearchParams()
   const referral = params.get("referral");
   const r = useRouter()
 
