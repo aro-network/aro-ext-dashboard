@@ -33,7 +33,7 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ cartoonList, loading, showE
 
   return <div className="w-full">
     {(!cartoonList || cartoonList.length == 0) && !loading && showEmpty && <div className=" text-xl w-full text-center flex justify-center ">Oops! Nothing here yet.</div>}
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] w-full gap-5">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] w-full gap-5">
       {
         cartoonList && cartoonList.map((item, index) => {
           return <div key={`cartoon_${index}`} className="flex-wrap flex-col items-center justify-center gap-5 flex  w-full  bg-[#7E7E7E] cursor-pointer rounded-3xl" onClick={() => onShowOne(item)} >
