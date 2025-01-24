@@ -1,14 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import backendApi from "@/lib/api";
-import ACommonCartoonList from "./ACommonCartoonList";
-import { useMemo } from "react";
 import { useAuthContext } from "@/app/context/AuthContext";
+import { useCartoonList } from "@/hooks/useCartoonList";
 import { useCopy } from "@/hooks/useCopy";
+import backendApi from "@/lib/api";
 import { SVGS } from "@/svg";
+import { useQuery } from "@tanstack/react-query";
 import { FaXTwitter } from "react-icons/fa6";
-import { convertNumber, convertToNew, mapDigitsToAttributes } from "@/lib/utils";
-import { HelpTip } from "./tips";
 import { IoShareSocialSharp } from "react-icons/io5";
+import ACommonCartoonList from "./ACommonCartoonList";
+import { HelpTip } from "./tips";
 
 
 export type TapItem = {
@@ -49,56 +48,13 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
     queryKey: ["cartoonList"],
     queryFn: backendApi.getCartoonList,
   });
-
-
-
-  const createEmptyAttributes = () => ({
-    hat: 0,
-    head: 0,
-    eyes: 0,
-    clothes: 0,
-    hand: 0,
-    pants: 0,
-    shoes: 0,
-    logo: 0,
-  });
-
-  const template = useMemo(
-    () =>
-      Array.from({ length: data?.list.length || 1 }, () => ({
-        one: createEmptyAttributes(),
-        two: createEmptyAttributes(),
-        name: ''
-      })),
-    [data]
-  );
-
-
-  useMemo(() => {
-    if (!data?.list) return;
-
-    const updatedList = data.list.map((item) => ({
-      ...item,
-      tapFromUserId2: convertNumber(convertToNew(item.tapFromUserId)),
-      tapToUserId2: convertNumber(convertToNew(item.tapToUserId)),
-    }));
-
-    updatedList.forEach((item, index) => {
-      if (template[index]) {
-        mapDigitsToAttributes(template[index].one, item.tapFromUserId2);
-        mapDigitsToAttributes(template[index].two, item.tapToUserId2);
-      }
-      template[index].name = item.content
-    });
-  }, [data, template]);
-
-
+  const cartoonList = useCartoonList(data)
   return <div>
     <div className=" relative pl-5 mb-10 flex items-center justify-between ">
       <div className="text-xl font-semibold z-10 relative">
         {/* {mc.current.contentName} */}
       </div>
-      {template[0]?.name &&
+      {cartoonList[0]?.name &&
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <div className="text-2xl text-[#fff]">
@@ -123,13 +79,7 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
         </div>
       }
     </div>
-
-    <ACommonCartoonList cartoonList={template} loading={loading} />
-    {!template || !template[0].name && !loading && <div className=" text-xl w-full text-center flex justify-center ">Oops! Nothing here yet.</div>}
-
-
-
-
+    <ACommonCartoonList cartoonList={cartoonList} loading={loading} showEmpty />
   </div>;
 };
 

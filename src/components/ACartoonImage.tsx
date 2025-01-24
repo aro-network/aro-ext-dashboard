@@ -3,6 +3,7 @@ const ASSET_PATH = "/svg";
 
 interface ACartoonImageProps {
   data: singleCartoon;
+  size?: number
 }
 
 const getSvgPath = (
@@ -11,7 +12,7 @@ const getSvgPath = (
   otherSvgPath?: string
 ) => `${ASSET_PATH}/${type}/${otherSvgPath || type}${index}.svg`;
 
-const ACartoonImage: React.FC<ACartoonImageProps> = ({ data }) => {
+const ACartoonImage: React.FC<ACartoonImageProps> = ({ data, size = 200 }) => {
 
 
   return (
@@ -19,11 +20,12 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data }) => {
       <div>
         <svg
           id="cartoon"
-          width="200"
-          height="450"
+          width={size}
+          height={Math.round(size * 2.25)}
+          viewBox="0 0 200 450"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <foreignObject x="0" y="0" width="260" height="450">
+          <foreignObject x="0" y="0" width="200" height="450">
             <div className="relative m-auto flex items-center justify-center">
               <img
                 src={getSvgPath("shoes", data?.shoes)}
@@ -47,7 +49,7 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data }) => {
                 src={getSvgPath("hand", data.hand && data.hand[1], "rightHand")}
                 alt="rightHand"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", right: 70, top: "305px", width: "24px", zIndex: 2 }}
+                style={{ position: "absolute", right: 10, top: "305px", width: "24px", zIndex: 2 }}
               />
               <img
                 src={getSvgPath("clothes", data.clothes)}

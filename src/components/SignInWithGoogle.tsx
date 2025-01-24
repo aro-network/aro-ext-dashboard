@@ -33,13 +33,11 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
       refGoogleToken.current = tokenRes.access_token;
       const result = await backendApi.loginByGoogleApi({ accessToken: tokenRes.access_token });
       console.log('resultresultresult', result);
-
-
-
+      const referralCode = defReferralCode || referral
       if (result.token) {
         ac.setUser(result);
-      } else if (defReferralCode && validateReferralCode(defReferralCode) === true) {
-        const res = await backendApi.loginSetReferralApi({ accessToken: refGoogleToken.current, referralCode: defReferralCode }).catch(handlerError);
+      } else if (referralCode && validateReferralCode(referralCode) === true) {
+        const res = await backendApi.loginSetReferralApi({ accessToken: refGoogleToken.current, referralCode: referralCode }).catch(handlerError);
         if (res) {
           ac.setUser(res);
         } else {

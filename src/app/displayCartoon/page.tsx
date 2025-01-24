@@ -1,32 +1,22 @@
 "use client";
 
-import backendApi from "@/lib/api";
 import ACommonCartoonList from "@/components/ACommonCartoonList";
 import ADisplayHeader from "@/components/ADisplayHeader";
-import { useAuthContext } from "../context/AuthContext";
-import { SVGS } from "@/svg";
-import { useCallback, useEffect, useMemo, useState } from "react";
 import { TapData } from "@/components/aibum";
-import { convertNumber, convertToNew, mapDigitsToAttributes } from "@/lib/utils";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { HelpTip } from "@/components/tips";
+import { useCartoonList } from "@/hooks/useCartoonList";
 import { useCopy } from "@/hooks/useCopy";
+import backendApi from "@/lib/api";
+import { SVGS } from "@/svg";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaXTwitter } from "react-icons/fa6";
 import { IoShareSocialSharp } from "react-icons/io5";
+import { useSetState } from "react-use";
+import { toast } from "sonner";
+import { useAuthContext } from "../context/AuthContext";
+import { sleep } from "@/lib/utils";
 
-const TapList = {
-  like: 0,
-  list: [{
-    uuid: '',
-    tapFromUserId: '',
-    tapFromcode: '',
-    tapToUserId: '',
-    tapTocode: '',
-    timestamp: 0,
-    content: ''
-  }],
-};
 
 const DispalyCartoon = () => {
   const ac = useAuthContext();
@@ -37,7 +27,7 @@ const DispalyCartoon = () => {
   const name = params.get("name") || ''
   const username = name?.split('@')[0] || ''
   const [liked, setLiked] = useState<boolean>(false)
-  const [cartoonList, setCartoonList] = useState<{ cartoonList?: TapData, loading?: boolean, }>({ cartoonList: TapList, loading: true })
+  const [data, setData] = useSetState<{ data?: TapData, loading?: boolean, }>({ data: { like: 0, list: [] }, loading: true })
   const copy = useCopy();
 
   const shareLink = `${origin}/displayCartoon?referral=${user?.inviteCode}&uid=${user?.id}&name=${user?.email}`;
@@ -58,20 +48,18 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
   const gerCartoonList = async () => {
     const params = new URLSearchParams(window.location.search);
     const uid = params.get("uid") || ''
-
     try {
       if (uid) {
-
+        await sleep(5000)
         const sharedList = await backendApi.getShareUserList(uid)
-        setCartoonList({ cartoonList: sharedList, loading: false })
+        setData({ data: sharedList, loading: false })
         if (ac.user?.userId && uid) {
           const likedRes = await backendApi.userIsLiked(uid)
           setLiked(likedRes.liked)
         }
       }
-
     } catch (error) {
-      setCartoonList({ ...cartoonList, loading: false })
+      setData({ loading: false })
       console.error("Error fetching data:", error);
     }
 
@@ -113,45 +101,7 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
     })
   }
 
-  const createEmptyAttributes = () => ({
-    hat: 0,
-    head: 0,
-    eyes: 0,
-    clothes: 0,
-    hand: 0,
-    pants: 0,
-    shoes: 0,
-    logo: 0,
-  });
-
-  const template = useMemo(
-    () =>
-      Array.from({ length: cartoonList.cartoonList?.list.length || 1 }, () => ({
-        one: createEmptyAttributes(),
-        two: createEmptyAttributes(),
-        name: ''
-      })),
-    [cartoonList]
-  );
-
-  useMemo(() => {
-    if (!cartoonList.cartoonList?.list) return;
-
-    const updatedList = cartoonList.cartoonList.list.map((item) => ({
-      ...item,
-      tapFromUserId2: convertNumber(convertToNew(item.tapFromUserId)),
-      tapToUserId2: convertNumber(convertToNew(item.tapToUserId)),
-    }));
-
-    updatedList.forEach((item, index) => {
-      if (template[index]) {
-        mapDigitsToAttributes(template[index].one, item.tapFromUserId2,);
-        mapDigitsToAttributes(template[index].two, item.tapToUserId2,);
-      }
-      template[index].name = item.content
-    });
-  }, [cartoonList, template]);
-
+  const cartoonList = useCartoonList(data.data)
 
   return (
     <>
@@ -162,13 +112,13 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <button className={`${uid === user?.id && 'cursor-not-allowed'}`} onClick={onLike}>
-                {liked || uid === user?.id && cartoonList.cartoonList?.like ?
+                {liked || uid === user?.id && data.data?.like ?
                   <SVGS.SvgLiked /> :
                   <SVGS.SvgLike />
                 }
               </button>
               <span className="text-xl ">
-                {cartoonList.cartoonList?.like}
+                {data.data?.like}
               </span>
             </div>
             {user?.id === uid &&
@@ -187,7 +137,7 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
             }
           </div>
         </div>
-        <ACommonCartoonList cartoonList={template} loading={cartoonList.loading} />
+        <ACommonCartoonList cartoonList={cartoonList} loading={data.loading} />
       </div>
     </>
 
