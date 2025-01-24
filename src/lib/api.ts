@@ -181,7 +181,7 @@ const backendApi = {
     return response.data.data;
   },
   userIsLiked: async (uuid?: string) => {
-    const response = await Api.get<RES<undefined>>(
+    const response = await Api.get<RES<{ liked: boolean }>>(
       `/extension/tap/${uuid}/liked`
     );
     return response.data.data;

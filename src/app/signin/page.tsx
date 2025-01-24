@@ -33,6 +33,7 @@ export default function Page() {
   });
 
   useRedirect()
+  const href = referral ? `/signup?referral=${referral}` : '/signup'
 
   const disableSignIn = isPendingSignIn || validateEmail(email) !== true || !password;
   return (
@@ -50,7 +51,7 @@ export default function Page() {
         </form>
         <div className="flip_item mb-auto flex items-center w-full text-xs text-white/60">
           Don’t have an account?
-          <MLink href={`/signup?referral=${referral}`} className="ml-2 text-xs">
+          <MLink href={href} className="ml-2 text-xs">
             Sign Up
           </MLink>
           <MLink href={`/reset?email=${email}`} className="ml-auto text-xs">
