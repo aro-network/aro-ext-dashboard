@@ -1,7 +1,10 @@
 "use client";
 
+import { AutoFlip } from "@/components/auto-flip";
 import { Btn } from "@/components/btns";
+import { loginTitleClassName } from "@/components/classes";
 import { InputEmail, InputPassword, InputReferralCode, InputSplitCode } from "@/components/inputs";
+import { PageUnlogin } from "@/components/layouts";
 import { MLink } from "@/components/links";
 import { SignInWithGoogle } from "@/components/SignInWithGoogle";
 import backendApi from "@/lib/api";
@@ -14,10 +17,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, MouseEvent, useRef, useState } from "react";
 import { useCounter, useInterval, useToggle } from "react-use";
 import { useAuthContext } from "../context/AuthContext";
-import { AutoFlip } from "@/components/auto-flip";
-import { PageUnlogin } from "@/components/layouts";
-import { loginTitleClassName } from "@/components/classes";
-import useRedirect from "@/hooks/useRedirect";
 
 export default function Page() {
   const sq = useSearchParams();
@@ -84,9 +83,6 @@ export default function Page() {
     validatePassword(password) !== true ||
     validateConfirmPassword(confirmPassword, password) !== true;
   const disableResendEmail = reSendSecends > 0 || isPendingResendVerify;
-
-  useRedirect()
-
   return (
     <PageUnlogin>
       <AutoFlip className="mx-auto p-5 min-h-full flex flex-col gap-5 items-center w-full max-w-[25rem]">

@@ -1,27 +1,24 @@
 "use client";
 
+import { AutoFlip } from "@/components/auto-flip";
 import { Btn } from "@/components/btns";
+import { loginTitleClassName } from "@/components/classes";
 import { InputEmail, InputPassword } from "@/components/inputs";
+import { PageUnlogin } from "@/components/layouts";
 import { MLink } from "@/components/links";
 import { SignInWithGoogle } from "@/components/SignInWithGoogle";
 import { handlerError } from "@/lib/utils";
 import { validateEmail } from "@/lib/validates";
 import { useMutation } from "@tanstack/react-query";
-import { FormEvent, useContext, useEffect, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { AutoFlip } from "@/components/auto-flip";
-import { PageUnlogin } from "@/components/layouts";
-import { loginTitleClassName } from "@/components/classes";
-import useRedirect from "@/hooks/useRedirect";
-import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const ac = useContext(AuthContext);
-  const r = useRouter()
-  const params = new URLSearchParams(window.location.search);
-  const page = params.get("page");
+  const params = useSearchParams();
   const referral = params.get("referral");
 
   const { mutate: handleSubmit, isPending: isPendingSignIn } = useMutation({
@@ -31,8 +28,6 @@ export default function Page() {
       await ac.login({ email, password });
     },
   });
-
-  useRedirect()
   const href = referral ? `/signup?referral=${referral}` : '/signup'
 
   const disableSignIn = isPendingSignIn || validateEmail(email) !== true || !password;
