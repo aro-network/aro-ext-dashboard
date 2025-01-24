@@ -161,7 +161,7 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <button className={`${uid === user?.id && 'cursor-not-allowed'}`} onClick={onLike}>
-                {liked ?
+                {liked || uid === user?.id && cartoonList.cartoonList?.like ?
                   <SVGS.SvgLiked /> :
                   <SVGS.SvgLike />
                 }

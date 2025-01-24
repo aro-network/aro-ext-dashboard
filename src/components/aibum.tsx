@@ -92,33 +92,37 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
   }, [data, template]);
 
 
+
   return <div>
     <div className=" relative pl-5 mb-10 flex items-center justify-between ">
       <div className="text-xl font-semibold z-10 relative">
         {/* {mc.current.contentName} */}
       </div>
-      <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2">
-          {data?.like ? <SVGS.SvgLiked /> : <SVGS.SvgLike />}
-          <span className="text-xl ">
-            {data?.like || 0}
-          </span>
-        </div>
-        <HelpTip content={'Copy Album Link'}>
-          <button onClick={() => copy(shareLink)}>
-            <SVGS.SvgShare />
-          </button>
-        </HelpTip>
-        <HelpTip content={'Share to Twitter'}>
-          <button onClick={onShareToX} className="text-2xl">
-            <FaXTwitter />
-          </button>
-        </HelpTip>
+      {template[0]?.name &&
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            {data?.like ? <SVGS.SvgLiked /> : <SVGS.SvgLike />}
+            <span className="text-xl ">
+              {data?.like || 0}
+            </span>
+          </div>
+          <HelpTip content={'Copy Album Link'}>
+            <button onClick={() => copy(shareLink)}>
+              <SVGS.SvgShare />
+            </button>
+          </HelpTip>
+          <HelpTip content={'Share to Twitter'}>
+            <button onClick={onShareToX} className="text-2xl">
+              <FaXTwitter />
+            </button>
+          </HelpTip>
 
-      </div>
+        </div>
+      }
     </div>
 
-    {template[0].name && <ACommonCartoonList cartoonList={template} loading={isLoading} />}
+    {template[0]?.name ? <ACommonCartoonList cartoonList={template} loading={isLoading} /> : <div className=" text-xl w-full text-center">Oops! Nothing here yet.</div>}
+
 
 
   </div>;
