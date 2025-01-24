@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { HelpTip } from "@/components/tips";
 import { useCopy } from "@/hooks/useCopy";
 import { FaXTwitter } from "react-icons/fa6";
+import { IoShareSocialSharp } from "react-icons/io5";
 
 const TapList = {
   like: 0,
@@ -113,14 +114,14 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
   }
 
   const createEmptyAttributes = () => ({
-    hat: null,
-    head: null,
-    eyes: null,
-    clothes: null,
-    hand: null,
-    pants: null,
-    shoes: null,
-    logo: null,
+    hat: 0,
+    head: 0,
+    eyes: 0,
+    clothes: 0,
+    hand: 0,
+    pants: 0,
+    shoes: 0,
+    logo: 0,
   });
 
   const template = useMemo(
@@ -157,7 +158,7 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
       <ADisplayHeader />
       <div className="  mx-[6.5rem] xsl:mx-[3.75rem]">
         <div className=" flex justify-between ">
-          <div className="my-10 font-semibold text-xl leading-10">{`${(uid === user?.id ? 'My Berry Album' : username + '‘s Berry Album' || '')} `}</div>
+          <div className="my-10 font-semibold text-xl leading-10">{`${(uid === user?.id ? 'My Berry Album' : username && (username + '‘s Berry Album') || '')} `}</div>
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
               <button className={`${uid === user?.id && 'cursor-not-allowed'}`} onClick={onLike}>
@@ -173,11 +174,12 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
             {user?.id === uid &&
               <>
                 <HelpTip content={'Copy Album Link'}>
-                  <button onClick={() => copy(shareLink)}>
-                    <SVGS.SvgShare />
+                  <button className="text-2xl  hover:text-[#4281FF]" onClick={() => copy(shareLink)}>
+                    <IoShareSocialSharp />
                   </button>
-                </HelpTip><HelpTip content={'Share to Twitter'}>
-                  <button onClick={onShareToX} className="text-2xl">
+                </HelpTip>
+                <HelpTip content={'Share to Twitter'}>
+                  <button onClick={onShareToX} className="text-2xl hover:text-[#4281FF]">
                     <FaXTwitter />
                   </button>
                 </HelpTip>

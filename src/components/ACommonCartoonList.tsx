@@ -4,14 +4,14 @@ import { ConfirmDialog } from "./dialogimpls"
 import { Skeleton } from "@nextui-org/react"
 
 export type singleCartoon = {
-  hat: number | null,
-  head: number | null,
-  eyes: number | null,
-  clothes: number | null,
-  hand: null | [number, number],
-  pants: number | null,
-  shoes: number | null,
-  logo: number | null,
+  hat: number,
+  head: number,
+  eyes: number,
+  clothes: number,
+  hand: number | [number, number],
+  pants: number,
+  shoes: number,
+  logo: number,
 }
 
 export type cartoonType = {
@@ -33,10 +33,10 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ cartoonList, loading }) => 
     setUserClickedCartoon({ value: item, isOpen: true })
   }
 
-  return <div className="grid grid-cols-3 smd:grid-cols-1  xsl:grid-cols-2 w-full gap-10">
+  return <div className="grid grid-cols-3 smd:grid-cols-1  xsl:grid-cols-2 w-full gap-10 ">
     {cartoonList && cartoonList.map((item, index) => {
-      return <Skeleton key={`cartoon_${index}`} isLoaded={!loading} className=" border border-[#7e7e7e] rounded-3xl bg-[#7E7E7E] ">
-        <button className="   flex-wrap flex-col items-center justify-center rounded-3xl  !bg-[#7E7E7E] gap-5 flex  w-full " onClick={() => onShowOne(item)} >
+      return <Skeleton key={`cartoon_${index}`} isLoaded={!loading} className=" border !border-[#7e7e7e] rounded-3xl !bg-[#7E7E7E] ">
+        <button className="   flex-wrap flex-col items-center justify-center rounded-3xl !border-[#7e7e7e]  !bg-[#7E7E7E] gap-5 flex  w-full " onClick={() => onShowOne(item)} >
           <span className="text-xl pt-5">{item.name}</span>
           <div className="flex gap-5 smd:flex-wrap smd:flex-col smd:items-center smd:justify-center">
             {item.one && <ACartoonImage data={item.one} />}
