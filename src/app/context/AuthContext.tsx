@@ -94,7 +94,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       if (!credentials.email || !credentials.password) return;
       const user = await backendApi.loginApi(credentials);
       wrapSetUser(user);
-      backendApi.setAuth();
     } catch (err) {
       console.error(err);
       throw err;
