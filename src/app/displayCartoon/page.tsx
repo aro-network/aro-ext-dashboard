@@ -50,13 +50,12 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
     const uid = params.get("uid") || ''
     try {
       if (uid) {
-        await sleep(5000)
-        const sharedList = await backendApi.getShareUserList(uid)
-        setData({ data: sharedList, loading: false })
         if (ac.user?.userId && uid) {
           const likedRes = await backendApi.userIsLiked(uid)
           setLiked(likedRes.liked)
         }
+        const sharedList = await backendApi.getShareUserList(uid)
+        setData({ data: sharedList, loading: false })
       }
     } catch (error) {
       setData({ loading: false })
