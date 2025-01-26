@@ -1,5 +1,4 @@
 import { useAuthContext } from "@/app/context/AuthContext";
-import { useCartoonList } from "@/hooks/useCartoonList";
 import { useCopy } from "@/hooks/useCopy";
 import backendApi from "@/lib/api";
 import { SVGS } from "@/svg";
@@ -44,42 +43,42 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
     const postXUrl = `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareLink)}`;
     window.open(postXUrl, "_blank");
   };
-  const { data, isFetching: loading, refetch } = useQuery({
-    queryKey: ["cartoonList"],
-    queryFn: backendApi.getCartoonList,
-  });
-  const cartoonList = useCartoonList(data)
+  const { data: likeCount, refetch: refetchLikeCount } = useQuery({
+    queryKey: ['queryLikeCount', user?.id],
+    enabled: Boolean(user),
+    initialData: 0,
+    queryFn: async () => {
+      return backendApi.userLikeCount(user?.id)
+    }
+  })
   return <div>
     <div className=" relative pl-5 mb-10 flex items-center justify-between ">
       <div className="text-xl font-semibold z-10 relative">
         {/* {mc.current.contentName} */}
       </div>
-      {cartoonList[0]?.name &&
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2">
-            <div className="text-2xl text-[#fff]">
-              {data?.like ? <SVGS.SvgLiked /> : <SVGS.SvgLike />}
-            </div>
-
-            <span className="text-xl ">
-              {data?.like || 0}
-            </span>
+      <div className="flex items-center gap-6">
+        <div className="flex items-center gap-2">
+          <div className="text-2xl text-[#fff]">
+            {likeCount > 0 ? <SVGS.SvgLiked /> : <SVGS.SvgLike />}
           </div>
-          <HelpTip content={'Copy Album Link'}>
-            <button className="text-2xl  hover:text-[#4281FF]" onClick={() => copy(shareLink)}>
-              <IoShareSocialSharp />
-            </button>
-          </HelpTip>
-          <HelpTip content={'Share to Twitter'}>
-            <button onClick={onShareToX} className="text-2xl hover:text-[#4281FF]">
-              <FaXTwitter />
-            </button>
-          </HelpTip>
 
+          <span className="text-xl ">
+            {likeCount}
+          </span>
         </div>
-      }
+        <HelpTip content={'Copy Album Link'}>
+          <button className="text-2xl  hover:text-[#4281FF]" onClick={() => copy(shareLink)}>
+            <IoShareSocialSharp />
+          </button>
+        </HelpTip>
+        <HelpTip content={'Share to Twitter'}>
+          <button onClick={onShareToX} className="text-2xl hover:text-[#4281FF]">
+            <FaXTwitter />
+          </button>
+        </HelpTip>
+      </div>
     </div>
-    <ACommonCartoonList cartoonList={cartoonList} loading={loading} showEmpty />
+    <ACommonCartoonList loadType="auth" showEmpty />
   </div>;
 };
 

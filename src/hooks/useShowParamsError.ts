@@ -1,4 +1,4 @@
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -9,8 +9,14 @@ export function handlerErrForBind(err?: string | null) {
 }
 export function useShowParamsError() {
   const sp = useSearchParams();
+  const r = useRouter();
   const error = sp.get("err");
   useEffect(() => {
     handlerErrForBind(error);
+    if (error) {
+      const usp = new URLSearchParams(location.search);
+      usp.delete("err");
+      r.replace(location.pathname + "?" + usp.toString());
+    }
   }, [error]);
 }

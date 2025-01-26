@@ -2,17 +2,20 @@ import { useAuthContext } from "@/app/context/AuthContext";
 import { MAvatar } from "./avatar";
 import { useRouter } from "next/navigation";
 
+export function urlToSigninFromAlbum() {
+  const params = new URLSearchParams(window.location.search);
+  const referral = params.get("referral");
+  const uid = params.get("uid");
+  const name = params.get("name");
+  return `signin/?referral=${referral}&uid=${uid}&name=${name}&redirect=${encodeURIComponent(location.pathname + location.search)}`
+}
 const ADisplayHeader = () => {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const r = useRouter()
 
   const onSwitchToHome = () => {
-    const params = new URLSearchParams(window.location.search);
-    const referral = params.get("referral");
-    const uid = params.get("uid");
-    const name = params.get("name");
-    r.push(`signin/?referral=${referral}&uid=${uid}&name=${name}&redirect=${encodeURIComponent(location.pathname + location.search)}`)
+    r.push(urlToSigninFromAlbum())
   }
 
   return <div className=" flex h-[3.75rem] flex-row w-full justify-between items-center py-5 bg-[#404040]  px-[50px]  ">

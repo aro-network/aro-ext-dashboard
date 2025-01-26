@@ -8,18 +8,18 @@ import { IconCard, TitCard } from "./cards";
 import { useAuthContext } from "@/app/context/AuthContext";
 import { useCopy } from "@/hooks/useCopy";
 import backendApi from "@/lib/api";
-import { fmtDate, truncateEmail } from "@/lib/utils";
+import { fmtDate } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import EChartsReact from "echarts-for-react";
 import _ from "lodash";
+import numbro from "numbro";
 import { useDebounce, useMeasure } from "react-use";
 import { UseMeasureRef } from "react-use/lib/useMeasure";
 import { IconBtn } from "./btns";
 import { fmtBerry, fmtBoost } from "./fmtData";
+import { levels } from "./level";
 import { CurrentTask } from "./tasks";
 import { HelpTip } from "./tips";
-import { levels } from "./level";
-import numbro from "numbro";
 
 export function DupleInfo({
   tit,
