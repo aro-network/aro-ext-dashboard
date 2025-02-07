@@ -12,7 +12,10 @@ export function validatePassword(password?: string) {
   return "Your password must be at least 8 characters long and include: at least one uppercase letter, one lowercase letter, and one number. Special characters (@$!%*?&) are allowed.";
 }
 
-export function validateConfirmPassword(confirmPassword?: string, password?: string) {
+export function validateConfirmPassword(
+  confirmPassword?: string,
+  password?: string
+) {
   if (!confirmPassword || !password) return null;
   if (confirmPassword === password) return true;
   return "Passwords do not match!";

@@ -7,7 +7,7 @@ import { STable } from "./tables";
 import { HelpTip } from "./tips";
 
 import backendApi from "@/lib/api";
-import { fmtDuration, handlerError } from "@/lib/utils";
+import { fmtDuration, handlerError, scrollToTop } from "@/lib/utils";
 import { cn, Input, InputSlots, Pagination, SlotsToClasses, Spinner } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import _ from "lodash";
@@ -117,6 +117,11 @@ export default function MyNodes() {
   }, [data]);
   const pageChunks = useMemo(() => _.chunk(datas, 10), [datas]);
   const [page, setPage] = useState(1);
+
+  const onSwitchPage = (page: number) => {
+    setPage(page)
+    scrollToTop()
+  }
   return (
     <TitCard
       tit="My Nodes"
@@ -157,7 +162,7 @@ export default function MyNodes() {
       />
       {pageChunks.length > 1 && (
         <div className="flex items-center">
-          <Pagination className="mx-auto" classNames={PaginationClassNames} total={pageChunks.length} page={page} onChange={setPage} />
+          <Pagination className="mx-auto" classNames={PaginationClassNames} total={pageChunks.length} page={page} onChange={onSwitchPage} />
         </div>
       )}
     </TitCard>

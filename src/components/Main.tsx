@@ -96,7 +96,7 @@ const Main = () => {
   return (
     <div className="h-screen flex-1 flex flex-col ">
       <Menus />
-      <div className="h-full overflow-auto">
+      <div className="h-full overflow-auto nodes">
         {menus.map((item, i) => (
           <Fragment key={item.name}>
             {mc.current.name === item.name && (

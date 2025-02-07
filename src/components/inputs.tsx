@@ -48,14 +48,16 @@ export function InputEmail({ setEmail, value }: { setEmail: (email: string) => v
     <Input
       value={value}
       classNames={inputClassNames}
-      type="email"
+      // type="email"
       // label="Email"
       placeholder="Email Address"
       labelPlacement="inside"
       variant="bordered"
       isRequired
       validate={validateEmail}
-      onChange={(e) => setEmail(e.target.value)}
+      onChange={(e) =>
+        setEmail(e.target.value)
+      }
     />
   );
 }

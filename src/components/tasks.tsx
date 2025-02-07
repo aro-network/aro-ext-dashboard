@@ -179,7 +179,7 @@ export function CurrentTask(p: { wrapClassName?: string }) {
   return (
     <>
       {cTask ? (
-        <BgCard className="justify-between px-5 py-7 flex-row items-center" wrapClassName={p.wrapClassName}>
+        <BgCard className="justify-between px-5 py-8 flex-row items-center" wrapClassName={p.wrapClassName}>
           <div className="flex items-center justify-center text-[3rem]">
             <div className="shadow-2 rounded-full">{cTask.icon}</div>
             <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>

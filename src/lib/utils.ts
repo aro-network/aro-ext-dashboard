@@ -13,7 +13,8 @@ export function getErrorMsg(error: any) {
   // msg
   let msg = "Unkown";
   if (typeof error == "string") msg = error;
-  else if (error instanceof AxiosError) msg = error.response?.data?.message || error.message;
+  else if (error instanceof AxiosError)
+    msg = error.response?.data?.message || error.message;
   else if (typeof error?.msg == "string") msg = error?.msg;
   else if (typeof error?.message == "string") msg = error?.message;
   // replace
@@ -54,7 +55,6 @@ export function truncateEmail(email: string = "", maxLength = 25) {
   return `${localPart.slice(0, 7)}...@${domainPart}`;
 }
 
-
 export const convertToNew = (hexString?: string | undefined) => {
   if (!hexString) return "";
 
@@ -63,3 +63,7 @@ export const convertToNew = (hexString?: string | undefined) => {
   return BigInt(`0x${cleanedHex}`).toString().slice(0, 20);
 };
 
+export const scrollToTop = () => {
+  const data = document.getElementsByClassName("nodes");
+  data[0].scrollTop = 0;
+};
