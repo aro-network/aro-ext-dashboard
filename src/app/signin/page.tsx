@@ -13,6 +13,7 @@ import { useMutation } from "@tanstack/react-query";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useSearchParams } from "next/navigation";
+import useRedirect from "@/hooks/useRedirect";
 
 export default function Page() {
   const [email, setEmail] = useState("");
@@ -28,6 +29,7 @@ export default function Page() {
       await ac.login({ email, password });
     },
   });
+  useRedirect()
   const href = referral ? `/signup?referral=${referral}` : '/signup'
 
   const disableSignIn = isPendingSignIn || validateEmail(email) !== true || !password;
