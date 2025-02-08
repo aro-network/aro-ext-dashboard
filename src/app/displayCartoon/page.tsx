@@ -13,6 +13,7 @@ import { IoShareSocialSharp } from "react-icons/io5";
 import { toast } from "sonner";
 import { useAuthContext } from "../context/AuthContext";
 import { cn } from "@nextui-org/react";
+import Head from "next/head";
 
 
 const DispalyCartoon = () => {
@@ -79,6 +80,7 @@ Join EnReach Season 1 and earn BERRY points by running a super lite node in Chro
 
   return (
     <>
+      <title>EnReach Album</title>
       <ADisplayHeader />
       <div className="  mx-[6.5rem] xsl:mx-[3.75rem]">
         <div className=" flex justify-between ">
