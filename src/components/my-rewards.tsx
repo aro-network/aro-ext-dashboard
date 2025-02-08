@@ -20,7 +20,7 @@ export default function MyRewards() {
           </div>
         }
         content={
-          <div className="flex flex-col gap-10 min-w-[17.5rem]">
+          <div className="flex flex-col gap-10 pb-[.375rem] min-w-[17.5rem]">
             <DupleInfo
               tit={
                 <div className="flex items-center gap-1">

@@ -187,7 +187,7 @@ export function TrendingChart({ className }: { className?: string }) {
   return (
     <TitCard
       tit="Trending"
-      className={cn("col-span-1 h-full  lg:col-span-2  gap-4", className)}
+      className={cn("col-span-1 h-full   lg:col-span-2  gap-4", className)}
       right={
         <Select
           className="w-[9.375rem]"
@@ -220,8 +220,8 @@ export function TrendingChart({ className }: { className?: string }) {
         </Select>
       }
     >
-      <div className="w-full flex-1" ref={ref}>
-        <EChartsReact style={{ minHeight: 200, height: "100%" }} className="w-full" option={chartOpt} />
+      <div className="w-full h-full " ref={ref}>
+        <EChartsReact style={{ minHeight: 200, maxHeight: 373, height: '100%' }} className="w-full" option={chartOpt} />
       </div>
     </TitCard>
   );
@@ -281,8 +281,8 @@ export default function MyDashboard() {
   const connectedNodes = user?.node.connected || 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5  ">
-      <TrendingChart className="flip_item " />
+    <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 h-full  ">
+      <TrendingChart className="flip_item h-full" />
 
       {/* <div className="flip_item title lg:col-span-2 px-5 overflow-visible flex flex-col gap-[1.5625rem] text-white relative mt-16 ">
         <div className="absolute -right-5 -bottom-[2.1875rem] bg-overview w-[20.3125rem] h-[16.4375rem] bg-cover z-0 hidden lg:block" />
@@ -291,7 +291,7 @@ export default function MyDashboard() {
           Hello,<br /><div title={user?.email}>{truncateEmail(user?.email)} 👋</div>
         </div>
       </div> */}
-      <div className="flip_item  flex flex-col justify-between xl:flex-col rounded-[1.25rem] bg-[#373737]">
+      <div className="flip_item h-full flex flex-col justify-between xl:flex-col rounded-[1.25rem] bg-[#373737]">
         <ExpProgress />
         <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1" />
 

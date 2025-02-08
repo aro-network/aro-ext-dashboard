@@ -179,18 +179,20 @@ export function CurrentTask(p: { wrapClassName?: string }) {
   return (
     <>
       {cTask ? (
-        <BgCard className="justify-between px-5 py-8 flex-row items-center" wrapClassName={p.wrapClassName}>
-          <div className="flex items-center justify-center text-[3rem]">
-            <div className="shadow-2 rounded-full">{cTask.icon}</div>
-            <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>
+        <BgCard >
+          <div className={`justify-between  h-20 flex-row items-center gap-[.625rem] flex ${p.wrapClassName}`}>
+            <div className="flex items-center justify-center text-[3rem]">
+              <div className="shadow-2 rounded-full">{cTask.icon}</div>
+              <div className="shadow-2 rounded-full w-12 h-12 flex justify-center items-center -ml-3 bg-white text-2xl">{cTask.rewardIcon}</div>
+            </div>
+            <div className="flex flex-col justify-start items-center relative gap-[.625rem]">
+              <p className="flex-grow-0 flex-shrink-0 text-sm font-normal text-center uppercase text-white gap-2">Get {cTask.reward}</p>
+              <p className="flex-grow-0 flex-shrink-0 opacity-60 text-xs text-center text-white">{cTask.sub}</p>
+            </div>
+            <button className=" bg-[#4281FF]  hover:bg-default rounded-full flex items-center justify-center w-8 h-8 text-base" onClick={cTask.onGoTo}>
+              <GoArrowUpRight />
+            </button>
           </div>
-          <div className="flex flex-col justify-start items-center relative gap-1">
-            <p className="flex-grow-0 flex-shrink-0 text-sm font-normal text-center uppercase text-white gap-2">Get {cTask.reward}</p>
-            <p className="flex-grow-0 flex-shrink-0 h-7 opacity-60 text-sm text-center text-white">{cTask.sub}</p>
-          </div>
-          <button className=" bg-[#4281FF]  hover:bg-default rounded-full flex items-center justify-center w-8 h-8 text-base" onClick={cTask.onGoTo}>
-            <GoArrowUpRight />
-          </button>
         </BgCard>
       ) : (
         <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] relative" wrapClassName={p.wrapClassName}>
