@@ -49,8 +49,8 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ showEmpty, loadType }) => {
           {
             data.map((item, index) => {
               return <div key={`cartoon_${pi}_${index}`} className="flex-wrap flex-col items-center justify-center gap-5 flex  w-full  bg-[#7E7E7E] cursor-pointer rounded-3xl" onClick={() => onShowOne(item)} >
-                <span className="text-xl pt-5">{item.content}</span>
-                <div className="flex gap-5 flex-nowrap">
+                {/* <span className="text-xl pt-5">{item.content}</span> */}
+                <div className="flex gap-5 flex-nowrap pt-5">
                   {item.tapFromUserId && <ACartoonImage data={convertToNew(item.tapFromUserId)} size={100} />}
                   {item.tapToUserId && <ACartoonImage data={convertToNew(item.tapToUserId)} size={100} />}
                 </div>
@@ -72,7 +72,8 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ showEmpty, loadType }) => {
           tit=""
           msg={
             <div className="w-full flex justify-center items-center gap-5 flex-col px-5">
-              <span className="text-xl">{userClickedCartoon.value?.content}</span>
+              {/* <span className="text-xl">{userClickedCartoon.value?.content}</span> */}
+              <span className="text-xl">Your blueberry accidentally interrupted a choir practice. Instead of leaving, it joined in, humming off-key. The choir director laughed, saying, ‘At least you’ve got spirit!’</span>
               <div className="flex gap-5 flex-nowrap">
                 {userClickedCartoon.value?.tapFromUserId && <ACartoonImage data={convertToNew(userClickedCartoon.value?.tapFromUserId)} />}
                 {userClickedCartoon.value?.tapToUserId && <ACartoonImage data={convertToNew(userClickedCartoon.value?.tapToUserId)} />}
