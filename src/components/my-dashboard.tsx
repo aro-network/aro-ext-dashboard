@@ -291,10 +291,9 @@ export default function MyDashboard() {
           Hello,<br /><div title={user?.email}>{truncateEmail(user?.email)} 👋</div>
         </div>
       </div> */}
-      <div className="flip_item h-full flex flex-col justify-between xl:flex-col rounded-[1.25rem] bg-[#373737]">
+      <div className="flip_item overflow-visible  flex flex-col justify-between xl:flex-col rounded-[1.25rem] bg-[#373737]">
         <ExpProgress />
-        <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1" />
-
+        <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1 h-[6.875rem]" />
       </div>
       {/*  */}
 

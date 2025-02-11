@@ -33,7 +33,7 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ showEmpty, loadType }) => {
   const ref = useRef(null)
   const intersection = useIntersection(ref, { root: null, })
   const inView = intersection && intersection.intersectionRatio >= 1
-  useEffect(() => { inView && !isFetching && fetchNextPage() }, [inView, isFetching])
+  useEffect(() => { if (inView && !isFetching) fetchNextPage() }, [inView, isFetching])
 
   const [userClickedCartoon, setUserClickedCartoon] = useState<{ value?: TapItem, isOpen: boolean }>({ value: undefined, isOpen: false })
   const onShowOne = (item: TapItem) => {

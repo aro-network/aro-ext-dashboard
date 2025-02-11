@@ -75,9 +75,12 @@ export function TitCard(p: PropsWithChildren & { tit?: string; right?: ReactNode
   );
 }
 
+const shadowSize = 1.1
+
 export function BgCard(p: PropsWithChildren & { className?: string, wrapClassName?: string }) {
+
   return <div className={cn("relative overflow-visible flip_item", p.wrapClassName)}>
-    <div style={{ backgroundSize: '100% 100%' }} className="bg-s1 bg-no-repeat animate-pulse w-[calc(100%_+_1.1rem)] h-[calc(100%_+_2.2rem)] absolute -left-[0.5rem] -top-4 z-0" />
-    <Card className={cn("bg-[#2E2E2E] border border-[#007AFF] flex flex-col justify-start items-center p-6 gap-6 xsl:gap-1 w-full h-full rounded-3xl", p.className)}>{p.children}</Card>
+    <div style={{ backgroundSize: '100% 100%', width: `calc(100% + ${shadowSize * 2}rem)`, height: `calc(100% + ${shadowSize * 2}rem)`, left: `-${shadowSize}rem`, top: `-${shadowSize}rem` }} className="bg-s1 bg-no-repeat animate-pulse absolute z-0" />
+    <Card className={cn("bg-[#2E2E2E] border border-[#007AFF] flex flex-col justify-start items-center p-6 gap-6 w-full h-full rounded-3xl", p.className)}>{p.children}</Card>
   </div>
 }
