@@ -23,12 +23,12 @@ export function validateConfirmPassword(
 
 export function validateReferralCode(code?: string) {
   if (!code) return null;
-  if (code.length != 6) return "Invalid referral code!";
+  if (code.trim().length != 6) return "Invalid referral code!";
   return true;
 }
 
 export function validateVerifyCode(code?: string) {
   if (!code) return null;
-  if (code.length != 6) return "Invalid verification code";
+  if (code.trim().length != 6) return "Invalid verification code";
   return true;
 }

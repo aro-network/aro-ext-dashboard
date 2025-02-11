@@ -35,7 +35,7 @@ export default function Page() {
       if (!password || !confirmPassword) throw new Error("Please enter email or password");
       if (password !== confirmPassword) throw new Error("Please confirm password");
       if (!verifyCode) throw new Error("Please enter verify code");
-      await backendApi.resetPassword({ email, password, verifyCode });
+      await backendApi.resetPassword({ email, password, verifyCode: verifyCode.trim() });
       toast.success("Reset Password Success!");
       ac.logout();
       await sleep(2000);

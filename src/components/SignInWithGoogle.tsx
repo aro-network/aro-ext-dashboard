@@ -36,7 +36,7 @@ export function SignInWithGoogle({ defReferralCode, btn = "Sign in with Google",
       if (result.token) {
         ac.setUser(result);
       } else if (referralCode && validateReferralCode(referralCode) === true) {
-        const res = await backendApi.loginSetReferralApi({ accessToken: refGoogleToken.current, referralCode: referralCode }).catch(handlerError);
+        const res = await backendApi.loginSetReferralApi({ accessToken: refGoogleToken.current, referralCode: referralCode.trim() }).catch(handlerError);
         if (res) {
           ac.setUser(res);
         } else {

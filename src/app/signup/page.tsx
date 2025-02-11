@@ -40,7 +40,7 @@ export default function Page() {
       if (!email || !password || !confirmPassword) throw new Error("Please enter email or password");
       if (password !== confirmPassword) throw new Error("Please confirm password");
       if (!checkedTermPrivacy) throw new Error("Plase checked Term of Service and Privacy Policy");
-      refRegisterUser.current = await backendApi.registerApi({ email, password, referralCode: referalCode ? referalCode : undefined });
+      refRegisterUser.current = await backendApi.registerApi({ email, password, referralCode: referalCode ? referalCode.trim() : undefined });
       actionResendScends.reset(60);
       setShowToVerify(true);
     },
@@ -50,7 +50,7 @@ export default function Page() {
     mutationFn: async () => {
       if (!verifyCode || validateVerifyCode(verifyCode) !== true) throw new Error("Please enter verify code");
       if (!refRegisterUser.current) throw new Error("Please sign up");
-      const res = await backendApi.verifyRegisterCode(refRegisterUser.current.userId, verifyCode);
+      const res = await backendApi.verifyRegisterCode(refRegisterUser.current.userId, verifyCode.trim());
       if (res && res.token) {
         ac.setUser(res);
       } else {
