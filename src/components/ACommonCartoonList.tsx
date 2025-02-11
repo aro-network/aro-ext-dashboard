@@ -61,9 +61,9 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ showEmpty, loadType }) => {
       }
       {
         isFetching && <>
-          <Skeleton className="rounded-2xl"><div className="h-[18.3125rem] rounded-3xl"></div></Skeleton>
-          <Skeleton className="rounded-2xl"><div className="h-[18.3125rem] rounded-3xl"></div></Skeleton>
-          <Skeleton className="rounded-2xl"><div className="h-[18.3125rem] rounded-3xl"></div></Skeleton>
+          <Skeleton className="rounded-2xl"><div className="h-[15.3125rem] rounded-3xl"></div></Skeleton>
+          <Skeleton className="rounded-2xl"><div className="h-[15.3125rem] rounded-3xl"></div></Skeleton>
+          <Skeleton className="rounded-2xl"><div className="h-[15.3125rem] rounded-3xl"></div></Skeleton>
         </>
       }
       {

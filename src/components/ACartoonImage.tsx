@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { useMemo } from "react";
 
 export type singleCartoon = {
@@ -42,14 +43,16 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data, size = 200 }) => {
     }
     return data
   }, [data])
+  const widthRem = _.round(size / 16, 3)
+  const heightRem = _.round(widthRem * 2.25, 3)
 
   return (
     <div>
       <div>
         <svg
           id="cartoon"
-          width={size}
-          height={Math.round(size * 2.25)}
+          width={widthRem + 'rem'}
+          height={heightRem + 'rem'}
           viewBox="0 0 200 450"
           xmlns="http://www.w3.org/2000/svg"
         >
