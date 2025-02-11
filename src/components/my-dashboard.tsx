@@ -220,8 +220,8 @@ export function TrendingChart({ className }: { className?: string }) {
         </Select>
       }
     >
-      <div className="w-full h-full " ref={ref}>
-        <EChartsReact style={{ minHeight: 200, maxHeight: 373, height: '100%' }} className="w-full" option={chartOpt} />
+      <div className="w-full" style={{ height: '14.125rem' }} ref={ref}>
+        <EChartsReact style={{ height: '14.125rem' }} className="w-full" option={chartOpt} />
       </div>
     </TitCard>
   );
@@ -244,7 +244,7 @@ export function ExpProgress() {
   console.info('percent:', _.round(percent, 4))
   const expRotate = Math.min(_.round(percent * 180), 180)
   const transition = `all 0.8s ease`
-  return <div className="flip_item p-5 flex flex-col items-center gap-2 relative">
+  return <div className="flip_item p-5 flex flex-col items-center gap-2 relative h-[13.75rem]">
     <div className="w-full max-w-[15.625rem] relative">
       <svg width="100%" height="auto" viewBox="0 0 250 140" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15 125A110 110 0,0,1,235 125" strokeLinecap="round" strokeWidth="30" stroke="#616161" />
@@ -291,7 +291,7 @@ export default function MyDashboard() {
           Hello,<br /><div title={user?.email}>{truncateEmail(user?.email)} 👋</div>
         </div>
       </div> */}
-      <div className="flip_item overflow-visible  flex flex-col justify-between xl:flex-col rounded-[1.25rem] bg-[#373737]">
+      <div className="flip_item overflow-visible flex flex-col justify-between xl:flex-col rounded-[1.25rem] bg-[#373737]">
         <ExpProgress />
         <CurrentTask wrapClassName="lg:col-span-2 xl:col-span-1 h-[6.875rem]" />
       </div>

@@ -195,7 +195,7 @@ export function CurrentTask(p: { wrapClassName?: string }) {
           </div>
         </BgCard>
       ) : (
-        <BgCard className="justify-between px-5 py-7 min-h-[12.5rem] relative" >
+        <BgCard className="justify-between px-5 py-7 min-h-[6.875rem] relative" >
           {Boolean(tasks.length) && (
             <>
               <img className="object-cover absolute left-0 top-0 w-full h-full" src="bg-coming.svg" alt="bg" />
