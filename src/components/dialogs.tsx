@@ -12,8 +12,8 @@ export function ForceModal({
   bodyProps?: ModalBodyProps;
 }) {
   return (
-    <Modal isDismissable={false} backdrop="blur" classNames={{ backdrop: "backdrop-blur" }} hideCloseButton {...props}>
-      <ModalContent className="w-[22.5rem] p-6 bg-[#404040] rounded-3xl" {...(contentProps || {})}>
+    <Modal isDismissable={false} backdrop="blur" classNames={{ backdrop: "backdrop-blur", wrapper: 'py-5' }} hideCloseButton {...props}>
+      <ModalContent className="w-[22.5rem] p-6 bg-[#404040] rounded-3xl !my-auto" {...(contentProps || {})}>
         <ModalBody className="flex flex-col justify-start items-center w-full gap-6 p-0" {...(bodyProps || {})}>
           {children}
         </ModalBody>
@@ -35,8 +35,8 @@ export function TitModal({
   tit?: string;
 }) {
   return (
-    <Modal hideCloseButton backdrop="blur" className={className} classNames={{ backdrop: "backdrop-blur-[6px]", }} {...props}>
-      <ModalContent className={cn('w-[31.25rem] bg-[#404040] gap-6 p-6 rounded-3xl', className)} {...(contentProps || {})}>
+    <Modal hideCloseButton backdrop="blur" className={className} classNames={{ backdrop: "backdrop-blur-[6px]", wrapper: 'py-5' }} {...props}>
+      <ModalContent className={cn('w-[31.25rem] bg-[#404040] gap-6 p-6 rounded-3xl !my-auto', className)} {...(contentProps || {})}>
         {(onClose) => (
           <>
             <ModalHeader className="justify-between p-0  ">
