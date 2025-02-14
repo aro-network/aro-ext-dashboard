@@ -48,9 +48,9 @@ const ACommonCartoonList: FC<commonCartoontype> = ({ showEmpty, loadType }) => {
         pages.map(({ data }, pi) => <Fragment key={`page_${pi}`}>
           {
             data.map((item, index) => {
-              return <div key={`cartoon_${pi}_${index}`} className="flex-wrap flex-col items-center justify-center gap-5 flex  w-full  bg-[#7E7E7E] cursor-pointer rounded-3xl" onClick={() => onShowOne(item)} >
+              return <div key={`cartoon_${pi}_${index}`} className="flex-wrap  flex-col   items-center justify-center gap-5 flex  w-full  bg-[#7E7E7E] cursor-pointer rounded-3xl" onClick={() => onShowOne(item)} >
                 {/* <span className="text-xl pt-5">{item.content}</span> */}
-                <div className="flex gap-5 flex-nowrap pt-5">
+                <div className="flex gap-5 flex-nowrap pt-5 hover:transition-transform hover:duration-500 hover:scale-110 scale-100">
                   {item.tapFromUserId && <ACartoonImage data={convertToNew(item.tapFromUserId)} size={100} />}
                   {item.tapToUserId && <ACartoonImage data={convertToNew(item.tapToUserId)} size={100} />}
                 </div>

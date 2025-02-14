@@ -4,7 +4,7 @@ import { useMemo } from "react";
 export type singleCartoon = {
   hat: number,
   head: number,
-  eyes: number,
+  face: number,
   clothes: number,
   leftHand: number,
   rightHand: number,
@@ -17,7 +17,7 @@ interface ACartoonImageProps {
   size?: number
 }
 
-const Types = [{ type: "shoes", count: 4 }, { type: "pants", count: 4 }, { type: 'leftHand', count: 4 }, { type: 'rightHand', count: 4 }, { type: "clothes", count: 5 }, { type: "logo", count: 4 }, { type: "eyes", count: 4 }, { type: "head", count: 4 }, { type: "hat", count: 4 }] as const
+const Types = [{ type: "shoes", count: 4 }, { type: "pants", count: 4 }, { type: 'leftHand', count: 4 }, { type: 'rightHand', count: 4 }, { type: "clothes", count: 5 }, { type: "logo", count: 6 }, { type: "face", count: 6 }, { type: "head", count: 4 }, { type: "hat", count: 5 }] as const
 const getSvgPath = (
   type: (typeof Types)[number]['type'],
   index: number | null = 0,
@@ -95,8 +95,8 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data, size = 200 }) => {
                 style={{ position: "absolute", left: 85, top: "275px", zIndex: 2 }}
               />
               <img
-                src={getSvgPath("eyes", mdata.eyes)}
-                alt="eyes"
+                src={getSvgPath("face", mdata.face)}
+                alt="face"
                 crossOrigin="anonymous"
                 style={{ position: "absolute", left: "25px", top: "120px", width: "150px", zIndex: 10000 }}
               />
@@ -104,13 +104,13 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data, size = 200 }) => {
                 src={getSvgPath("head", mdata.head)}
                 alt="head"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", left: 0, top: "50px", width: "200px", zIndex: 4 }}
+                style={{ position: "absolute", left: 0, top: "45px", width: "210px", zIndex: 4 }}
               />
               <img
                 src={getSvgPath("hat", mdata.hat)}
                 alt="hat"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", left: 0, top: 0, width: "200px", zIndex: 5 }}
+                style={{ position: "absolute", left: 5, top: 14, width: "192px", zIndex: 100 }}
               />
             </div>
           </foreignObject>
