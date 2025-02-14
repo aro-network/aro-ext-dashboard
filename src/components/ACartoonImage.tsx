@@ -86,7 +86,7 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data, size = 200 }) => {
                 src={getSvgPath("clothes", mdata.clothes)}
                 alt="clothes"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", left: 15, top: "225px", zIndex: 2 }}
+                style={{ position: "absolute", left: 15, top: "235px", zIndex: 2 }}
               />
               <img
                 src={getSvgPath("logo", mdata.logo)}
@@ -104,7 +104,7 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data, size = 200 }) => {
                 src={getSvgPath("head", mdata.head)}
                 alt="head"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", left: 0, top: "45px", width: "220px", zIndex: 4 }}
+                style={{ position: "absolute", left: 0, top: "48px", width: "220px", zIndex: 4 }}
               />
               <img
                 src={getSvgPath("hat", mdata.hat)}
