@@ -17,7 +17,7 @@ interface ACartoonImageProps {
   size?: number
 }
 
-const Types = [{ type: "shoes", count: 4 }, { type: "pants", count: 4 }, { type: 'leftHand', count: 4 }, { type: 'rightHand', count: 4 }, { type: "clothes", count: 5 }, { type: "logo", count: 6 }, { type: "face", count: 6 }, { type: "head", count: 4 }, { type: "hat", count: 5 }] as const
+const Types = [{ type: "shoes", count: 4 }, { type: "pants", count: 4 }, { type: 'leftHand', count: 4 }, { type: 'rightHand', count: 4 }, { type: "clothes", count: 5 }, { type: "logo", count: 6 }, { type: "face", count: 5 }, { type: "head", count: 4 }, { type: "hat", count: 5 }] as const
 const getSvgPath = (
   type: (typeof Types)[number]['type'],
   index: number | null = 0,
