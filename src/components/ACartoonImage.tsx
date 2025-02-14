@@ -98,19 +98,19 @@ const ACartoonImage: React.FC<ACartoonImageProps> = ({ data, size = 200 }) => {
                 src={getSvgPath("face", mdata.face)}
                 alt="face"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", left: "25px", top: "120px", width: "150px", zIndex: 10000 }}
+                style={{ position: "absolute", left: "30px", top: "120px", width: "140px", zIndex: 10000 }}
               />
               <img
                 src={getSvgPath("head", mdata.head)}
                 alt="head"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", left: 0, top: "45px", width: "210px", zIndex: 4 }}
+                style={{ position: "absolute", left: 0, top: "45px", width: "220px", zIndex: 4 }}
               />
               <img
                 src={getSvgPath("hat", mdata.hat)}
                 alt="hat"
                 crossOrigin="anonymous"
-                style={{ position: "absolute", left: 5, top: 14, width: "192px", zIndex: 100 }}
+                style={{ position: "absolute", left: 3, top: 15, width: "192px", zIndex: 100 }}
               />
             </div>
           </foreignObject>
