@@ -18,7 +18,7 @@ const ADisplayHeader = () => {
     r.push(urlToSigninFromAlbum())
   }
 
-  return <div className=" flex h-[3.75rem] flex-row w-full justify-between items-center py-5 bg-[#404040]  px-[50px]  ">
+  return <div className=" flex h-[3.75rem]  sticky top-0 z-50 flex-row w-full justify-between items-center py-5 bg-[#404040]  px-[50px]  ">
     <div className="flex items-center  gap-5 ">
       <img src="/logo.svg" className={`shrink-0  smd:w-full smd:max-w-fulllg:ml-0 max-w-[9.375rem] h-[2.375rem] lg:rotate-0 `} alt="Logo" />
     </div>
