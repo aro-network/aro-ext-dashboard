@@ -4,10 +4,15 @@ import { SVGS } from "@/svg";
 import { cn } from "@nextui-org/react";
 import { ReactNode, useMemo } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
-import { IoIosCheckmarkCircle } from "react-icons/io";
+import { IoIosCheckmarkCircle, IoMdHeart } from "react-icons/io";
 import { GoArrowUpRight } from "react-icons/go";
 import { Btn } from "./btns";
 import { BgCard, TitCard } from "./cards";
+import { FcLike } from "react-icons/fc";
+import { BsImage } from "react-icons/bs";
+import { useQuery } from "@tanstack/react-query";
+import backendApi from "@/lib/api";
+
 
 export const TASKS = [
   {
@@ -66,6 +71,22 @@ export const TASKS = [
     icon: <SVGS.SvgTg />,
     rewardIcon: <SVGS.SvgExp />,
   },
+  {
+    sort: 1,
+    btn: "Popular Album",
+    tit: "Popular Album",
+    sub: "Get more Likes for your album",
+    icon: <SVGS.SvgTg />,
+    rewardIcon: <SVGS.SvgExp />,
+  },
+  {
+    sort: 1,
+    btn: "Berry Friends",
+    tit: "Berry Friends",
+    sub: "Find Berry Friends and get selfie photos",
+    icon: <SVGS.SvgTg />,
+    rewardIcon: <SVGS.SvgExp />,
+  },
 ];
 
 export const onToDownExtension = () => {
@@ -74,6 +95,10 @@ export const onToDownExtension = () => {
 function useTasks() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
+  const { data } = useQuery({
+    queryKey: [""],
+    queryFn: () => backendApi.userRecordCount(),
+  });
   const mc = useMenusCtx();
   const TasksStat = useMemo(
     () =>
@@ -84,6 +109,36 @@ function useTasks() {
           { complete: Boolean(user?.social.x), onGoTo: () => mc.toMenu("Profile") },
           { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("Profile") },
           { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("Profile") },
+          {
+            tips: data?.likes ? (
+              <div className="flex items-center gap-1  text-xs justify-center mt-1">
+                {data?.likes} <FcLike className="h-3 w-3" /> x {data?.tapExp}<div className="text-xs"><SVGS.SvgExp /></div>
+              </div>
+            ) : null,
+            expCount: Number((data?.likes ?? 0) * (data?.tapExp ?? 0)) || '0',
+            record: data,
+            show: data?.likes,
+            reward: (
+              <>
+                {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center" />
+              </>
+            ),
+          },
+          {
+            tips: data?.berryFriends ? (
+              <div className="flex items-center gap-1  flex-row text-xs justify-center mt-1 ">
+                {data?.berryFriends} <BsImage className=" text-[#4281FF]" />x {data?.tapExp}<div className="text-xs"><SVGS.SvgExp /></div>
+              </div>
+            ) : null,
+            expCount: Number((data?.berryFriends ?? 0) * (data?.tapExp ?? 0)) || '0',
+            record: data,
+            show: data?.berryFriends,
+            reward: (
+              <>
+                {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center" />
+              </>
+            ),
+          },
         ].map((item, i) => ({ ...item, ...TASKS[i] })),
     [user]
   );
@@ -98,6 +153,10 @@ function TaskCard({
   progress = 0,
   complete,
   onClickCarry,
+  tips,
+  expCount,
+  record,
+  show,
 }: {
   tit?: string;
   sub?: ReactNode;
@@ -106,7 +165,12 @@ function TaskCard({
   progress?: number;
   complete?: boolean;
   onClickCarry?: () => void;
+  tips?: ReactNode;
+  expCount?: ReactNode,
+  record?: { berryFriends: number; likes: number; tapExp: number },
+  show: boolean
 }) {
+
   return (
     <div className="flip_item bg-white/10 rounded-lg p-4 flex items-center justify-between">
       <div className="flex flex-col items-start gap-1 text-sm">
@@ -151,10 +215,18 @@ function TaskCard({
           value={progress}
         />
       ) : (
-        <Btn isDisabled={complete} className={cn("flex items-center gap-1.5 w-[5.0625rem] px-1 justify-center h-[2.125rem]", { " text-primary bg-white/80 !opacity-100": complete })} onClick={() => !complete && onClickCarry?.()}>
-          {complete ? "Done" : "Go"}
-          {complete && <IoIosCheckmarkCircle className="text-[1.0769rem] " />}
-        </Btn>
+        <div>
+
+          <Btn isDisabled={complete || !!record?.berryFriends || !!record?.likes} className={cn("flex items-center  w-[5.0625rem] px-1 justify-center h-[2.125rem]", { " text-primary bg-white/80 !opacity-100": complete || expCount, 'gap-1': expCount })} onClick={() => !complete && onClickCarry?.()}>
+            {complete ? 'Done' : (expCount || expCount === 0) ? expCount : 'Go'}
+            {complete && <IoIosCheckmarkCircle className="text-[1.0769rem] " />}
+            {show ? <SVGS.SvgExp /> : null}
+          </Btn>
+          <div>
+            {tips}
+          </div>
+        </div>
+
       )}
     </div>
   );
@@ -166,7 +238,7 @@ export function TaskList() {
     <TitCard tit="Task & Achievements" className="flip_item col-span-10">
       <div className="grid xl:grid-cols-2 gap-5">
         {tasks.map((task) => (
-          <TaskCard key={task.tit} tit={task.tit} sub={task.sub} reward={task.reward} complete={task.complete} onClickCarry={task.onGoTo} />
+          <TaskCard key={task.tit} tit={task.tit} sub={task.sub} reward={task.reward} complete={task.complete} onClickCarry={task.onGoTo} tips={task.tips} record={task.record} expCount={task.expCount} show={task.show} />
         ))}
       </div>
     </TitCard>
