@@ -111,6 +111,7 @@ function useTasks() {
           { complete: Boolean(user?.social.discord), onGoTo: () => mc.toMenu("Profile") },
           { complete: Boolean(user?.social.tg), onGoTo: () => mc.toMenu("Profile") },
           {
+            complete: true,
             tips: data?.likes ? (
               <div className="flex items-center gap-1  text-xs justify-center mt-1">
                 {data?.likes} <FcLike className="h-3 w-3" /> x {data?.tapExp}<div className="text-xs"><SVGS.SvgExp /></div>
@@ -121,11 +122,13 @@ function useTasks() {
             show: !!data?.likes,
             reward: (
               <>
-                {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center" />
+                {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center " />
               </>
             ),
           },
           {
+            complete: true,
+
             tips: data?.berryFriends ? (
               <div className="flex items-center gap-1  flex-row text-xs justify-center mt-1 ">
                 {data?.berryFriends} <BsImage className=" text-[#4281FF]" />x {data?.tapExp}<div className="text-xs"><SVGS.SvgExp /></div>
@@ -219,8 +222,8 @@ function TaskCard({
         <div>
 
           <Btn isDisabled={complete || !!record?.berryFriends || !!record?.likes} className={cn("flex items-center  w-[5.0625rem] px-1 justify-center h-[2.125rem]", { " text-primary bg-white/80 !opacity-100": complete || expCount, 'gap-1': expCount })} onClick={() => !complete && onClickCarry?.()}>
-            {complete ? 'Done' : (expCount || expCount === 0) ? expCount : 'Go'}
-            {complete && <IoIosCheckmarkCircle className="text-[1.0769rem] " />}
+            {complete && !expCount ? 'Done' : (expCount || expCount === 0) ? expCount : 'Go'}
+            {complete && !expCount && <IoIosCheckmarkCircle className="text-[1.0769rem] " />}
             {show ? <SVGS.SvgExp /> : null}
           </Btn>
           <div>
