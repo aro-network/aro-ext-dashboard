@@ -15,7 +15,6 @@ function Menus() {
   const ac = useAuthContext();
   const user = ac.queryUserInfo?.data;
   const exp = user?.stat.exp || 0;
-
   const list = [
     {
       onClick: () => mc.toMenu("Rewards"),

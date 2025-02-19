@@ -114,32 +114,29 @@ function useTasks() {
             complete: true,
             tips: data?.likes ? (
               <div className="flex items-center gap-1  text-xs justify-center mt-1">
-                {data?.likes} <FcLike className="h-3 w-3" /> x {data?.tapExp}<div className="text-xs"><SVGS.SvgExp /></div>
+                {data?.likes} <FcLike className="h-3 w-3" /> x {data?.tapExp || 10}<div className="text-xs"><SVGS.SvgExp /></div>
               </div>
             ) : null,
             expCount: Number((data?.likes ?? 0) * (data?.tapExp ?? 0)) || '0',
-            record: data,
             show: !!data?.likes,
             reward: (
               <>
-                {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center " />
+                {data?.tapExp || 10} <SVGS.SvgExp className="inline-block fix-v-center " />
               </>
             ),
           },
           {
             complete: true,
-
             tips: data?.berryFriends ? (
               <div className="flex items-center gap-1  flex-row text-xs justify-center mt-1 ">
-                {data?.berryFriends} <BsImage className=" text-[#4281FF]" />x {data?.tapExp}<div className="text-xs"><SVGS.SvgExp /></div>
+                {data?.berryFriends} <BsImage className=" text-[#4281FF]" />x {data?.tapExp || 10}<div className="text-xs"><SVGS.SvgExp /></div>
               </div>
             ) : null,
             expCount: Number((data?.berryFriends ?? 0) * (data?.tapExp ?? 0)) || '0',
-            record: data,
             show: !!data?.berryFriends,
             reward: (
               <>
-                {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center" />
+                {data?.tapExp || 10} <SVGS.SvgExp className="inline-block fix-v-center" />
               </>
             ),
           },
@@ -159,7 +156,6 @@ function TaskCard({
   onClickCarry,
   tips,
   expCount,
-  record,
   show,
 }: {
   tit?: string;
@@ -171,7 +167,6 @@ function TaskCard({
   onClickCarry?: () => void;
   tips?: ReactNode;
   expCount?: ReactNode,
-  record?: { berryFriends: number; likes: number; tapExp: number },
   show?: boolean
 }) {
 
@@ -221,7 +216,7 @@ function TaskCard({
       ) : (
         <div>
 
-          <Btn isDisabled={complete || !!record?.berryFriends || !!record?.likes} className={cn("flex items-center  w-[5.0625rem] px-1 justify-center h-[2.125rem]", { " text-primary bg-white/80 !opacity-100": complete || expCount, 'gap-1': expCount })} onClick={() => !complete && onClickCarry?.()}>
+          <Btn isDisabled={complete || show} className={cn("flex items-center  w-[5.0625rem] px-1 justify-center h-[2.125rem]", { " text-primary bg-white/80 !opacity-100": complete || expCount, 'gap-1': expCount })} onClick={() => !complete && onClickCarry?.()}>
             {complete && !expCount ? 'Done' : (expCount || expCount === 0) ? expCount : 'Go'}
             {complete && !expCount && <IoIosCheckmarkCircle className="text-[1.0769rem] " />}
             {show ? <SVGS.SvgExp /> : null}
@@ -242,7 +237,7 @@ export function TaskList() {
     <TitCard tit="Task & Achievements" className="flip_item col-span-10">
       <div className="grid xl:grid-cols-2 gap-5">
         {tasks.map((task) => (
-          <TaskCard key={task.tit} tit={task.tit} sub={task.sub} reward={task.reward} complete={task.complete} onClickCarry={task.onGoTo} tips={task.tips} record={task.record} expCount={task.expCount} show={task.show} />
+          <TaskCard key={task.tit} tit={task.tit} sub={task.sub} reward={task.reward} complete={task.complete} onClickCarry={task.onGoTo} tips={task.tips} expCount={task.expCount} show={task.show} />
         ))}
       </div>
     </TitCard>
