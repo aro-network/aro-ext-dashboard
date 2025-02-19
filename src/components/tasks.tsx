@@ -99,6 +99,7 @@ function useTasks() {
     queryKey: [""],
     queryFn: () => backendApi.userRecordCount(),
   });
+
   const mc = useMenusCtx();
   const TasksStat = useMemo(
     () =>
@@ -117,7 +118,7 @@ function useTasks() {
             ) : null,
             expCount: Number((data?.likes ?? 0) * (data?.tapExp ?? 0)) || '0',
             record: data,
-            show: data?.likes,
+            show: !!data?.likes,
             reward: (
               <>
                 {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center" />
@@ -132,7 +133,7 @@ function useTasks() {
             ) : null,
             expCount: Number((data?.berryFriends ?? 0) * (data?.tapExp ?? 0)) || '0',
             record: data,
-            show: data?.berryFriends,
+            show: !!data?.berryFriends,
             reward: (
               <>
                 {data?.tapExp} <SVGS.SvgExp className="inline-block fix-v-center" />
@@ -168,7 +169,7 @@ function TaskCard({
   tips?: ReactNode;
   expCount?: ReactNode,
   record?: { berryFriends: number; likes: number; tapExp: number },
-  show: boolean
+  show?: boolean
 }) {
 
   return (
