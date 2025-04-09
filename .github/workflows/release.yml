@@ -7,7 +7,7 @@ on:
       - main
       - beta
       - test
-
+ 
 jobs:
   beta:
     if: contains(github.event.head_commit.message, '[beta]') || contains(github.event.head_commit.message, '[all]')
