@@ -9,7 +9,7 @@ import { TapData, TapItem } from "@/components/aibum";
 
 const API_MAP: { [k in typeof ENV]: string } = {
   beta: "https://dev-api.enreach.network/api",
-  staging: "https://staging-api-1.enreach.network/api",
+  staging: "https://staging-api.enreach.network/api",
   prod: "https://api.enreach.network/api",
 };
 
