@@ -5,11 +5,11 @@ on:
     branches:
       - dev
       - main
-      - beta
-      - test
+      - staging
+      - prod
 
 jobs:
-  beta:
+  staging:
     if: contains(github.event.head_commit.message, '[staging]') || contains(github.event.head_commit.message, '[all]')
     runs-on: ubuntu-latest
     permissions:
@@ -33,9 +33,9 @@ jobs:
       - name: Deploy Gh-Pages 🚀
         uses: XueMoMo/actions-gh-pages@v4.0.1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.DK_EXT_STAGING }}
           publish_dir: ./out
-          external_repository: aro-network/aro-ext-dashboard
+          external_repository: aro-network/dashboard-ext-staging
           cname: staging-dashboard-ext.enreach.network
   prod:
     if: contains(github.event.head_commit.message, '[prod]') || contains(github.event.head_commit.message, '[all]')
