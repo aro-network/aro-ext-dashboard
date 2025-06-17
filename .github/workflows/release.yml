@@ -26,7 +26,6 @@ jobs:
       - name: Install dependencies & build
         env:
           NEXT_PUBLIC_ENV: "staging"
-          TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         run: |
           pnpm install --frozen-lockfile    
           pnpm build
@@ -34,10 +33,11 @@ jobs:
       - name: Deploy Gh-Pages 🚀
         uses: XueMoMo/actions-gh-pages@v4.0.1
         with:
-          github_token: ${{ secrets.DK_EXT_STAGING }}
+          deploy_key: ${{ secrets.DK_EXT_STAGING }}
           publish_dir: ./out
           external_repository: aro-network/dashboard-ext-staging
           cname: staging-dashboard-ext.enreach.network
+
   prod:
     if: contains(github.event.head_commit.message, '[prod]') || contains(github.event.head_commit.message, '[all]')
     runs-on: ubuntu-latest
