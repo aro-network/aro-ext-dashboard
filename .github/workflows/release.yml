@@ -26,6 +26,7 @@ jobs:
       - name: Install dependencies & build
         env:
           NEXT_PUBLIC_ENV: "staging"
+          TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         run: |
           pnpm install --frozen-lockfile    
           pnpm build
