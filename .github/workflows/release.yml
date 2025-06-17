@@ -36,7 +36,7 @@ jobs:
           deploy_key: ${{ secrets.DK_EXT_STAGING }}
           publish_dir: ./out
           external_repository: aro-network/dashboard-ext-staging
-          cname: staging-dashboard-ext.enreach.network
+          cname: staging-dashboard-ext.aro.network
 
   prod:
     if: contains(github.event.head_commit.message, '[prod]') || contains(github.event.head_commit.message, '[all]')
@@ -65,4 +65,4 @@ jobs:
           deploy_key: ${{ secrets.DK_EXT_PROD }}
           publish_dir: ./out
           external_repository: aro-network/dashboard-ext-devnet
-          cname: devnet-dashboard.ext.enreach.network
+          cname: devnet-dashboard.ext.aro.network
