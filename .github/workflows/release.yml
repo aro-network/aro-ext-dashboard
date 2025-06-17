@@ -65,4 +65,4 @@ jobs:
           deploy_key: ${{ secrets.DK_EXT_PROD }}
           publish_dir: ./out
           external_repository: aro-network/dashboard-ext-devnet
-          cname: devnet-dashboard.ext.aro.network
+          cname: devnet-dashboard-ext.aro.network
