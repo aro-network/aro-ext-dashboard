@@ -33,7 +33,7 @@ jobs:
       - name: Deploy Gh-Pages 🚀
         uses: XueMoMo/actions-gh-pages@v4.0.1
         with:
-          github_token: ${{ secrets.DK_EXT_STAGING }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
           external_repository: aro-network/dashboard-ext-staging
           cname: staging-dashboard-ext.enreach.network
