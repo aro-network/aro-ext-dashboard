@@ -3,7 +3,7 @@ import { Opt } from "./type";
 
 const EXTENVInjectMap: { [k in typeof ENV]: string } = {
   beta: "EnreachExt_beta",
-  staging: "EnreachExt_staging",
+  staging: "AroExt_staging",
   prod: "EnreachExt",
 };
 export function getInjectEnReachAI() {
